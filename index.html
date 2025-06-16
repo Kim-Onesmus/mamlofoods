@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mamlofoods - Website Upgrade</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="mamlofoods.webp">
+    <link rel="apple-touch-icon" sizes="180x180" href="mamlofoods.webp">
+    <link rel="icon" type="image/png" sizes="32x32" href="mamlofoods.webp">
+    <link rel="icon" type="image/png" sizes="16x16" href="mamlofoods.webp">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("year").textContent = new Date().getFullYear();
+        });
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center p-6">
+
+    <div class="bg-white rounded-lg shadow-lg max-w-xl w-full p-8 text-center space-y-6">
+        <!-- Logo -->
+        <div class="flex justify-center">
+            <img src="mamlofoods.webp" alt="Mamlofoods Logo" class="w-24 h-24 object-contain" />
+        </div>
+
+        <!-- Main Message -->
+        <h1 class="text-3xl font-bold text-[#CA2E0A]">We're Upgrading Our Website!</h1>
+        <p class="text-gray-600 text-lg">
+            Thank you for visiting <strong>Mamlofoods</strong>. We are currently upgrading our website to serve you
+            better.
+            Please check back soon!
+        </p>
+
+        <!-- Contact Info -->
+        <div class="text-gray-700 space-y-1">
+            <p>
+                Email:
+                <a href="mailto:hello@mamlofoods.com" class="text-[#CA2E0A] hover:underline">hello@mamlofoods.com</a>
+            </p>
+            <p>
+                Phone:
+                <a href="tel:+254714725864" class="text-[#CA2E0A] hover:underline">+254 714 725 864</a>
+            </p>
+            <p>
+                Location:
+                <a href="" class="text-[#CA2E0A] hover:underline">Tom Mboya Estate, Kisumu, Kenya</a>
+            </p>
+        </div>
+
+        <!-- Social Media -->
+        <div class="flex justify-center space-x-4 mt-4 text-2xl">
+            <a style="color: #CA2E0A;" href="https://web.facebook.com/people/MAMLO-FOODS/61565232155511/?_rdc=1&_rdr#" target="_blank" class="hover:opacity-80"><i class="fab fa-facebook-f"></i></a>
+            <a style="color: #CA2E0A;" href="https://www.linkedin.com/company/mamlo-foods/" target="_blank" class="hover:opacity-80"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <!-- Footer -->
+        <p class="text-gray-500 text-xs mt-6">
+            &copy; <span id="year"></span> Mamlofoods. All rights reserved.
+        </p>
+    </div>
+
+</body>
+
+</html>
