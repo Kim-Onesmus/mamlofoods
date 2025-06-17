@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +8,11 @@
     <title>Mamlofoods - Website Upgrade</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="mamlofoods.webp">
-    <link rel="apple-touch-icon" sizes="180x180" href="mamlofoods.webp">
-    <link rel="icon" type="image/png" sizes="32x32" href="mamlofoods.webp">
-    <link rel="icon" type="image/png" sizes="16x16" href="mamlofoods.webp">
-    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/mamlofoods.webp' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/mamlofoods.webp' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/mamlofoods.webp' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/mamlofoods.webp' %}">
+    <link rel="manifest" href="{% static 'images/mamlofoods.webp' %}">
 
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -30,7 +31,7 @@
     <div class="bg-white rounded-lg shadow-lg max-w-xl w-full p-8 text-center space-y-6">
         <!-- Logo -->
         <div class="flex justify-center">
-            <img src="mamlofoods.webp" alt="Mamlofoods Logo" class="w-24 h-24 object-contain" />
+            <img src="{% static 'images/mamlofoods.webp' %}" alt="Mamlofoods Logo" class="w-24 h-24 object-contain" />
         </div>
 
         <!-- Main Message -->
