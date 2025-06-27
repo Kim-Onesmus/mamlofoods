@@ -29,6 +29,7 @@
         .gradient-overlay {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
         }
+
         .sticky-nav {
             position: sticky;
             top: 0;
@@ -50,7 +51,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Sticky Main Nav -->
     <div class="sticky-nav shadow-md">
         <div class="container mx-auto flex items-center justify-between px-4 py-4">
@@ -61,7 +62,50 @@
                     <span class="block text-sm text-gray-600">Uplifting Communities Naturally</span>
                 </a>
             </div>
-            <nav class="hidden md:flex space-x-6 text-black font-bold">
+            <nav class="hidden md:flex space-x-6 text-black font-bold relative">
+                <a href="#home" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="#about" class="hover:text-[#CA2E0A]">About Us</a>
+                <a href="#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
+                <a href="#values" class="hover:text-[#CA2E0A]">Core Values</a>
+                <a href="#advisors" class="hover:text-[#CA2E0A]">Our Advisors</a>
+
+                <!-- Dropdown wrapper with no gap issue -->
+                <div class="relative group">
+                    <!-- Button + Dropdown combined -->
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#CA2E0A]">
+                        <span>More</span>
+                        <svg class="w-4 h-4 fill-current text-black group-hover:text-[#CA2E0A]"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.516 7.548l4.484 4.482 4.484-4.482L16 8.548l-6 6-6-6z" />
+                        </svg>
+                    </div>
+
+                    <!-- Dropdown inside the same container -->
+                    <div class="absolute right-0 hidden group-hover:block bg-white shadow-lg rounded-md py-2 z-50 p-6">
+                        <a href="#news"
+                            class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">News</a>
+                        <a href="#gallery"
+                            class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">Gallery</a>
+                        <a href="#team"
+                            class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">Team</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="md:hidden">
+                <!-- Mobile menu button -->
+                <button id="menu-btn" class="text-black focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+            <nav class="flex flex-col space-y-2 text-black font-bold">
                 <a href="#home" class="hover:text-[#CA2E0A]">Home</a>
                 <a href="#about" class="hover:text-[#CA2E0A]">About Us</a>
                 <a href="#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
@@ -71,28 +115,9 @@
                 <a href="#team" class="hover:text-[#CA2E0A]">Team</a>
                 <a href="#news" class="hover:text-[#CA2E0A]">News</a>
             </nav>
-            <div class="md:hidden">
-                <!-- Mobile menu button -->
-                <button id="menu-btn" class="text-black focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                        </path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
-            <nav class="flex flex-col space-y-2 text-black font-bold">
-                <a href="#" class="hover:text-[#CA2E0A]">Home</a>
-                <a href="#about" class="hover:text-[#CA2E0A]">About</a>
-                <a href="#" class="hover:text-[#CA2E0A]">Products</a>
-                <a href="#" class="hover:text-[#CA2E0A]">Processing</a>
-                <a href="#" class="hover:text-[#CA2E0A]">Contact</a>
-            </nav>
         </div>
     </div>
-    
+
     <!-- Hero Swiper Section -->
     <div class="swiper heroSwiper mt-4">
         <div class="swiper-wrapper">
@@ -117,7 +142,8 @@
                 </div>
             </div>
             <div class="swiper-slide">
-                <div class="flex flex-col md:flex-row-reverse items-center justify-between container mx-auto px-4 py-10">
+                <div
+                    class="flex flex-col md:flex-row-reverse items-center justify-between container mx-auto px-4 py-10">
                     <div class="text-center md:text-left max-w-xl">
                         <h2 class="text-4xl md:text-5xl font-bold text-black mb-4">
                             From Farm to Table – <span class="text-[#CA2E0A]">We’ve Got You!</span>
@@ -168,15 +194,17 @@
             <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">The Challenge</h2>
                 <p class="max-w-3xl mx-auto text-md md:text-lg text-gray-600 leading-relaxed">
-                    Smallholder farmers face significant challenges in peanut processing, from limited access to technology
+                    Smallholder farmers face significant challenges in peanut processing, from limited access to
+                    technology
                     to inefficient traditional methods. These challenges impact both their livelihoods and the
-                    sustainability of the global food system. At MamloFoods, we're committed to addressing these challenges
+                    sustainability of the global food system. At MamloFoods, we're committed to addressing these
+                    challenges
                     head-on.
                 </p>
             </div>
         </div>
     </section>
-    
+
 
     <!-- About Us Section -->
     <section id="about" class="py-12 md:py-20" data-aos="fade-up">
@@ -235,7 +263,7 @@
     </section>
 
     <!-- Founder's Story -->
-    <section class="py-12 md:py-20" data-aos="fade-up">
+    <section id="founder" class="py-12 md:py-20" data-aos="fade-up">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
                 <div class="flex flex-col md:flex-row">
@@ -518,7 +546,7 @@
     </section>
 
     <!-- News and Blogs -->
-    <section id="contact" class="py-12 md:py-20" data-aos="fade-up">
+    <section id="news" class="py-12 md:py-20" data-aos="fade-up">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">News and Blogs</h2>
             <div class="grid md:grid-cols-3 gap-8">
@@ -560,35 +588,48 @@
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left px-4">
             <div>
-                <h3 class="text-lg font-bold mb-4">MamloFoods</h3>
-                <p class="text-gray-400">Your favorite food, delivered.</p>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-                <ul>
-                    <li><a href="#about" class="text-gray-400 hover:text-white py-1 block">About Us</a></li>
-                    <li><a href="#gallery" class="text-gray-400 hover:text-white py-1 block">Gallery</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Careers</a></li>
-                    <li><a href="#contact" class="text-gray-400 hover:text-white py-1 block">Blog</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Support</h3>
-                <ul>
-                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">FAQ</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Contact Us</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Terms of Service</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Follow Us</h3>
-                <div class="flex space-x-4 justify-center md:justify-start">
+                <h3 class="text-lg font-bold mb-4">MAMLO FOODS</h3>
+                <p class="text-gray-400">Uplifting Communities Naturally</p>
+                <div class="flex space-x-4 justify-center mt-6 md:justify-start">
                     <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-facebook"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-linkedin"></i></a>
                 </div>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul>
+                    <li><a href="#about" class="text-gray-400 hover:text-white py-1 block">Home</a></li>
+                    <li><a href="#gallery" class="text-gray-400 hover:text-white py-1 block">About Us</a></li>
+                    <li><a href="#news" class="text-gray-400 hover:text-white py-1 block">Blog</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-white py-1 block">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Our Core Values</h3>
+                <ul>
+                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Innovation</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Collaboration</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Sustainable Practices</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Follow Us</h3>
+                <ul>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
+                        <i class="fas fa-map-marker-alt text-white"></i>
+                        <span>123 Mamlo Street, Nairobi, Kenya</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
+                        <i class="fas fa-phone-alt text-white"></i>
+                        <span>+254 712 345678</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
+                        <i class="fas fa-envelope text-white"></i>
+                        <span>info@mamlofoods.co.ke</span>
+                    </li>
+                </ul>                
             </div>
         </div>
         <div class="container mx-auto text-center mt-8 border-t border-gray-700 pt-6">
@@ -627,21 +668,41 @@
         }
 
         var swiper = new Swiper(".heroSwiper", {
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-            });
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
 
-            document.getElementById("menu-btn").addEventListener("click", function () {
-                const menu = document.getElementById("mobile-menu");
-                menu.classList.toggle("hidden");
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        // Toggle menu on button click
+        menuBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevent click from bubbling to window
+            mobileMenu.classList.toggle("hidden");
+        });
+
+        // Close menu if click happens outside of it
+        window.addEventListener("click", function (e) {
+            if (!mobileMenu.classList.contains("hidden") &&
+                !mobileMenu.contains(e.target) &&
+                !menuBtn.contains(e.target)) {
+                mobileMenu.classList.add("hidden");
+            }
+        });
+
+        // Close menu when a link is clicked inside
+        mobileMenu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.add("hidden");
             });
+        });
 
         const supportersSwiper = new Swiper('.supporters-swiper', {
             loop: true,
