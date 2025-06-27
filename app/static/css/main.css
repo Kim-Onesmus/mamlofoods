@@ -1,0 +1,36 @@
+.swiper-button-next,
+.swiper-button-prev {
+    color: #CA2E0A;
+}
+
+.gradient-overlay {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+}
+
+.sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: white;
+}
+
+@media (max-width: 768px) {
+    .hero-swiper {
+        height: 60vh !important;
+    }
+
+    .gradient-overlay {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+    }
+}
+
+.swiper-pagination-bullet {
+    background: white;
+    border: 2px solid #CA2E0A;
+    opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+    background: #CA2E0A;
+    opacity: 1;
+}

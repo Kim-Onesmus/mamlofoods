@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script>
         tailwind.config = {
             theme: {
@@ -20,30 +22,16 @@
             }
         }
     </script>
-    <style>
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #CA2E0A;
-        }
-
-        .gradient-overlay {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
-        }
-
-        .sticky-nav {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background-color: white;
-        }
-    </style>
 </head>
 
 <body class="bg-white text-gray-800 font-sans">
-
     <div id="home" class="bg-[#CA2E0A] text-white text-sm py-2">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <span>📌 Vacancies</span>
+            <span class="text-bold">
+                <a class="text-bold" href="">
+                    📌 Vacancies
+                </a>
+            </span>
             <div class="space-x-4">
                 <a href="#" class="hover:underline"><i class="fab fa-facebook"></i></a>
                 <a href="#" class="hover:underline"><i class="fab fa-twitter"></i></a>
@@ -56,7 +44,7 @@
     <div class="sticky-nav shadow-md">
         <div class="container mx-auto flex items-center justify-between px-4 py-4">
             <div class="flex items-center space-x-2">
-                <img src="/app/static/images/logo.png" alt="MamloFoods Logo" class="h-[60px] w-auto">
+                <img src="{% static 'images/logo.png' %}" alt="MamloFoods Logo" class="h-[60px] w-auto">
                 <a href="#" class="text-3xl font-bold text-primary">
                     MAMLO FOODS
                     <span class="block text-sm text-gray-600">Uplifting Communities Naturally</span>
@@ -137,7 +125,7 @@
                                 Brochure</button>
                         </div>
                     </div>
-                    <img src="/app/static/images/farmer.jpeg" alt="Peanut Dish"
+                    <img src="{% static 'images/farmer.jpeg' %}" alt="Peanut Dish"
                         class="w-full md:w-1/2 rounded-lg shadow-lg mt-6 md:mt-0">
                 </div>
             </div>
@@ -157,7 +145,7 @@
                                 More</button>
                         </div>
                     </div>
-                    <img src="/app/static/images/peanats.png" alt="Peanut Snacks"
+                    <img src="{% static 'images/peanats.png' %}" alt="Peanut Snacks"
                         class="w-full md:w-1/2 rounded-lg shadow-lg mt-6 md:mt-0">
                 </div>
             </div>
@@ -165,41 +153,13 @@
         <div class="swiper-pagination"></div>
     </div>
 
-    <style>
-        @media (max-width: 768px) {
-            .hero-swiper {
-                height: 60vh !important;
-            }
-
-            .gradient-overlay {
-                background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
-            }
-        }
-
-        .swiper-pagination-bullet {
-            background: white;
-            border: 2px solid #CA2E0A;
-            opacity: 0.5;
-        }
-
-        .swiper-pagination-bullet-active {
-            background: #CA2E0A;
-            opacity: 1;
-        }
-    </style>
-
     <!-- The Challenge Section -->
     <section class="py-12 md:py-20 bg-gray-50" data-aos="fade-up">
         <div class="container mx-auto px-4">
             <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">The Challenge</h2>
                 <p class="max-w-3xl mx-auto text-md md:text-lg text-gray-600 leading-relaxed">
-                    Smallholder farmers face significant challenges in peanut processing, from limited access to
-                    technology
-                    to inefficient traditional methods. These challenges impact both their livelihoods and the
-                    sustainability of the global food system. At MamloFoods, we're committed to addressing these
-                    challenges
-                    head-on.
+                    Our "WHY" is rooted in our community to Social equity, Community development and Sustainable Growth.
                 </p>
             </div>
         </div>
@@ -224,9 +184,16 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">About Us</h2>
                 <div class="relative">
                     <p class="text-md md:text-lg text-gray-600 mb-6 leading-relaxed">
-                        MamloFoods is at the forefront of transforming peanut processing through innovative, sustainable
-                        solutions. Our solar-powered micro-factories represent a revolution in agricultural processing,
-                        designed to empower smallholder farmers while promoting environmental sustainability.
+                        MAMLO FOODS is a purpose-driven company dedicated to transforming the peanut value chain in Africa through sustainable,
+                        community-centered solutions.
+                    </p>
+                    <p class="text-md md:text-lg text-gray-600 mb-6 leading-relaxed">
+                        <span class="font-bold">MISSION: </span>
+                        Increase icomes of rural women farmers.
+                    </p>
+                    <p class="text-md md:text-lg text-gray-600 mb-6 leading-relaxed">
+                        <span class="font-bold">VISSION: </span>
+                        Global leardership in peanats through empowered women farmers.
                     </p>
                 </div>
             </div>
