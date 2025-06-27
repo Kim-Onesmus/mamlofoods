@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MamloFoods - Transforming Peanut Processing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#CA2E0A',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #CA2E0A;
+        }
+
+        .gradient-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+
+    <div id="home" class="bg-[#CA2E0A] text-white text-sm py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <span>📌 Vacancies</span>
+            <div class="space-x-4">
+                <a href="#" class="hover:underline"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:underline"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:underline"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sticky Main Nav -->
+    <div class="sticky-nav shadow-md">
+        <div class="container mx-auto flex items-center justify-between px-4 py-4">
+            <div class="flex items-center space-x-2">
+                <img src="/app/static/images/logo.png" alt="MamloFoods Logo" class="h-[60px] w-auto">
+                <a href="#" class="text-3xl font-bold text-primary">
+                    MAMLO FOODS
+                    <span class="block text-sm text-gray-600">Uplifting Communities Naturally</span>
+                </a>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-black font-bold">
+                <a href="#home" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="#about" class="hover:text-[#CA2E0A]">About Us</a>
+                <a href="#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
+                <a href="#values" class="hover:text-[#CA2E0A]">Core Values</a>
+                <a href="#advisors" class="hover:text-[#CA2E0A]">Our Advisors</a>
+                <a href="#gallery" class="hover:text-[#CA2E0A]">Gallery</a>
+                <a href="#team" class="hover:text-[#CA2E0A]">Team</a>
+                <a href="#news" class="hover:text-[#CA2E0A]">News</a>
+            </nav>
+            <div class="md:hidden">
+                <!-- Mobile menu button -->
+                <button id="menu-btn" class="text-black focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+            <nav class="flex flex-col space-y-2 text-black font-bold">
+                <a href="#" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="#about" class="hover:text-[#CA2E0A]">About</a>
+                <a href="#" class="hover:text-[#CA2E0A]">Products</a>
+                <a href="#" class="hover:text-[#CA2E0A]">Processing</a>
+                <a href="#" class="hover:text-[#CA2E0A]">Contact</a>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Hero Swiper Section -->
+    <div class="swiper heroSwiper mt-4">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="flex flex-col md:flex-row items-center justify-between container mx-auto px-4 py-10">
+                    <div class="text-center md:text-left max-w-xl">
+                        <h2 class="text-4xl md:text-5xl font-bold text-black mb-4">
+                            Quality, Affordable & Nutritious – <span class="text-[#CA2E0A]">Peanut Products!</span>
+                        </h2>
+                        <p class="text-black mb-6">
+                            Empowering smallholder farmers and ensuring food security with clean, processed peanuts –
+                            delivered fast and fresh!
+                        </p>
+                        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                            <button class="bg-[#CA2E0A] text-white px-6 py-2 rounded-full">Order Now</button>
+                            <button class="border border-[#CA2E0A] text-[#CA2E0A] px-6 py-2 rounded-full">Download
+                                Brochure</button>
+                        </div>
+                    </div>
+                    <img src="/app/static/images/farmer.jpeg" alt="Peanut Dish"
+                        class="w-full md:w-1/2 rounded-lg shadow-lg mt-6 md:mt-0">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="flex flex-col md:flex-row-reverse items-center justify-between container mx-auto px-4 py-10">
+                    <div class="text-center md:text-left max-w-xl">
+                        <h2 class="text-4xl md:text-5xl font-bold text-black mb-4">
+                            From Farm to Table – <span class="text-[#CA2E0A]">We’ve Got You!</span>
+                        </h2>
+                        <p class="text-black mb-6">
+                            MamloFoods bridges the gap with modern peanut processing and delivery – ready when you are.
+                        </p>
+                        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                            <button class="bg-[#CA2E0A] text-white px-6 py-2 rounded-full">Shop Now</button>
+                            <button class="border border-[#CA2E0A] text-[#CA2E0A] px-6 py-2 rounded-full">Learn
+                                More</button>
+                        </div>
+                    </div>
+                    <img src="/app/static/images/peanats.png" alt="Peanut Snacks"
+                        class="w-full md:w-1/2 rounded-lg shadow-lg mt-6 md:mt-0">
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <style>
+        @media (max-width: 768px) {
+            .hero-swiper {
+                height: 60vh !important;
+            }
+
+            .gradient-overlay {
+                background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+            }
+        }
+
+        .swiper-pagination-bullet {
+            background: white;
+            border: 2px solid #CA2E0A;
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #CA2E0A;
+            opacity: 1;
+        }
+    </style>
+
+    <!-- The Challenge Section -->
+    <section class="py-12 md:py-20 bg-gray-50" data-aos="fade-up">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">The Challenge</h2>
+                <p class="max-w-3xl mx-auto text-md md:text-lg text-gray-600 leading-relaxed">
+                    Smallholder farmers face significant challenges in peanut processing, from limited access to technology
+                    to inefficient traditional methods. These challenges impact both their livelihoods and the
+                    sustainability of the global food system. At MamloFoods, we're committed to addressing these challenges
+                    head-on.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- About Us Section -->
+    <section id="about" class="py-12 md:py-20" data-aos="fade-up">
+        <div class="container mx-auto flex flex-col md:flex-row items-center px-4">
+            <div class="md:w-1/2 p-4 md:p-8">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800" alt="About MamloFoods"
+                        class="rounded-2xl shadow-xl w-full">
+                    <div
+                        class="absolute -bottom-6 -right-6 bg-primary text-white p-4 rounded-lg shadow-lg hidden md:block">
+                        <p class="font-bold text-2xl">100%</p>
+                        <p class="text-sm">Sustainable</p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 p-4 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">About Us</h2>
+                <div class="relative">
+                    <p class="text-md md:text-lg text-gray-600 mb-6 leading-relaxed">
+                        MamloFoods is at the forefront of transforming peanut processing through innovative, sustainable
+                        solutions. Our solar-powered micro-factories represent a revolution in agricultural processing,
+                        designed to empower smallholder farmers while promoting environmental sustainability.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Numbers -->
+    <section class="py-12 md:py-20 bg-primary text-white" data-aos="fade-up">
+        <div class="container mx-auto text-center px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">Our Impact</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="p-6 rounded-lg bg-white bg-opacity-10 backdrop-blur-lg">
+                    <p class="text-4xl md:text-5xl font-bold text-yellow-400"><span class="counter"
+                            data-target="500">0</span>+</p>
+                    <p class="mt-2">Farmers Empowered</p>
+                </div>
+                <div class="p-6 rounded-lg bg-white bg-opacity-10 backdrop-blur-lg">
+                    <p class="text-4xl md:text-5xl font-bold text-yellow-400"><span class="counter"
+                            data-target="100">0</span>%</p>
+                    <p class="mt-2">Solar Powered</p>
+                </div>
+                <div class="p-6 rounded-lg bg-white bg-opacity-10 backdrop-blur-lg">
+                    <p class="text-4xl md:text-5xl font-bold text-yellow-400"><span class="counter"
+                            data-target="30">0</span>%</p>
+                    <p class="mt-2">Yield Increase</p>
+                </div>
+                <div class="p-6 rounded-lg bg-white bg-opacity-10 backdrop-blur-lg">
+                    <p class="text-4xl md:text-5xl font-bold text-yellow-400"><span class="counter"
+                            data-target="5">0</span>+</p>
+                    <p class="mt-2">Communities Served</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder's Story -->
+    <section class="py-12 md:py-20" data-aos="fade-up">
+        <div class="container mx-auto px-4">
+            <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-1/4 flex items-center justify-center p-8">
+                        <div class="relative group">
+                            <div
+                                class="w-48 h-48 rounded-full overflow-hidden ring-4 ring-primary/20 transition-all duration-300 group-hover:ring-primary/40">
+                                <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=800"
+                                    alt="Founder"
+                                    class="w-full h-full object-cover transform transition duration-300 group-hover:scale-110">
+                            </div>
+                            <div
+                                class="absolute inset-0 rounded-full bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-3/4 p-8">
+                        <div class="h-full flex flex-col justify-center">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">Founder's Story</h2>
+                            <p class="text-md md:text-lg text-gray-600 leading-relaxed">
+                                Our founder's journey began with a vision to revolutionize the peanut processing
+                                industry while making a meaningful impact on farmers' lives. Witnessing the challenges
+                                faced by smallholder farmers firsthand, they developed an innovative approach that
+                                combines sustainable technology with community empowerment.
+                            </p>
+                            <button
+                                class="mt-6 inline-flex items-center text-primary font-semibold hover:text-red-700 transition duration-300">
+                                Read More
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values -->
+    <section id="values" class="py-12 md:py-20 bg-gray-50" data-aos="fade-up">
+        <div class="container mx-auto text-center px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-primary">Our Core Values</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-primary">Sustainability First</h3>
+                    <p class="text-gray-600 mt-4">We prioritize environmental sustainability in every aspect of our
+                        operations, from solar power to waste reduction.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-primary">Community-Driven</h3>
+                    <p class="text-gray-600 mt-4">Our success is measured by the positive impact we create in farming
+                        communities and their livelihoods.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-primary">Innovation</h3>
+                    <p class="text-gray-600 mt-4">We continuously innovate our technology and processes to improve
+                        efficiency and sustainability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supporters -->
+    <section class="py-12 md:py-20" data-aos="fade-up">
+        <div class="container mx-auto text-center px-4">
+            <h2 class="text-3xl font-bold mb-12 text-primary">Recognized & Supported By</h2>
+            <div class="supporters-swiper-container overflow-hidden">
+                <div class="swiper-container supporters-swiper">
+                    <div class="swiper-wrapper items-center">
+                        <div class="swiper-slide">
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                                <img src="https://logo.clearbit.com/ift.org" alt="IFT"
+                                    class="mx-auto h-12 w-auto grayscale hover:grayscale-0 transition">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                                <img src="https://logo.clearbit.com/seedingthefuture.org"
+                                    alt="Seeding The Future Foundation"
+                                    class="mx-auto h-12 w-auto grayscale hover:grayscale-0 transition">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                                <img src="https://logo.clearbit.com/usaid.gov" alt="USAID"
+                                    class="mx-auto h-12 w-auto grayscale hover:grayscale-0 transition">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                                <img src="https://logo.clearbit.com/worldbank.org" alt="World Bank"
+                                    class="mx-auto h-12 w-auto grayscale hover:grayscale-0 transition">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                                <img src="https://logo.clearbit.com/worldbank.org" alt="World Bank"
+                                    class="mx-auto h-12 w-auto grayscale hover:grayscale-0 transition">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                                <img src="https://logo.clearbit.com/worldbank.org" alt="World Bank"
+                                    class="mx-auto h-12 w-auto grayscale hover:grayscale-0 transition">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                                <img src="https://logo.clearbit.com/worldbank.org" alt="World Bank"
+                                    class="mx-auto h-12 w-auto grayscale hover:grayscale-0 transition">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advisors -->
+    <section id="advisors" class="py-12 md:py-20 bg-gray-50" data-aos="fade-up">
+        <div class="container mx-auto text-center px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">Our Advisors</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" alt="Advisor 1"
+                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+                    <h3 class="text-2xl font-semibold">Jane Doe</h3>
+                    <p class="text-primary">Tech Entrepreneur</p>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-primary mt-2 inline-block"><i
+                            class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Advisor 2"
+                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+                    <h3 class="text-2xl font-semibold">John Smith</h3>
+                    <p class="text-primary">Culinary Expert</p>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-primary mt-2 inline-block"><i
+                            class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400" alt="Advisor 3"
+                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+                    <h3 class="text-2xl font-semibold">Emily White</h3>
+                    <p class="text-primary">Logistics Specialist</p>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-primary mt-2 inline-block"><i
+                            class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-12 md:py-20" data-aos="fade-up">
+        <div class="container mx-auto text-center px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Gallery</h2>
+            <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+
+            <div id="gallery-filters" class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="gallery-filter-btn active" data-filter="data-collection">DATA COLLECTION</button>
+                <button class="gallery-filter-btn" data-filter="farmer-dialogues">FARMER DIALOGUES</button>
+                <button class="gallery-filter-btn" data-filter="field-visits">FIELD VISITS</button>
+                <button class="gallery-filter-btn" data-filter="micro-factories">MICRO-FACTORIES</button>
+                <button class="gallery-filter-btn" data-filter="team-conversations">TEAM CONVERSATIONS</button>
+                <button class="gallery-filter-btn" data-filter="products">PRODUCTS</button>
+            </div>
+
+            <div id="gallery-swipers">
+                <!-- Data Collection -->
+                <div id="data-collection" class="gallery-content block overflow-hidden rounded-lg">
+                    <div class="swiper-container gallery-swiper-dc relative">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600" loading="lazy"
+                                    class="w-full h-80 object-cover"></div>
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600"
+                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600"
+                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600"
+                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+                <!-- Farmer Dialogues -->
+                <div id="farmer-dialogues" class="gallery-content hidden overflow-hidden rounded-lg">
+                    <div class="swiper-container gallery-swiper-fd relative">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600"
+                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1462826303086-329426d1aef5?w=600"
+                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600" loading="lazy"
+                                    class="w-full h-80 object-cover"></div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+                <!-- Field Visits -->
+                <div id="field-visits" class="gallery-content hidden overflow-hidden rounded-lg">
+                    <div class="swiper-container gallery-swiper-fv relative">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1520699999975-25c13e6c38a2?w=600"
+                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                            <div class="swiper-slide"><img
+                                    src="https://images.unsplash.com/photo-1627920769854-e0558694025d?w=600"
+                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+                <!-- Add other swiper containers here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team -->
+    <section id="team" class="py-12 md:py-20 bg-gray-50" data-aos="fade-up">
+        <div class="container mx-auto text-center px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">Our Team</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" alt="Team Member 1"
+                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+                    <h3 class="text-xl font-semibold">Jessica Lee</h3>
+                    <p class="text-gray-500">CEO</p>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Team Member 2"
+                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+                    <h3 class="text-xl font-semibold">David Chen</h3>
+                    <p class="text-gray-500">Head of Operations</p>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400" alt="Team Member 3"
+                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+                    <h3 class="text-xl font-semibold">Maria Garcia</h3>
+                    <p class="text-gray-500">Lead Developer</p>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400" alt="Team Member 4"
+                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+                    <h3 class="text-xl font-semibold">Brian Smith</h3>
+                    <p class="text-gray-500">Marketing Director</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News and Blogs -->
+    <section id="contact" class="py-12 md:py-20" data-aos="fade-up">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">News and Blogs</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600" alt="Blog Post 1"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">The Future of Food Delivery</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Explore the trends shaping how we eat and order food in
+                            the coming years.</p>
+                        <a href="#" class="text-primary hover:underline font-semibold">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600" alt="Blog Post 2"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Our Commitment to Sustainability</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Learn how MamloFoods is using eco-friendly packaging and
+                            reducing food waste.</p>
+                        <a href="#" class="text-primary hover:underline font-semibold">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600" alt="Blog Post 3"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Top 10 Most Loved Dishes of 2024</h3>
+                        <p class="text-gray-600 mb-4 text-sm">A countdown of the most popular and highly-rated meals on
+                            our platform this year.</p>
+                        <a href="#" class="text-primary hover:underline font-semibold">Read More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left px-4">
+            <div>
+                <h3 class="text-lg font-bold mb-4">MamloFoods</h3>
+                <p class="text-gray-400">Your favorite food, delivered.</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul>
+                    <li><a href="#about" class="text-gray-400 hover:text-white py-1 block">About Us</a></li>
+                    <li><a href="#gallery" class="text-gray-400 hover:text-white py-1 block">Gallery</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Careers</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-white py-1 block">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Support</h3>
+                <ul>
+                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">FAQ</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Contact Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Terms of Service</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Follow Us</h3>
+                <div class="flex space-x-4 justify-center md:justify-start">
+                    <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto text-center mt-8 border-t border-gray-700 pt-6">
+            <p class="text-gray-500">&copy; 2024 MamloFoods. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+
+        // --- Swiper Performance & Autoplay Management ---
+        function manageSwiperAutoplay(swiperInstance, containerSelector) {
+            const swiperContainer = document.querySelector(containerSelector);
+            if (!swiperContainer || !swiperInstance.autoplay) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        swiperInstance.autoplay.start();
+                    } else {
+                        swiperInstance.autoplay.stop();
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.5 // Start/stop when 50% of the swiper is visible
+            });
+
+            observer.observe(swiperContainer);
+        }
+
+        var swiper = new Swiper(".heroSwiper", {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+
+            document.getElementById("menu-btn").addEventListener("click", function () {
+                const menu = document.getElementById("mobile-menu");
+                menu.classList.toggle("hidden");
+            });
+
+        const supportersSwiper = new Swiper('.supporters-swiper', {
+            loop: true,
+            slidesPerView: 2,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 3, spaceBetween: 20 },
+                768: { slidesPerView: 4, spaceBetween: 40 },
+                1024: { slidesPerView: 5, spaceBetween: 50 },
+            }
+        });
+        manageSwiperAutoplay(supportersSwiper, '.supporters-swiper');
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Sticky nav on scroll
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // Gallery Filters
+        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+        const galleryContents = document.querySelectorAll('.gallery-content');
+        const initializedSwipers = {}; // Track initialized swipers to prevent re-initialization
+
+        const swiperOptions = {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 30,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            breakpoints: {
+                768: { slidesPerView: 3, spaceBetween: 30 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+            }
+        };
+
+        function initializeSwiperFor(galleryId) {
+            if (!initializedSwipers[galleryId]) {
+                const selector = `#${galleryId} .swiper-container`;
+                const navigation = {
+                    nextEl: `#${galleryId} .swiper-button-next`,
+                    prevEl: `#${galleryId} .swiper-button-prev`,
+                };
+                const newSwiper = new Swiper(selector, { ...swiperOptions, navigation });
+                initializedSwipers[galleryId] = newSwiper;
+                manageSwiperAutoplay(newSwiper, selector);
+            }
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.dataset.filter;
+                galleryContents.forEach(content => {
+                    if (content.id === filter) {
+                        content.classList.remove('hidden');
+                        initializeSwiperFor(filter);
+                    } else {
+                        content.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Initialize the default visible swiper
+        initializeSwiperFor('data-collection');
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const inc = target / speed;
+
+            const updateCount = () => {
+                if (count < target) {
+                    count += inc;
+                    counter.innerText = Math.ceil(count);
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            updateCount();
+        };
+
+        // Intersection Observer for counters
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => animateCounter(counter));
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe the section containing counters
+        const impactSection = document.querySelector('.counter').closest('section');
+        if (impactSection) {
+            observer.observe(impactSection);
+        }
+
+        // Read More Toggle
+        function toggleReadMore(button) {
+            const content = button.previousElementSibling;
+            const arrow = button.querySelector('svg');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+                button.querySelector('text').textContent = 'Read Less';
+            } else {
+                content.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+                button.querySelector('text').textContent = 'Read More';
+            }
+        }
+
+    </script>
+    <style>
+        .gallery-filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #CA2E0A;
+            color: #CA2E0A;
+            background-color: transparent;
+            border-radius: 9999px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-filter-btn.active,
+        .gallery-filter-btn:hover {
+            background-color: #CA2E0A;
+            color: white;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #CA2E0A;
+        }
+
+        /* Style for gallery swiper navigation */
+        .gallery-content .swiper-button-next,
+        .gallery-content .swiper-button-prev {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+        }
+
+        .gallery-content .swiper-button-next::after,
+        .gallery-content .swiper-button-prev::after {
+            font-size: 20px;
+        }
+
+        .swiper-pagination-bullet {
+            background: white;
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #CA2E0A;
+            opacity: 1;
+        }
+    </style>
+</body>
+
+</html>

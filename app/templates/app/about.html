@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About MamloFoods - Uplifting Communities Naturally</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#CA2E0A',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Base Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(#CA2E0A 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-2">
+                    <img src="/static/images/logo.png" alt="MamloFoods Logo" class="h-8">
+                    <span class="text-primary font-bold text-xl">MamloFoods</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-primary transition-colors">Home</a>
+                    <a href="/about" class="text-gray-600 hover:text-primary transition-colors">About</a>
+                    <a href="#products" class="text-gray-600 hover:text-primary transition-colors">Products</a>
+                    <a href="#impact" class="text-gray-600 hover:text-primary transition-colors">Impact</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary transition-colors">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-600 hover:text-primary" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="/" class="text-gray-600 hover:text-primary transition-colors">Home</a>
+                    <a href="/about" class="text-gray-600 hover:text-primary transition-colors">About</a>
+                    <a href="#products" class="text-gray-600 hover:text-primary transition-colors">Products</a>
+                    <a href="#impact" class="text-gray-600 hover:text-primary transition-colors">Impact</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content with top padding for fixed nav -->
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section class="relative bg-primary/10 py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-primary mb-6">About MamloFoods</h1>
+                    <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                        Transforming peanut processing through sustainable innovation while empowering local farming
+                        communities.
+                    </p>
+                </div>
+            </div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        </section>
+
+        <!-- Mission & Vision -->
+        <section class="py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800" alt="Our Mission"
+                            class="rounded-2xl shadow-xl">
+                        <div
+                            class="absolute -bottom-6 -right-6 bg-primary text-white p-6 rounded-xl shadow-lg hidden md:block">
+                            <p class="font-bold text-3xl">2024</p>
+                            <p class="text-sm">Founded</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mb-12">
+                            <h2 class="text-3xl font-bold mb-4 text-primary">Our Mission</h2>
+                            <p class="text-gray-600 leading-relaxed">
+                                To revolutionize peanut processing through sustainable technology while creating lasting
+                                positive impact in farming communities. We're committed to empowering smallholder
+                                farmers and promoting environmental sustainability through our solar-powered
+                                micro-factories.
+                            </p>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold mb-4 text-primary">Our Vision</h2>
+                            <p class="text-gray-600 leading-relaxed">
+                                A world where sustainable agriculture empowers communities, where technology serves both
+                                people and planet, and where quality food production uplifts rather than depletes our
+                                environment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Journey Timeline -->
+        <section class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-primary">Our Journey</h2>
+                <div class="max-w-4xl mx-auto">
+                    <div class="relative">
+                        <!-- Timeline Line -->
+                        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-primary"></div>
+
+                        <!-- Timeline Items -->
+                        <div class="space-y-12">
+                            <!-- Item 1 -->
+                            <div class="relative flex items-center justify-between">
+                                <div class="w-5/12 pr-8 text-right">
+                                    <h3 class="font-bold text-xl mb-2">Initial Research</h3>
+                                    <p class="text-gray-600">Conducted extensive research on sustainable peanut
+                                        processing methods and community needs.</p>
+                                </div>
+                                <div
+                                    class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full">
+                                </div>
+                                <div class="w-5/12 pl-8">
+                                    <span class="text-primary font-bold">2024</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="relative flex items-center justify-between">
+                                <div class="w-5/12 pr-8 text-right">
+                                    <span class="text-primary font-bold">2024</span>
+                                </div>
+                                <div
+                                    class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full">
+                                </div>
+                                <div class="w-5/12 pl-8">
+                                    <h3 class="font-bold text-xl mb-2">First Micro-Factory</h3>
+                                    <p class="text-gray-600">Launched our first solar-powered micro-factory, proving the
+                                        viability of sustainable processing.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="relative flex items-center justify-between">
+                                <div class="w-5/12 pr-8 text-right">
+                                    <h3 class="font-bold text-xl mb-2">Community Partnership</h3>
+                                    <p class="text-gray-600">Established partnerships with local farming communities and
+                                        agricultural organizations.</p>
+                                </div>
+                                <div
+                                    class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full">
+                                </div>
+                                <div class="w-5/12 pl-8">
+                                    <span class="text-primary font-bold">2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Impact -->
+        <section class="py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-primary">Our Impact</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Impact Card 1 -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                        <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Farmer Empowerment</h3>
+                        <p class="text-gray-600">Supporting over 500 smallholder farmers with sustainable income
+                            opportunities and technical training.</p>
+                    </div>
+
+                    <!-- Impact Card 2 -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                        <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Environmental Impact</h3>
+                        <p class="text-gray-600">100% solar-powered operations reducing carbon footprint and promoting
+                            sustainable agriculture.</p>
+                    </div>
+
+                    <!-- Impact Card 3 -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                        <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Quality Assurance</h3>
+                        <p class="text-gray-600">Maintaining highest standards in peanut processing while ensuring fair
+                            compensation for farmers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recognition -->
+        <section class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-primary">Recognition & Awards</h2>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Award 1 -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center space-x-4">
+                        <div class="bg-primary/10 p-4 rounded-full">
+                            <img src="https://logo.clearbit.com/ift.org" alt="IFT" class="w-12 h-12">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">IFT Innovation Award</h3>
+                            <p class="text-gray-600">Recognition for sustainable processing technology</p>
+                        </div>
+                    </div>
+
+                    <!-- Award 2 -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center space-x-4">
+                        <div class="bg-primary/10 p-4 rounded-full">
+                            <img src="https://logo.clearbit.com/seedingthefuture.org" alt="Seeding The Future"
+                                class="w-12 h-12">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Seeding The Future Grant</h3>
+                            <p class="text-gray-600">Support for community development initiatives</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Us CTA -->
+        <section class="py-16 md:py-24 bg-primary text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Join Our Mission</h2>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+                    Be part of our journey to transform peanut processing and empower farming communities.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="#contact"
+                        class="bg-white text-primary px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300">Contact
+                        Us</a>
+                    <a href="#careers"
+                        class="border-2 border-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-primary transition duration-300">View
+                        Opportunities</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold">MamloFoods</h3>
+                    <p class="text-gray-400">Uplifting Communities Naturally</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.016 18.6h-2.91v-4.575c0-1.086-.018-2.484-1.512-2.484-1.515 0-1.746 1.183-1.746 2.406v4.653H7.938V8.182h2.79v1.28h.04c.39-.738 1.338-1.515 2.754-1.515 2.946 0 3.484 1.938 3.484 4.458v6.195z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="/about" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#products" class="text-gray-400 hover:text-white">Products</a></li>
+                        <li><a href="#impact" class="text-gray-400 hover:text-white">Our Impact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">info@mamlofoods.com</li>
+                        <li class="text-gray-400">+1 (555) 123-4567</li>
+                        <li class="text-gray-400">123 Sustainability Street<br>Green City, EC 12345</li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Stay updated with our latest news and updates.</p>
+                    <form class="space-y-2">
+                        <input type="email" placeholder="Enter your email"
+                            class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-primary">
+                        <button type="submit"
+                            class="w-full bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 MamloFoods. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+
+</html>
