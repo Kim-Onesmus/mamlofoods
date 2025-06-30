@@ -66,6 +66,9 @@ mobileMenu.querySelectorAll("a").forEach((link) => {
   });
 });
 
+
+
+
 const supportersSwiper = new Swiper(".supporters-swiper", {
   loop: true,
   slidesPerView: 2,
@@ -226,4 +229,27 @@ document.addEventListener("DOMContentLoaded", () => {
       img.dispatchEvent(event);
     }
   });
+});
+
+
+const impactSwiper = new Swiper(".impactSwiper", {
+  loop: true,
+  autoplay: {
+    delay: 3500,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  slidesPerView: 1,
+  spaceBetween: 20,
+  breakpoints: {
+    640: {
+      slidesPerView: 2,
+    },
+    1024: {
+      slidesPerView: 4,
+    },
+  },
 });
