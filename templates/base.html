@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title -->
+    <title>{% block title %}MAMLO FOODS - Uplifting Communities, Naturally{% endblock %}</title>
+
+    <!-- Meta Description -->
+    <meta name="description"
+        content="{% block meta_description %}MAMLO FOODS is a purpose-driven company...{% endblock %}" />
+
+    <!-- Keywords -->
+    <meta name="keywords"
+        content="{% block meta_keywords %}MAMLO FOODS, Natural Foods Kenya, Community Empowerment, Sustainable Farming{% endblock %}" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title"
+        content="{% block og_title %}MAMLO FOODS - Uplifting Communities, Naturally{% endblock %}" />
+    <meta property="og:description"
+        content="{% block og_description %}MAMLO FOODS is a purpose-driven company...{% endblock %}" />
+    <meta property="og:image" content="{% static 'images/og-image.jpg' %}" />
+    <meta property="og:url" content="{% block og_url %}https://mamlofoods.com/{% endblock %}" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title"
+        content="{% block twitter_title %}MAMLO FOODS - Uplifting Communities, Naturally{% endblock %}" />
+    <meta name="twitter:description"
+        content="{% block twitter_description %}MAMLO FOODS is a purpose-driven company...{% endblock %}" />
+    <meta name="twitter:image" content="{% static 'images/og-image.jpg' %}" />
+
+    <link rel="canonical" href="{% block canonical_url %}https://mamlofoods.com/{% endblock %}" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon.png' %}">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#CA2E0A',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+    <div id="home" class="bg-[#CA2E0A] text-white text-sm py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <span class="font-bold">
+                <a class="font-bold hover:underline" href="#">
+                    Vacancies
+                </a>
+            </span>
+            <div>
+                <a href="#" class="font-semibold text-white hover:underline">
+                    Our Products
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Sticky Main Nav -->
+    <div class="sticky-nav shadow-md">
+        <div class="container mx-auto flex items-center justify-between px-4 py-4">
+            <div class="flex items-center space-x-2">
+                <img src="{% static 'images/logo.png' %}" alt="MamloFoods Logo" class="h-[60px] w-auto">
+                <a href="{% url 'index' %}" class="text-3xl font-bold text-primary">
+                    MAMLO FOODS
+                    <span class="block text-sm text-gray-600">Uplifting Communities Naturally</span>
+                </a>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-black font-bold relative">
+                <a href="#home" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="#about" class="hover:text-[#CA2E0A]">About Us</a>
+                <a href="#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
+                <a href="#values" class="hover:text-[#CA2E0A]">Core Values</a>
+                <a href="#advisors" class="hover:text-[#CA2E0A]">Our Advisors</a>
+
+                <!-- Dropdown wrapper with no gap issue -->
+                <div class="relative group">
+                    <!-- Button + Dropdown combined -->
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#CA2E0A]">
+                        <span>More</span>
+                        <svg class="w-4 h-4 fill-current text-black group-hover:text-[#CA2E0A]"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.516 7.548l4.484 4.482 4.484-4.482L16 8.548l-6 6-6-6z" />
+                        </svg>
+                    </div>
+
+                    <!-- Dropdown inside the same container -->
+                    <div
+                        class="absolute right-0 hidden group-hover:block w-32 bg-white shadow-lg rounded-md py-4 z-50 p-2">
+                        <a href="#news"
+                            class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">News</a>
+                        <a href="#gallery"
+                            class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">Gallery</a>
+                        <a href="#team"
+                            class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">Team</a>
+                        <a href="#contact"
+                            class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">Contact
+                            Us</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="md:hidden">
+                <!-- Mobile menu button -->
+                <button id="menu-btn" class="text-black focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+            <nav class="flex flex-col space-y-2 text-black font-bold">
+                <a href="#home" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="#about" class="hover:text-[#CA2E0A]">About Us</a>
+                <a href="#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
+                <a href="#values" class="hover:text-[#CA2E0A]">Core Values</a>
+                <a href="#advisors" class="hover:text-[#CA2E0A]">Our Advisors</a>
+                <a href="#gallery" class="hover:text-[#CA2E0A]">Gallery</a>
+                <a href="#team" class="hover:text-[#CA2E0A]">Team</a>
+                <a href="#news" class="hover:text-[#CA2E0A]">News</a>
+                <a href="#contact" class="hover:text-[#CA2E0A]">Contact Us</a>
+            </nav>
+        </div>
+    </div>
+
+    {% block content %} {% endblock content %}
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left px-4">
+            <div>
+                <h3 class="text-lg font-bold mb-4">MAMLO FOODS</h3>
+                <p class="text-gray-400">Uplifting Communities Naturally</p>
+                <div class="flex space-x-24 justify-center mt-6 md:justify-start">
+                    <a href="https://web.facebook.com/people/MAMLO-FOODS/61565232155511/?_rdc=1&_rdr#" target="_blank"
+                        class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/company/mamlo-foods/" target="_blank"
+                        class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul>
+                    <li><a href="#home" class="text-gray-400 hover:text-white py-1 block">Home</a></li>
+                    <li><a href="#about" class="text-gray-400 hover:text-white py-1 block">About Us</a></li>
+                    <li><a href="#news" class="text-gray-400 hover:text-white py-1 block">Blog</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-white py-1 block">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Our Core Values</h3>
+                <ul>
+                    <li><a href="#values" class="text-gray-400 hover:text-white py-1 block">Innovation</a></li>
+                    <li><a href="#values" class="text-gray-400 hover:text-white py-1 block">Collaboration</a></li>
+                    <li><a href="#values" class="text-gray-400 hover:text-white py-1 block">Sustainable Practices</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                <ul>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
+                        <i class="fas fa-map-marker-alt text-white"></i>
+                        <span>Tom Mboya Estate, Kisumu, Kenya</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
+                        <i class="fas fa-phone-alt text-white"></i>
+                        <span>+254 714 725 864</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
+                        <i class="fas fa-envelope text-white"></i>
+                        <span>hello@mamlofoods.com</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
+                        <i class="fas fa-clock text-white"></i>
+                        <span>Mon-Fri 8:00 AM - 5:00 PM</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto text-center mt-8 border-t border-gray-700 pt-6">
+            <p class="text-gray-200">&copy; 2025 MamloFoods. All Rights Reserved.</p>
+            <p class="text-gray-200">Developed by <a class="font-bold" href="#" target="_blank">Kim Technologies</a></p>
+        </div>
+    </footer>
+    
+    
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
