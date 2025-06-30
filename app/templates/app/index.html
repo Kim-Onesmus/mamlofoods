@@ -27,25 +27,26 @@
 <body class="bg-white text-gray-800 font-sans">
     <div id="home" class="bg-[#CA2E0A] text-white text-sm py-2">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <span class="text-bold">
-                <a class="text-bold" href="">
-                    📌 Vacancies
+            <span class="font-bold">
+                <a class="font-bold hover:underline" href="#">
+                    📌 Careers
                 </a>
             </span>
-            <div class="space-x-4">
-                <a href="#" class="hover:underline"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="hover:underline"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="hover:underline"><i class="fab fa-instagram"></i></a>
+            <div>
+                <a href="#" class="font-semibold text-white hover:underline">
+                    Explore Mamlo Foods
+                </a>
             </div>
         </div>
     </div>
+    
 
     <!-- Sticky Main Nav -->
     <div class="sticky-nav shadow-md">
         <div class="container mx-auto flex items-center justify-between px-4 py-4">
             <div class="flex items-center space-x-2">
                 <img src="{% static 'images/logo.png' %}" alt="MamloFoods Logo" class="h-[60px] w-auto">
-                <a href="#" class="text-3xl font-bold text-primary">
+                <a href="{% url 'index' %}" class="text-3xl font-bold text-primary">
                     MAMLO FOODS
                     <span class="block text-sm text-gray-600">Uplifting Communities Naturally</span>
                 </a>
@@ -107,54 +108,54 @@
     </div>
 
     <!-- Hero Swiper Section -->
-    <div class="swiper heroSwiper mt-4">
+    <div class="swiper heroSwiper mt-2">
         <div class="swiper-wrapper">
+
+            <!-- Slide 1 -->
             <div class="swiper-slide">
                 <div class="flex flex-col md:flex-row items-center justify-between container mx-auto px-4 py-10">
                     <div class="text-center md:text-left max-w-xl">
                         <h2 class="text-4xl md:text-5xl font-bold text-black mb-4">
-                            Quality, Affordable & Nutritious – <span class="text-[#CA2E0A]">Peanut Products!</span>
+                            MAMLO FOODS <br> <span class="text-[#CA2E0A]">Uplifting Communities Naturally</span>
                         </h2>
                         <p class="text-black mb-6">
-                            Empowering smallholder farmers and ensuring food security with clean, processed peanuts –
-                            delivered fast and fresh!
                         </p>
                         <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                            <button class="bg-[#CA2E0A] text-white px-6 py-2 rounded-full">Order Now</button>
-                            <button class="border border-[#CA2E0A] text-[#CA2E0A] px-6 py-2 rounded-full">Download
-                                Brochure</button>
-                        </div>
+                            <a href="#about" class="bg-[#CA2E0A] text-white px-6 py-2 rounded-full inline-block">Learn More</a>
+                            <a href="#contact" class="border border-[#CA2E0A] text-[#CA2E0A] px-6 py-2 rounded-full inline-block">Contact Us</a>
+                        </div>                        
                     </div>
-                    <img src="{% static 'images/farmer.jpeg' %}" alt="Peanut Dish"
-                        class="w-full md:w-1/2 rounded-lg shadow-lg mt-6 md:mt-0">
+                    <img src="{% static 'images/farmer.jpg' %}" alt="MAMLO FOODS"
+                        class="w-full md:w-1/2 rounded-lg mt-6 md:mt-0">
                 </div>
             </div>
+
+            <!-- Slide 2 -->
             <div class="swiper-slide">
-                <div
-                    class="flex flex-col md:flex-row-reverse items-center justify-between container mx-auto px-4 py-10">
+                <div class="flex flex-col md:flex-row-reverse items-center justify-between container mx-auto px-4 py-10">
                     <div class="text-center md:text-left max-w-xl">
                         <h2 class="text-4xl md:text-5xl font-bold text-black mb-4">
                             From Farm to Table – <span class="text-[#CA2E0A]">We’ve Got You!</span>
                         </h2>
                         <p class="text-black mb-6">
-                            MamloFoods bridges the gap with modern peanut processing and delivery – ready when you are.
+                            Mamlo Foods bridges the gap with modern peanut processing and delivery – ready when you are.
                         </p>
                         <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                            <button class="bg-[#CA2E0A] text-white px-6 py-2 rounded-full">Shop Now</button>
-                            <button class="border border-[#CA2E0A] text-[#CA2E0A] px-6 py-2 rounded-full">Learn
-                                More</button>
-                        </div>
+                            <a href="#" class="bg-[#CA2E0A] text-white px-6 py-2 rounded-full inline-block">Shop Now</a>
+                            <a href="#" class="border border-[#CA2E0A] text-[#CA2E0A] px-6 py-2 rounded-full inline-block">Our Products</a>
+                        </div>                        
                     </div>
                     <img src="{% static 'images/peanats.png' %}" alt="Peanut Snacks"
-                        class="w-full md:w-1/2 rounded-lg shadow-lg mt-6 md:mt-0">
+                        class="w-full md:w-1/2 rounded-lg mt-6 md:mt-0">
                 </div>
             </div>
+
         </div>
         <div class="swiper-pagination"></div>
     </div>
 
     <!-- The Challenge Section -->
-    <section class="py-12 md:py-20 bg-gray-50" data-aos="fade-up">
+    <section class="py-6 md:py-20 bg-[#CA2E0A]" data-aos="fade-up">
         <div class="container mx-auto px-4">
             <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">The Challenge</h2>
@@ -171,7 +172,7 @@
         <div class="container mx-auto flex flex-col md:flex-row items-center px-4">
             <div class="md:w-1/2 p-4 md:p-8">
                 <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800" alt="About MamloFoods"
+                    <img src="{% static 'images/about.jpg' %}" alt="About MamloFoods"
                         class="rounded-2xl shadow-xl w-full">
                     <div
                         class="absolute -bottom-6 -right-6 bg-primary text-white p-4 rounded-lg shadow-lg hidden md:block">
@@ -407,36 +408,109 @@
                 <div id="data-collection" class="gallery-content block overflow-hidden rounded-lg">
                     <div class="swiper-container gallery-swiper-dc relative">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600" loading="lazy"
-                                    class="w-full h-80 object-cover"></div>
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600"
-                                    loading="lazy" class="w-full h-80 object-cover"></div>
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600"
-                                    loading="lazy" class="w-full h-80 object-cover"></div>
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600"
-                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                        
+                            <!-- Slide 1 -->
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/data_collection/1.jpg' %}" alt="MAMLO FOODS Data Collection" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                        
+                            <!-- Slide 2 -->
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/data_collection/2.jpg' %}" alt="MAMLO FOODS Data Collection" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                        
+                            <!-- Slide 3 -->
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/data_collection/3.jpg' %}" alt="MAMLO FOODS Data Collection" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/data_collection/4.jpg' %}" alt="MAMLO FOODS Data Collection" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/data_collection/5.jpg' %}" alt="MAMLO FOODS Data Collection" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                     </div>
                 </div>
+                
                 <!-- Farmer Dialogues -->
                 <div id="farmer-dialogues" class="gallery-content hidden overflow-hidden rounded-lg">
                     <div class="swiper-container gallery-swiper-fd relative">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600"
-                                    loading="lazy" class="w-full h-80 object-cover"></div>
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1462826303086-329426d1aef5?w=600"
-                                    loading="lazy" class="w-full h-80 object-cover"></div>
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600" loading="lazy"
-                                    class="w-full h-80 object-cover"></div>
+                            <!-- Slide 1 -->
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/farmers_dialogue/1.jpg' %}" alt="MAMLO FOODS Farmers Dialogues" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2 -->
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/farmers_dialogue/2.jpg' %}" alt="MAMLO FOODS Farmers Dialogues" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 3 -->
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/farmers_dialogue/3.jpg' %}" alt="MAMLO FOODS Farmers Dialogues" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/farmers_dialogue/4.jpg' %}" alt="MAMLO FOODS Farmers Dialogues" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/farmers_dialogue/5.jpg' %}" alt="MAMLO FOODS Farmers Dialogues" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/farmers_dialogue/6.jpg' %}" alt="MAMLO FOODS Farmers Dialogues" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
@@ -446,18 +520,168 @@
                 <div id="field-visits" class="gallery-content hidden overflow-hidden rounded-lg">
                     <div class="swiper-container gallery-swiper-fv relative">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1520699999975-25c13e6c38a2?w=600"
-                                    loading="lazy" class="w-full h-80 object-cover"></div>
-                            <div class="swiper-slide"><img
-                                    src="https://images.unsplash.com/photo-1627920769854-e0558694025d?w=600"
-                                    loading="lazy" class="w-full h-80 object-cover"></div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/field_visits/1.jpg' %}" alt="MAMLO FOODS Field Visits" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/field_visits/2.jpg' %}" alt="MAMLO FOODS Field Visits" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/field_visits/3.jpg' %}" alt="MAMLO FOODS Field Visits" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/field_visits/4.jpg' %}" alt="MAMLO FOODS Field Visits" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/field_visits/5.jpg' %}" alt="MAMLO FOODS Field Visits" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                     </div>
                 </div>
-                <!-- Add other swiper containers here -->
+                <!-- Micro Factories -->
+                <div id="micro-factories" class="gallery-content hidden overflow-hidden rounded-lg">
+                    <div class="swiper-container gallery-swiper-fv relative">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/microfactories/1.jpg' %}" alt="MAMLO FOODS Micro Factories" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/microfactories/2.jpg' %}" alt="MAMLO FOODS Micro Factories" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/microfactories/3.jpg' %}" alt="MAMLO FOODS Micro Factories" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/microfactories/4.jpg' %}" alt="MAMLO FOODS Micro Factories" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+                <!-- Micro Factories -->
+                <div id="team-conversations" class="gallery-content hidden overflow-hidden rounded-lg">
+                    <div class="swiper-container gallery-swiper-fv relative">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div
+                                    class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/team_conversing/1.jpg' %}" alt="MAMLO FOODS Team Conversations"
+                                        loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/team_conversing/2.jpg' %}" alt="MAMLO FOODS Team Conversations" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/team_conversing/3.jpg' %}" alt="MAMLO FOODS Team Conversations" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/team_conversing/4.jpg' %}" alt="MAMLO FOODS Team Conversations" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+                <!-- Micro Factories -->
+                <div id="products" class="gallery-content hidden overflow-hidden rounded-lg">
+                    <div class="swiper-container gallery-swiper-fv relative">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div
+                                    class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/products/1.jpg' %}" alt="MAMLO FOODS Products"
+                                        loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/products/2.jpg' %}" alt="MAMLO FOODS Products" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/products/3.jpg' %}" alt="MAMLO FOODS Products" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/products/4.jpg' %}" alt="MAMLO FOODS Products" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="image-wrapper relative w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <div class="spinner absolute z-10"></div>
+                                    <img src="{% static 'images/products/5.jpg' %}" alt="MAMLO FOODS Products" loading="lazy"
+                                        class="lazy-image w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -652,272 +876,7 @@
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
-
-        // --- Swiper Performance & Autoplay Management ---
-        function manageSwiperAutoplay(swiperInstance, containerSelector) {
-            const swiperContainer = document.querySelector(containerSelector);
-            if (!swiperContainer || !swiperInstance.autoplay) return;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        swiperInstance.autoplay.start();
-                    } else {
-                        swiperInstance.autoplay.stop();
-                    }
-                });
-            }, {
-                rootMargin: '0px',
-                threshold: 0.5 // Start/stop when 50% of the swiper is visible
-            });
-
-            observer.observe(swiperContainer);
-        }
-
-        var swiper = new Swiper(".heroSwiper", {
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-        });
-
-        const menuBtn = document.getElementById("menu-btn");
-        const mobileMenu = document.getElementById("mobile-menu");
-
-        // Toggle menu on button click
-        menuBtn.addEventListener("click", function (e) {
-            e.stopPropagation(); // Prevent click from bubbling to window
-            mobileMenu.classList.toggle("hidden");
-        });
-
-        // Close menu if click happens outside of it
-        window.addEventListener("click", function (e) {
-            if (!mobileMenu.classList.contains("hidden") &&
-                !mobileMenu.contains(e.target) &&
-                !menuBtn.contains(e.target)) {
-                mobileMenu.classList.add("hidden");
-            }
-        });
-
-        // Close menu when a link is clicked inside
-        mobileMenu.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                mobileMenu.classList.add("hidden");
-            });
-        });
-
-        const supportersSwiper = new Swiper('.supporters-swiper', {
-            loop: true,
-            slidesPerView: 2,
-            spaceBetween: 20,
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            breakpoints: {
-                640: { slidesPerView: 2, spaceBetween: 20 },
-                768: { slidesPerView: 3, spaceBetween: 40 },
-                1024: { slidesPerView: 4, spaceBetween: 50 },
-            }
-        });
-        manageSwiperAutoplay(supportersSwiper, '.supporters-swiper');
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Sticky nav on scroll
-        const nav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                nav.classList.add('shadow-lg');
-            } else {
-                nav.classList.remove('shadow-lg');
-            }
-        });
-
-        // Gallery Filters
-        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
-        const galleryContents = document.querySelectorAll('.gallery-content');
-        const initializedSwipers = {}; // Track initialized swipers to prevent re-initialization
-
-        const swiperOptions = {
-            loop: true,
-            slidesPerView: 1,
-            spaceBetween: 30,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            breakpoints: {
-                768: { slidesPerView: 3, spaceBetween: 30 },
-                1024: { slidesPerView: 3, spaceBetween: 30 },
-            }
-        };
-
-        function initializeSwiperFor(galleryId) {
-            if (!initializedSwipers[galleryId]) {
-                const selector = `#${galleryId} .swiper-container`;
-                const navigation = {
-                    nextEl: `#${galleryId} .swiper-button-next`,
-                    prevEl: `#${galleryId} .swiper-button-prev`,
-                };
-                const newSwiper = new Swiper(selector, { ...swiperOptions, navigation });
-                initializedSwipers[galleryId] = newSwiper;
-                manageSwiperAutoplay(newSwiper, selector);
-            }
-        }
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                const filter = button.dataset.filter;
-                galleryContents.forEach(content => {
-                    if (content.id === filter) {
-                        content.classList.remove('hidden');
-                        initializeSwiperFor(filter);
-                    } else {
-                        content.classList.add('hidden');
-                    }
-                });
-            });
-        });
-
-        // Initialize the default visible swiper
-        initializeSwiperFor('data-collection');
-
-        // Counter Animation
-        const counters = document.querySelectorAll('.counter');
-        const speed = 200;
-
-        const animateCounter = (counter) => {
-            const target = +counter.getAttribute('data-target');
-            let count = 0;
-            const inc = target / speed;
-
-            const updateCount = () => {
-                if (count < target) {
-                    count += inc;
-                    counter.innerText = Math.ceil(count);
-                    setTimeout(updateCount, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            };
-
-            updateCount();
-        };
-
-        // Intersection Observer for counters
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counters = entry.target.querySelectorAll('.counter');
-                    counters.forEach(counter => animateCounter(counter));
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Observe the section containing counters
-        const impactSection = document.querySelector('.counter').closest('section');
-        if (impactSection) {
-            observer.observe(impactSection);
-        }
-
-        // Read More Toggle
-        function toggleReadMore(button) {
-            const content = button.previousElementSibling;
-            const arrow = button.querySelector('svg');
-
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                arrow.classList.add('rotate-180');
-                button.querySelector('text').textContent = 'Read Less';
-            } else {
-                content.classList.add('hidden');
-                arrow.classList.remove('rotate-180');
-                button.querySelector('text').textContent = 'Read More';
-            }
-        }
-
-    </script>
-    <style>
-        .gallery-filter-btn {
-            padding: 8px 16px;
-            border: 2px solid #CA2E0A;
-            color: #CA2E0A;
-            background-color: transparent;
-            border-radius: 9999px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-filter-btn.active,
-        .gallery-filter-btn:hover {
-            background-color: #CA2E0A;
-            color: white;
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #CA2E0A;
-        }
-
-        /* Style for gallery swiper navigation */
-        .gallery-content .swiper-button-next,
-        .gallery-content .swiper-button-prev {
-            color: white;
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 50%;
-            height: 50px;
-            width: 50px;
-        }
-
-        .gallery-content .swiper-button-next::after,
-        .gallery-content .swiper-button-prev::after {
-            font-size: 20px;
-        }
-
-        .swiper-pagination-bullet {
-            background: white;
-            opacity: 0.5;
-        }
-
-        .swiper-pagination-bullet-active {
-            background: #CA2E0A;
-            opacity: 1;
-        }
-    </style>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 
 </html>
