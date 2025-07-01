@@ -1,61 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - MAMLO FOODS{% endblock %}
+
+{% block meta_description %}
+Learn more about MAMLO FOODS — a purpose-driven company uplifting African communities through sustainable peanut farming
+and natural food processing.
+{% endblock %}
+
+{% block meta_keywords %}
+MAMLO FOODS About, Who We Are, Natural Foods Kenya, Community Impact, Sustainable Agriculture, Organic Peanut Products
+{% endblock %}
+
+{% block og_title %}About Us - MAMLO FOODS{% endblock %}
+{% block og_description %}
+Discover the mission and story behind MAMLO FOODS. We empower local farmers and promote sustainable agriculture in
+Kenya.
+{% endblock %}
+{% block og_url %}https://mamlofoods.com/about{% endblock %}
+
+{% block twitter_title %}About MAMLO FOODS{% endblock %}
+{% block twitter_description %}
+Discover how MAMLO FOODS is transforming the peanut value chain in Africa through innovation, sustainability, and
+community empowerment.
+{% endblock %}
+
+{% block canonical_url %}https://mamlofoods.com/about{% endblock %}
+
 {% block content %}
-<!-- Hero Section -->
-<section class="relative h-[250px] bg-blue-900">
-    <div class="absolute inset-0 bg-gradient-to-r from-purple-900 to-red-600"></div>
-    <div class="relative container mx-auto px-4 h-full flex items-center">
-        <div class="text-white max-w-2xl">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">About MAMLO FOODS</h1>
-            <p class="text-xl text-blue-100" data-aos="fade-up" data-aos-delay="200">
-                Uplifting Communities Naturally
-            </p>
-        </div>
-    </div>
-</section>
-
-<!-- History Section -->
-<section class="py-16 bg-white" data-aos="fade-up">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl text-center font-bold mb-6">About MAMLO FOODS</h2>
-        <div class="flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/2">
-                <img src="{% static 'images/about.jpg' %}" alt="About Mamlo Foods"
-                    class="rounded-lg shadow-xl">
-            </div>
-            <div class="md:w-1/2">
-                <p class="mb-6">
-                    MAMLO FOODS is a purpose-driven company dedicated to transforming the peanut value chain in Africa through sustainable,
-                    community-centered solutions.
-                </p>
-            </div>
-    </div>
-</section>
-
-<!-- Mission & Vision Section -->
-<section class="py-16 bg-gray-50" data-aos="fade-up">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <!-- Mission -->
-            <div class="bg-white p-8 rounded-lg shadow-lg">
-                <div class="text-red-800 mb-4">
-                    <i class="fas fa-bullseye text-4xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
-                <p class="text-gray-600">
-                    Increase icomes of rural women farmers.
-                </p>
-            </div>
-            <!-- Vision -->
-            <div class="bg-white p-8 rounded-lg shadow-lg">
-                <div class="text-red-800 mb-4">
-                    <i class="fas fa-eye text-4xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">Our Vision</h3>
-                <p class="text-gray-600">
-                    Global leardership in peanats through empowered women farmers.
+    <!-- Hero Section -->
+    <section class="relative h-[250px] bg-primary">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary to-red-primary"></div>
+        <div class="relative container mx-auto px-4 h-full flex items-center">
+            <div class="text-white max-w-2xl">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">About MAMLO FOODS</h1>
+                <p class="text-xl text-blue-100" data-aos="fade-up" data-aos-delay="200">
+                    Uplifting Communities Naturally
                 </p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- History Section -->
+    <section class="py-16 bg-white" data-aos="fade-up">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl text-center font-bold mb-6">About MAMLO FOODS</h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="{% static 'images/about.jpg' %}" alt="About Mamlo Foods"
+                        class="rounded-lg shadow-xl">
+                </div>
+                <div class="md:w-1/2">
+                    <p class="mb-6">
+                        MAMLO FOODS is a purpose-driven company dedicated to transforming the peanut value chain in Africa through sustainable,
+                        community-centered solutions.
+                    </p>
+                </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="py-16 bg-gray-50" data-aos="fade-up">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Mission -->
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-bullseye text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+                    <p class="text-gray-600">
+                        Increase icomes of rural women farmers.
+                    </p>
+                </div>
+                <!-- Vision -->
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-eye text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Our Vision</h3>
+                    <p class="text-gray-600">
+                        Global leardership in peanats through empowered women farmers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values -->
+    <section id="values" class="py-12 md:py-20 bg-gray-50" data-aos="fade-up">
+        <div class="container mx-auto text-center px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Core Values</h2>
+            <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-lightbulb text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-primary">INNOVATION</h3>
+                    <p class="text-gray-600 mt-4">We leverage cutting-edge technology, like solar-powered micro-factories,
+                        to revolutionize local peanut processing and
+                        enhance community-driven value addition.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-hands-helping text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-primary">COLLABORATIONS</h3>
+                    <p class="text-gray-600 mt-4">We partner with like-minded organizations to foster a shared ownership
+                        model that empowers women smallholder farmers to
+                        actively participate in decision-making and benefit from the business’s success.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-leaf text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-primary">SUSTAINABLE PRACTICES</h3>
+                    <p class="text-gray-600 mt-4">Sustainability is at the core of our operations, from using renewable
+                        energy in our factories to promoting eco-friendly
+                        farming techniques that ensure long-term environmental and community health.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock content %}

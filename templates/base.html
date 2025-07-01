@@ -89,11 +89,11 @@
                 </a>
             </div>
             <nav class="hidden md:flex space-x-6 text-black font-bold relative">
-                <a href="#home" class="hover:text-[#CA2E0A]">Home</a>
-                <a href="#about" class="hover:text-[#CA2E0A]">About Us</a>
-                <a href="#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
-                <a href="#values" class="hover:text-[#CA2E0A]">Core Values</a>
-                <a href="#advisors" class="hover:text-[#CA2E0A]">Our Advisors</a>
+                <a href="{% url 'index' %}#home" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="{% url 'index' %}#about" class="hover:text-[#CA2E0A]">About Us</a>
+                <a href="{% url 'index' %}#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
+                <a href="{% url 'index' %}#values" class="hover:text-[#CA2E0A]">Core Values</a>
+                <a href="{% url 'index' %}#advisors" class="hover:text-[#CA2E0A]">Our Advisors</a>
 
                 <!-- Dropdown wrapper with no gap issue -->
                 <div class="relative group">
@@ -109,13 +109,13 @@
                     <!-- Dropdown inside the same container -->
                     <div
                         class="absolute right-0 hidden group-hover:block w-32 bg-white shadow-lg rounded-md py-4 z-50 p-2">
-                        <a href="#news"
+                        <a href="{% url 'index' %}#news"
                             class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">News</a>
-                        <a href="#gallery"
+                        <a href="{% url 'index' %}#gallery"
                             class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">Gallery</a>
-                        <a href="#team"
+                        <a href="{% url 'index' %}#team"
                             class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">Team</a>
-                        <a href="#contact"
+                        <a href="{% url 'index' %}#contact"
                             class="block px-4 py-2 text-sm text-black hover:bg-[#CA2E0A] hover:text-white">Contact
                             Us</a>
                     </div>
@@ -136,15 +136,15 @@
         </div>
         <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
             <nav class="flex flex-col space-y-2 text-black font-bold">
-                <a href="#home" class="hover:text-[#CA2E0A]">Home</a>
-                <a href="#about" class="hover:text-[#CA2E0A]">About Us</a>
-                <a href="#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
-                <a href="#values" class="hover:text-[#CA2E0A]">Core Values</a>
-                <a href="#advisors" class="hover:text-[#CA2E0A]">Our Advisors</a>
-                <a href="#gallery" class="hover:text-[#CA2E0A]">Gallery</a>
-                <a href="#team" class="hover:text-[#CA2E0A]">Team</a>
-                <a href="#news" class="hover:text-[#CA2E0A]">News</a>
-                <a href="#contact" class="hover:text-[#CA2E0A]">Contact Us</a>
+                <a href="{% url 'index' %}#home" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="{% url 'index' %}#about" class="hover:text-[#CA2E0A]">About Us</a>
+                <a href="{% url 'index' %}#founder" class="hover:text-[#CA2E0A]">Founder's Story</a>
+                <a href="{% url 'index' %}#values" class="hover:text-[#CA2E0A]">Core Values</a>
+                <a href="{% url 'index' %}#advisors" class="hover:text-[#CA2E0A]">Our Advisors</a>
+                <a href="{% url 'index' %}#gallery" class="hover:text-[#CA2E0A]">Gallery</a>
+                <a href="{% url 'index' %}#team" class="hover:text-[#CA2E0A]">Team</a>
+                <a href="{% url 'index' %}#news" class="hover:text-[#CA2E0A]">News</a>
+                <a href="{% url 'index' %}#contact" class="hover:text-[#CA2E0A]">Contact Us</a>
             </nav>
         </div>
     </div>
@@ -167,18 +167,18 @@
             <div>
                 <h3 class="text-lg font-bold mb-4">Quick Links</h3>
                 <ul>
-                    <li><a href="#home" class="text-gray-400 hover:text-white py-1 block">Home</a></li>
-                    <li><a href="#about" class="text-gray-400 hover:text-white py-1 block">About Us</a></li>
-                    <li><a href="#news" class="text-gray-400 hover:text-white py-1 block">Blog</a></li>
-                    <li><a href="#contact" class="text-gray-400 hover:text-white py-1 block">Contact</a></li>
+                    <li><a href="{% url 'index' %}#home" class="text-gray-400 hover:text-white py-1 block">Home</a></li>
+                    <li><a href="{% url 'index' %}#about" class="text-gray-400 hover:text-white py-1 block">About Us</a></li>
+                    <li><a href="{% url 'index' %}#news" class="text-gray-400 hover:text-white py-1 block">Blog</a></li>
+                    <li><a href="{% url 'index' %}#contact" class="text-gray-400 hover:text-white py-1 block">Contact</a></li>
                 </ul>
             </div>
             <div>
                 <h3 class="text-lg font-bold mb-4">Our Core Values</h3>
                 <ul>
-                    <li><a href="#values" class="text-gray-400 hover:text-white py-1 block">Innovation</a></li>
-                    <li><a href="#values" class="text-gray-400 hover:text-white py-1 block">Collaboration</a></li>
-                    <li><a href="#values" class="text-gray-400 hover:text-white py-1 block">Sustainable Practices</a></li>
+                    <li><a href="{% url 'index' %}#values" class="text-gray-400 hover:text-white py-1 block">Innovation</a></li>
+                    <li><a href="{% url 'index' %}#values" class="text-gray-400 hover:text-white py-1 block">Collaboration</a></li>
+                    <li><a href="{% url 'index' %}#values" class="text-gray-400 hover:text-white py-1 block">Sustainable Practices</a></li>
                 </ul>
             </div>
             <div>
