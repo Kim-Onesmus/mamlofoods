@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Job Vacancies - MAMLO FOODS{% endblock %}
+
+{% block meta_description %}
+Explore current job openings at MAMLO FOODS and become part of a purpose-driven company transforming African
+agriculture.
+{% endblock %}
+
+{% block meta_keywords %}
+MAMLO FOODS Careers, Job Vacancies, Work With Us, Agriculture Jobs Kenya, Food Processing Jobs, Hiring Now
+{% endblock %}
+
+{% block og_title %}Join Our Team - MAMLO FOODS Vacancies{% endblock %}
+{% block og_description %}
+We are hiring! Discover exciting career opportunities at MAMLO FOODS. Grow with us as we uplift African communities.
+{% endblock %}
+{% block og_url %}https://mamlofoods.com/vacancies{% endblock %}
+
+{% block twitter_title %}MAMLO FOODS Job Vacancies{% endblock %}
+{% block twitter_description %}
+Find your next opportunity with MAMLO FOODS. Join us in driving sustainable food systems and economic empowerment.
+{% endblock %}
+
+{% block canonical_url %}https://mamlofoods.com/vacancies{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-[250px] bg-primary">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary to-red-primary"></div>
+    <div class="relative container mx-auto px-4 h-full flex items-center">
+        <div class="text-white max-w-2xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Career Opportunities</h1>
+            <p class="text-xl text-blue-100" data-aos="fade-up" data-aos-delay="200">
+                Join our mission to transform communities and promote sustainable food systems
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="bg-gray-50 py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Current Job Openings</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+            <!-- Job Card -->
+            <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1601066527302-465c15d05f73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Agronomist Job" class="w-full h-52 object-cover" />
+
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Agronomist</h3>
+                    <p class="text-sm text-gray-500 mb-4">
+                        <strong class="text-gray-700">Deadline:</strong> <span class="text-red-600 font-medium">July 15,
+                            2025</span>
+                    </p>
+
+                    <a href="#"
+                        class="flex w-full justify-center items-center bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-red-700 transition duration-300">
+                        <i class="fas fa-paper-plane mr-2"></i> Apply Now
+                    </a>
+                </div>
+            </div>
+            <!-- End Job Card -->
+        </div>
+    </div>
+</section>
+
+  
+
+<section class="bg-gray-50 py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Closed Job Opportunities</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+            <!-- Job Card -->
+            <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1601066527302-465c15d05f73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Agronomist Job" class="w-full h-52 object-cover" />
+
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Agronomist</h3>
+                    <p class="text-sm text-gray-500 mb-4">
+                        <strong class="text-gray-700">Deadline:</strong> <span class="text-red-600 font-medium">
+                            Closed    
+                        </span>
+                    </p>
+
+                    <a href="#"
+                        class="flex w-full justify-center items-center bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-red-700 transition duration-300">
+                        Closed
+                    </a>
+                </div>
+            </div>
+            <!-- End Job Card -->
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

@@ -7,3 +7,10 @@ def index(request):
 
 def about(request):
     return render(request, 'app/about.html')
+
+
+def contact(request):
+    return render(request, 'app/contact.html')
+
+def vacancies(request):
+    return render(request, 'app/vacancies.html')

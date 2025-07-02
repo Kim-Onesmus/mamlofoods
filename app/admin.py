@@ -1,37 +1,67 @@
 from django.contrib import admin
-from .models import Blog
-from django.utils.html import format_html
-from django.utils.text import Truncator
+from .models import Vacancy, Blog, Partner, Number
+
+@admin.register(Vacancy)
+class VacancyAdmin(admin.ModelAdmin):
+    list_display = ('title', 'deadline', 'description_file', 'created_at')
+    list_editable = ('deadline', 'description_file')
+    search_fields = ('title',)
+    ordering = ('-deadline',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'description_file', 'deadline')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at',),
+            'classes': ('collapse',),
+        }),
+    )
+    readonly_fields = ('created_at',)
 
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('short_title', 'author', 'thumbnail', 'published_at', 'is_recent')
-    readonly_fields = ('slug', 'published_at', 'updated_at')
-    search_fields = ('title', 'content', 'author__username')
-    list_filter = ('published_at', 'author')
+    list_display = ('title', 'slug', 'author', 'date_published')
+    list_editable = ('author',)
     prepopulated_fields = {'slug': ('title',)}
-    ordering = ('-published_at',)
+    search_fields = ('title', 'author')
+    ordering = ('-date_published',)
+
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'author', 'featured_image', 'content')
+            'fields': ('title', 'slug', 'author')
         }),
-        ('Timestamps', {
-            'fields': ('published_at', 'updated_at')
+        ('Content', {
+            'fields': ('featured_image', 'content')
+        }),
+        ('Publication Info', {
+            'fields': ('date_published',),
+            'classes': ('collapse',),
+        }),
+    )
+    readonly_fields = ('date_published',)
+
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'image')
+    
+    fieldsets = (
+        (None, {
+            'fields': ('image',)
         }),
     )
 
-    def short_title(self, obj):
-        return Truncator(obj.title).chars(30)
-    short_title.short_description = 'Title'
 
-    def thumbnail(self, obj):
-        if obj.featured_image:
-            return format_html('<img src="{}" width="60" height="40" style="object-fit:cover; border-radius:4px;" />', obj.featured_image.url)
-        return "-"
-    thumbnail.short_description = 'Image'
+@admin.register(Number)
+class NumberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'number')
+    list_editable = ('number',)
+    search_fields = ('name',)
 
-    def is_recent(self, obj):
-        return obj.published_at.date() == obj.updated_at.date()
-    is_recent.boolean = True
-    is_recent.short_description = 'Updated Today?'
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'number')
+        }),
+    )
