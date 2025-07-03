@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Number, Vacancy, Blog, Partner
+from django.shortcuts import render, get_object_or_404
 import datetime
 
 
@@ -9,16 +10,6 @@ from .models import Number, Vacancy, Blog, Partner
 
 def mamlo_combined_data_api(request):
     numbers = list(Number.objects.values("name", "number"))
-
-    vacancies = [
-        {
-            "title": v.title,
-            "description_file": request.build_absolute_uri(v.description_file.url) if v.description_file else None,
-            "deadline": v.deadline.isoformat(),
-        }
-        for v in Vacancy.objects.order_by("-deadline")
-    ]
-
     blogs = [
         {
             "title": b.title,
@@ -39,7 +30,6 @@ def mamlo_combined_data_api(request):
 
     return JsonResponse({
         "numbers": numbers,
-        "vacancies": vacancies,
         "blogs": blogs,
         "partners": partners
     })
@@ -61,11 +51,20 @@ def vacancies(request):
 
 def vacancy_api(request):
     today = datetime.date.today()
-    vacancies = Vacancy.objects.all().values("id", "title", "description_file", "deadline")
+    vacancies = Vacancy.objects.all()
 
-    # Separate open and closed
-    open_vacancies = [v for v in vacancies if v["deadline"] >= today]
-    closed_vacancies = [v for v in vacancies if v["deadline"] < today]
+    open_vacancies = []
+    closed_vacancies = []
+
+    for v in vacancies:
+        data = {
+            "id": str(v.id),
+            "title": v.title,
+            "description_file": request.build_absolute_uri(v.description_file.url) if v.description_file else None,
+            "image": request.build_absolute_uri(v.image.url) if v.image else None,
+            "deadline": v.deadline,
+        }
+        (open_vacancies if v.deadline >= today else closed_vacancies).append(data)
 
     return JsonResponse({
         "open": open_vacancies,
@@ -75,5 +74,6 @@ def vacancy_api(request):
 def founders_story(request):
     return render(request, 'app/founders_story.html')
 
-def blog_details(request, pk):
-    return render(request, 'app/details.html')
+def blog_details(request, slug):
+    blog = get_object_or_404(Blog, slug=slug)
+    return render(request, 'app/blog_details.html', {'blog': blog})
