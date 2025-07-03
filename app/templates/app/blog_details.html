@@ -47,7 +47,7 @@ A blog from MAMLO FOODS — {{ blog.title }}
                 <!-- Blog Header -->
                 <article class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
                     {% if blog.featured_image %}
-                    <img src="{{ blog.featured_image.url }}" alt="{{ blog.title }}" class="w-full h-96 object-cover" />
+                    <img src="{{ blog.featured_image.url }}" alt="{{ blog.title }}" class="w-full h-96 object-contain bg-white" />
                     {% else %}
                     <div class="w-full h-96 bg-gray-200 flex items-center justify-center text-4xl text-gray-500">
                         <i class="fas fa-image"></i>
