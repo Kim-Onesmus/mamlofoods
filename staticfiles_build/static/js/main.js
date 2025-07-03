@@ -182,11 +182,6 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe the section containing counters
-const impactSection = document.querySelector(".counter").closest("section");
-if (impactSection) {
-  observer.observe(impactSection);
-}
 
 
 // Lazy loading

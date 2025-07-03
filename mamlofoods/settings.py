@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 load_dotenv()
 
 
@@ -8,10 +9,10 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-&!m4q*k%rr6-tuqy!u*afs@07=qocj^q4a#rkkyynj@#u7@fqc'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -68,12 +69,19 @@ WSGI_APPLICATION = 'mamlofoods.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            os.getenv('DATABASE_URL')
+        )
+    }
 
 
 # Password validation

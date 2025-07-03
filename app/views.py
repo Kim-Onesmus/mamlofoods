@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Number, Vacancy, Blog, Partner
+from .models import Number, Vacancy, Blog, Partner, ContactMessage
 from django.shortcuts import render, get_object_or_404
 import datetime
 
@@ -45,6 +45,25 @@ def about(request):
 
 def contact(request):
     return render(request, 'app/contact.html')
+
+
+def submit_contact_form(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        data = ContactMessage.objects.create(
+            name=name,
+            phone=phone,
+            email=email,
+            message=message
+        )
+        data.save()
+
+        return JsonResponse({'success': True, 'message': 'Message submitted successfully!'})
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
 
 def vacancies(request):
     return render(request, 'app/vacancies.html')

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Vacancy, Blog, Partner, Number
+from .models import Vacancy, Blog, Partner, Number, ContactMessage
 
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
@@ -65,3 +65,9 @@ class NumberAdmin(admin.ModelAdmin):
             'fields': ('name', 'number')
         }),
     )
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'created_at')
+    search_fields = ('name', 'email', 'message')
+    readonly_fields = ('created_at',)
