@@ -34,8 +34,8 @@ def mamlo_combined_data_api(request):
         "partners": partners
     })
 
-def landing(request):
-    return render(request, 'app/landing.html')
+# def landing(request):
+#     return render(request, 'app/landing.html')
 
 def index(request):
     return render(request, 'app/index.html')
