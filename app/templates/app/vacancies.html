@@ -26,6 +26,7 @@ Find your next opportunity with MAMLO FOODS. Join us in driving sustainable food
 {% block canonical_url %}https://mamlofoods.com/vacancies{% endblock %}
 
 {% block content %}
+
 <!-- Hero Section -->
 <section class="relative h-[250px] bg-primary">
     <div class="absolute inset-0 bg-gradient-to-r from-primary to-red-primary"></div>
@@ -39,64 +40,168 @@ Find your next opportunity with MAMLO FOODS. Join us in driving sustainable food
     </div>
 </section>
 
+<!-- Vacancies Section -->
 <section class="bg-gray-50 py-20">
     <div class="container mx-auto px-4">
+
+        <!-- Loader -->
+        <div id="vacancy-loader" class="flex justify-center py-10">
+            <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+
         <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Current Job Openings</h2>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-            <!-- Job Card -->
-            <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1601066527302-465c15d05f73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Agronomist Job" class="w-full h-52 object-cover" />
-
-                <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Agronomist</h3>
-                    <p class="text-sm text-gray-500 mb-4">
-                        <strong class="text-gray-700">Deadline:</strong> <span class="text-red-600 font-medium">July 15,
-                            2025</span>
-                    </p>
-
-                    <a href="#"
-                        class="flex w-full justify-center items-center bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-red-700 transition duration-300">
-                        <i class="fas fa-paper-plane mr-2"></i> Apply Now
-                    </a>
-                </div>
-            </div>
-            <!-- End Job Card -->
+        <div id="open-vacancies" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center" style="display: none;">
         </div>
+
+        <h2 class="text-4xl font-bold text-center text-gray-800 mt-20 mb-12">Closed Job Opportunities</h2>
+        <div id="closed-vacancies" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center"
+            style="display: none;"></div>
     </div>
 </section>
 
-  
+<script>
+   document.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById("vacancy-loader");
+    const openContainer = document.getElementById("open-vacancies");
+    const closedContainer = document.getElementById("closed-vacancies");
 
-<section class="bg-gray-50 py-20">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Closed Job Opportunities</h2>
+    // Show loader initially to indicate content is loading
+    loader.style.display = "flex";
+    openContainer.style.display = "none";
+    closedContainer.style.display = "none";
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-            <!-- Job Card -->
-            <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1601066527302-465c15d05f73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Agronomist Job" class="w-full h-52 object-cover" />
+    // Fetch vacancies data from the Django API
+    fetch("/api/vacancies/")
+        .then(response => {
+            // Check if the network request was successful (status code 200-299)
+            if (!response.ok) {
+                // If not successful, throw an error to be caught by the .catch block
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            // Parse the JSON response body
+            return response.json();
+        })
+        .then(data => {
+            // Hide the loader and display the vacancy containers once data is available
+            loader.style.display = "none";
+            openContainer.style.display = "grid";
+            closedContainer.style.display = "grid";
 
-                <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Agronomist</h3>
-                    <p class="text-sm text-gray-500 mb-4">
-                        <strong class="text-gray-700">Deadline:</strong> <span class="text-red-600 font-medium">
-                            Closed    
-                        </span>
-                    </p>
+            // Render the open and closed job listings
+            renderJobs(data.open, openContainer, false);
+            renderJobs(data.closed, closedContainer, true);
+        })
+        .catch(error => {
+            // If an error occurs during fetch, display a user-friendly message
+            loader.innerHTML = "<p class='text-red-500 text-center col-span-full'>Failed to load vacancies. Please try again later.</p>";
+            // Log the detailed error to the console for debugging purposes
+            console.error("Error fetching vacancies:", error);
+        });
 
-                    <a href="#"
-                        class="flex w-full justify-center items-center bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-red-700 transition duration-300">
-                        Closed
+    /**
+     * Renders job listings into a specified container element.
+     * Handles dynamic URL generation for Django media files and conditional button rendering.
+     * @param {Array} jobs - An array of job objects, each containing details like title, deadline, image, and description_file.
+     * @param {HTMLElement} container - The DOM element where the job cards will be appended.
+     * @param {boolean} isClosed - A flag indicating whether the jobs being rendered are closed (true) or open (false).
+     */
+    function renderJobs(jobs, container, isClosed) {
+        // Clear any existing content in the container before rendering new jobs
+        container.innerHTML = '';
+
+        // If no jobs are provided, display a message indicating no jobs are available
+        if (jobs.length === 0) {
+            container.innerHTML = `<p class="text-gray-500 text-center col-span-full">No ${isClosed ? 'closed' : 'open'} jobs at the moment.</p>`;
+            return;
+        }
+
+        // Iterate over each job object to create and append its card
+        jobs.forEach(job => {
+            // Determine the deadline text based on job status
+            const deadline = isClosed ? "Closed" : new Date(job.deadline).toDateString();
+
+            // Determine button label and base CSS classes
+            const btnLabel = isClosed ? "Closed" : "Apply Now";
+            const baseBtnClasses = "mt-4 flex w-full justify-center items-center text-white px-5 py-2.5 rounded-lg transition duration-300 text-center";
+
+            // Determine specific button classes for open vs. closed jobs
+            const btnClass = isClosed ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-red-700";
+
+            // Construct the image URL based on Django's media setup
+            let imageURL = null;
+            if (job.image) {
+                // If the path is already an absolute URL or starts with '/', use it directly
+                if (job.image.startsWith('http://') || job.image.startsWith('https://') || job.image.startsWith('/')) {
+                    imageURL = job.image;
+                } else {
+                    // Otherwise, prepend Django's default media URL '/media/'
+                    imageURL = `/media/${job.image}`;
+                }
+            }
+
+            // Construct the file URL for the description file
+            let fileURL = "#"; // Default to '#' if no file is present
+            if (job.description_file) {
+                // Similar logic for description file URL
+                if (job.description_file.startsWith('http://') || job.description_file.startsWith('https://') || job.description_file.startsWith('/')) {
+                    fileURL = job.description_file;
+                } else {
+                    fileURL = `/media/${job.description_file}`;
+                }
+            }
+
+            // Generate the HTML for the image or a fallback icon
+            const imageHTML = imageURL
+                ? `<img src="${imageURL}" alt="${job.title}" class="w-full h-52 object-cover rounded-t-2xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FEE2E2/EF4444?text=Image+Not+Found';" />`
+                : `<div class="w-full h-52 flex items-center justify-center bg-primary/10 text-primary text-5xl rounded-t-2xl">
+                        <i class="fas fa-briefcase"></i>
+                    </div>`;
+
+            // Conditionally render an <a> tag for open jobs or a <button> for closed jobs
+            let actionButtonHTML;
+            if (isClosed) {
+                // For closed jobs, render a disabled button
+                actionButtonHTML = `
+                    <button type="button" disabled
+                        class="${baseBtnClasses} ${btnClass}">
+                        ${btnLabel}
+                    </button>
+                `;
+            } else {
+                // For open jobs, render an anchor tag with a link
+                actionButtonHTML = `
+                    <a href="${fileURL}" target="_blank"
+                        class="${baseBtnClasses} ${btnClass}">
+                        ${btnLabel}
                     </a>
+                `;
+            }
+
+            // Create a new div element for the job card
+            const jobCard = document.createElement('div');
+            jobCard.className = "bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden flex flex-col";
+
+            // Populate the job card's inner HTML
+            jobCard.innerHTML = `
+                ${imageHTML}
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">${job.title}</h3>
+                        <p class="text-sm text-gray-500 mb-4">
+                            <strong class="text-gray-700">Deadline:</strong>
+                            <span class="text-red-600 font-medium">${deadline}</span>
+                        </p>
+                    </div>
+                    ${actionButtonHTML}
                 </div>
-            </div>
-            <!-- End Job Card -->
-        </div>
-    </div>
-</section>
+            `;
+            // Append the fully constructed job card to the container
+            container.appendChild(jobCard);
+        });
+    }
+});
+</script>
 
 
 

@@ -23,6 +23,7 @@ def upload_partner_image(instance, filename):
 class Vacancy(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=upload_vacancy_file, blank=True, null=True)
     description_file = models.FileField(upload_to=upload_vacancy_file, help_text='A pdf file')
     deadline = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)

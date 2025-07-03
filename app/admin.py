@@ -10,7 +10,7 @@ class VacancyAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'description_file', 'deadline')
+            'fields': ('title', 'image', 'description_file', 'deadline')
         }),
         ('Timestamps', {
             'fields': ('created_at',),
