@@ -182,11 +182,6 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe the section containing counters
-const impactSection = document.querySelector(".counter").closest("section");
-if (impactSection) {
-  observer.observe(impactSection);
-}
 
 
 // Lazy loading
@@ -196,17 +191,19 @@ document.addEventListener("DOMContentLoaded", () => {
   images.forEach((img) => {
     // Image load event
     img.addEventListener("load", () => {
-      img.classList.add("loaded");
+      // Remove opacity-0 and add opacity-100 for fade-in
+      img.classList.remove("opacity-0");
+      img.classList.add("opacity-100");
 
+      // Remove spinner
       const wrapper = img.closest(".image-wrapper");
       const spinner = wrapper.querySelector(".spinner");
-
       if (spinner) {
-        spinner.remove(); // ✅ Completely remove it from DOM
+        spinner.remove();
       }
     });
 
-    // Image already cached (e.g. browser load from memory)
+    // If image is already cached and loaded, manually dispatch 'load'
     if (img.complete && img.naturalHeight !== 0) {
       const event = new Event("load");
       img.dispatchEvent(event);

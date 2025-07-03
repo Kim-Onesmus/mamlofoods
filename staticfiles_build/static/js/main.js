@@ -69,23 +69,6 @@ mobileMenu.querySelectorAll("a").forEach((link) => {
 
 
 
-const supportersSwiper = new Swiper(".supporters-swiper", {
-  loop: true,
-  slidesPerView: 2,
-  spaceBetween: 20,
-  autoplay: {
-    delay: 2500,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  },
-  breakpoints: {
-    640: { slidesPerView: 2, spaceBetween: 20 },
-    768: { slidesPerView: 3, spaceBetween: 40 },
-    1024: { slidesPerView: 4, spaceBetween: 50 },
-  },
-});
-manageSwiperAutoplay(supportersSwiper, ".supporters-swiper");
-
 // Smooth scroll for nav links
 document.querySelectorAll('a.nav-link[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
@@ -213,17 +196,19 @@ document.addEventListener("DOMContentLoaded", () => {
   images.forEach((img) => {
     // Image load event
     img.addEventListener("load", () => {
-      img.classList.add("loaded");
+      // Remove opacity-0 and add opacity-100 for fade-in
+      img.classList.remove("opacity-0");
+      img.classList.add("opacity-100");
 
+      // Remove spinner
       const wrapper = img.closest(".image-wrapper");
       const spinner = wrapper.querySelector(".spinner");
-
       if (spinner) {
-        spinner.remove(); // ✅ Completely remove it from DOM
+        spinner.remove();
       }
     });
 
-    // Image already cached (e.g. browser load from memory)
+    // If image is already cached and loaded, manually dispatch 'load'
     if (img.complete && img.naturalHeight !== 0) {
       const event = new Event("load");
       img.dispatchEvent(event);

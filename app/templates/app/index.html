@@ -145,15 +145,8 @@
                             <p class="text-md md:text-lg text-gray-600 leading-relaxed">
                                 Irene Etyang is the Founder and CEO of MAMLO FOODS, a purpose-driven enterprise revolutionizing Africa’s peanut value
                                 chain through proximate solar-powered micro-factories. With a strong foundation in Food Science and Technology and over
-                                a decade of experience in product development, Irene blends technical expertise with a deep passion for empowering women
-                                in agriculture. Under her visionary leadership, MAMLO FOODS has become a trailblazer in community-centered food
-                                processing, implementing innovative solutions that reduce waste, enhance traceability, and boost incomes for rural women
-                                farmers. By transforming smallholder farmers into producers and co-owners, Irene is ensuring that value stays within
-                                communities. Her commitment to inclusive growth and sustainable innovation has earned her global recognition as a
-                                Mandela Washington Fellow, Leaders in Innovation Fellow, MB100 Awardee (2021), Leading African Women in Food Fellow, and
-                                Mulago Fellow. Through MAMLO FOODS, Irene is creating a system where every product nourishes consumers and uplifts the
-                                hands that make it possible.
-                            </p>
+                                a decade of experience in product development,........
+                                <a href="{% url 'founders_story' %}" class="text-primary hover:underline font-semibold">Read More &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -651,40 +644,19 @@
         <div class="container mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">News and Blogs</h2>
             <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600" alt="Blog Post 1"
-                        class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">The Future of Food Delivery</h3>
-                        <p class="text-gray-600 mb-4 text-sm">Explore the trends shaping how we eat and order food in
-                            the coming years.</p>
-                        <a href="#" class="text-primary hover:underline font-semibold">Read More &rarr;</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600" alt="Blog Post 2"
-                        class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Our Commitment to Sustainability</h3>
-                        <p class="text-gray-600 mb-4 text-sm">Learn how MamloFoods is using eco-friendly packaging and
-                            reducing food waste.</p>
-                        <a href="#" class="text-primary hover:underline font-semibold">Read More &rarr;</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600" alt="Blog Post 3"
-                        class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Top 10 Most Loved Dishes of 2024</h3>
-                        <p class="text-gray-600 mb-4 text-sm">A countdown of the most popular and highly-rated meals on
-                            our platform this year.</p>
-                        <a href="#" class="text-primary hover:underline font-semibold">Read More &rarr;</a>
-                    </div>
-                </div>
+
+            <!-- Loader -->
+            <div id="blogs-loader" class="flex justify-center items-center py-12">
+                <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+            </div>
+
+            <!-- Blog posts -->
+            <div class="grid md:grid-cols-3 gap-8 hidden" id="blogs-wrapper">
+                <!-- Blog cards will be injected here -->
             </div>
         </div>
     </section>
+  
 
     <script src="{% static 'js/home_data.js' %}"></script>
 

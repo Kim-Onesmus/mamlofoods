@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ".supporters-swiper-container"
   );
 
-  const blogsWrapper = document.getElementById("blogs-wrapper");
-  const blogsLoader = document.getElementById("blogs-loader");
-
   fetch("/api/mamlo-data/")
     .then((response) => response.json())
     .then((data) => {
@@ -50,32 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
       partnersLoader.classList.add("hidden");
       partnersSwiperContainer.classList.remove("hidden");
 
-      // === Blogs ===
-      blogsWrapper.innerHTML = "";
-      data.blogs.forEach((blog, index) => {
-        const imageUrl = blog.featured_image.startsWith("http")
-          ? blog.featured_image
-          : `/media/${blog.featured_image}`;
-
-        const card = document.createElement("div");
-        card.className = "bg-white rounded-lg shadow-lg overflow-hidden";
-        card.setAttribute("data-aos", "fade-up");
-        card.setAttribute("data-aos-delay", `${(index + 1) * 100}`);
-
-        card.innerHTML = `
-          <img src="${imageUrl}" alt="${blog.title}" class="w-full h-48 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-semibold mb-2">${blog.title}</h3>
-            <p class="text-gray-600 mb-4 text-sm">By ${blog.author} • ${blog.date_published}</p>
-            <a href="/details/${blog.slug}/" class="text-primary hover:underline font-semibold">Read More &rarr;</a>
-          </div>
-        `;
-        blogsWrapper.appendChild(card);
-      });
-
-      blogsLoader.classList.add("hidden");
-      blogsWrapper.classList.remove("hidden");
-
       initCounterAnimation();
       initImpactSwiper();
       initPartnersSwiper();
@@ -86,8 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "<p class='text-red-400'>Failed to load statistics.</p>";
       partnersLoader.innerHTML =
         "<p class='text-red-400'>Failed to load partner logos.</p>";
-      blogsLoader.innerHTML =
-        "<p class='text-red-400'>Failed to load blog posts.</p>";
     });
 
   // Counter animation

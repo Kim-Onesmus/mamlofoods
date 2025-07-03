@@ -6,7 +6,11 @@ from .models import Number, Vacancy, Blog, Partner
 def mamlo_combined_data_api(request):
     numbers = list(Number.objects.values("name", "number"))
     vacancies = list(Vacancy.objects.values("title", "description_file", "deadline"))
-    blogs = list(Blog.objects.values("title", "slug", "featured_image", "author", "date_published"))
+    blogs = list(
+        Blog.objects
+        .order_by("-date_published")[:3]
+        .values("title", "slug", "featured_image", "author", "date_published")
+    )
     partners = list(Partner.objects.values("image"))
 
     return JsonResponse({
@@ -29,3 +33,9 @@ def contact(request):
 
 def vacancies(request):
     return render(request, 'app/vacancies.html')
+
+def founders_story(request):
+    return render(request, 'app/founders_story.html')
+
+def blog_details(request, pk):
+    return render(request, 'app/details.html')

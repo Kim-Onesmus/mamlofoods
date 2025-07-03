@@ -7,5 +7,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('vacancies/', views.vacancies, name='vacancies'),
+    path('founders_story/', views.founders_story, name='founders_story'),
     path("api/mamlo-data/", views.mamlo_combined_data_api, name="mamlo-combined-data"),
+    path('details/<str:slug>/', views.blog_details, name='blog_details'),
+
 ]
