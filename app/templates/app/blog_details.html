@@ -32,7 +32,7 @@ A blog from MAMLO FOODS — {{ blog.title }}
         <div class="text-white max-w-2xl">
             <h1 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">{{ blog.title }}</h1>
             <p class="text-xl text-blue-100" data-aos="fade-up" data-aos-delay="200">
-                By {{ blog.author }} | {{ blog.date_published|date:"F d, Y" }}
+                By {{ blog.author }} | {{ blog.date_published}}
             </p>
         </div>
     </div>
@@ -55,8 +55,8 @@ A blog from MAMLO FOODS — {{ blog.title }}
                     {% endif %}
                     <div class="p-8 text-center">
                         <div class="flex flex-wrap justify-center items-center text-sm text-gray-500 mb-4 gap-4">
-                            <span class="flex items-center"><i class="fas fa-calendar mr-2"></i>{{
-                                blog.date_published|date:"F d, Y" }}</span>
+                            <span class="flex items-center"><i class="fas fa-calendar mr-2"></i>
+                                {{ blog.date_published|date:"F d, Y" }}</span>
                             <span class="flex items-center"><i class="fas fa-user mr-2"></i>{{ blog.author }}</span>
                         </div>
 
@@ -64,19 +64,24 @@ A blog from MAMLO FOODS — {{ blog.title }}
 
                         <div class="flex justify-center items-center space-x-4 mb-6">
                             <span class="text-gray-600">Share:</span>
-                            <a href="#" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"
+                                rel="noopener" class="text-blue-600 hover:text-blue-800" title="Share on Facebook">
                                 <i class="fab fa-facebook-f text-xl"></i>
                             </a>
-                            <a href="#" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-600">
+                            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ blog.title|urlencode }}"
+                                target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-600" title="Share on Twitter">
                                 <i class="fab fa-x-twitter text-xl"></i>
                             </a>
-                            <a href="#" target="_blank" rel="noopener" class="text-blue-700 hover:text-blue-900">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank"
+                                rel="noopener" class="text-blue-700 hover:text-blue-900" title="Share on LinkedIn">
                                 <i class="fab fa-linkedin-in text-xl"></i>
                             </a>
-                            <a href="#" target="_blank" rel="noopener" class="text-green-600 hover:text-green-800">
+                            <a href="https://api.whatsapp.com/send?text={{ blog.title|urlencode }}%20{{ request.build_absolute_uri }}"
+                                target="_blank" rel="noopener" class="text-green-600 hover:text-green-800" title="Share on WhatsApp">
                                 <i class="fab fa-whatsapp text-xl"></i>
                             </a>
                         </div>
+                        
                     </div>
                 </article>
 
