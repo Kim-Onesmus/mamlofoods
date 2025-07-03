@@ -156,6 +156,9 @@ JAZZMIN_SETTINGS = {
     "login_logo": "images/logo.png",
     "site_logo_classes": "img-circle",  # or img-square
     "site_icon": "images/favicon.png",  # Optional favicon
+    "site_logo_classes": "img-square",
+
+    "custom_css": "css/admin_custom.css",
 
     # Copyright
     "copyright": "© 2025 MAMLO FOODS",
@@ -198,9 +201,10 @@ JAZZMIN_SETTINGS = {
     "related_modal_active": True,
 
     # UI Tweaks
-    "custom_css": None,
     "custom_js": None,
     "show_ui_builder": False,
+
+    "primary_color": "#CA2E0A",
 
     # Theme customization (light with red highlights)
     "theme": "flatly",

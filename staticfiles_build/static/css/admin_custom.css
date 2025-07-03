@@ -1,0 +1,25 @@
+.login-logo img {
+    max-height: 120px !important;
+    width: auto !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* Apply primary brand color */
+
+/* Form labels and inputs */
+input, select, textarea, label {
+    border-radius: 6px !important;
+}
+
+/* Buttons */
+.btn-primary, .button.primary {
+    background-color: #CA2E0A !important;
+    border-color: #CA2E0A !important;
+}
+.btn-primary:hover {
+    background-color: #a72508 !important;
+    border-color: #a72508 !important;
+}

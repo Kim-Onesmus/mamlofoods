@@ -69,23 +69,6 @@ mobileMenu.querySelectorAll("a").forEach((link) => {
 
 
 
-const supportersSwiper = new Swiper(".supporters-swiper", {
-  loop: true,
-  slidesPerView: 2,
-  spaceBetween: 20,
-  autoplay: {
-    delay: 2500,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  },
-  breakpoints: {
-    640: { slidesPerView: 2, spaceBetween: 20 },
-    768: { slidesPerView: 3, spaceBetween: 40 },
-    1024: { slidesPerView: 4, spaceBetween: 50 },
-  },
-});
-manageSwiperAutoplay(supportersSwiper, ".supporters-swiper");
-
 // Smooth scroll for nav links
 document.querySelectorAll('a.nav-link[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
@@ -231,25 +214,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-const impactSwiper = new Swiper(".impactSwiper", {
-  loop: true,
-  autoplay: {
-    delay: 3500,
-    disableOnInteraction: false,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  slidesPerView: 1,
-  spaceBetween: 20,
-  breakpoints: {
-    640: {
-      slidesPerView: 2,
-    },
-    1024: {
-      slidesPerView: 4,
-    },
-  },
-});
