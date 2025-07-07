@@ -89,7 +89,7 @@
                 <img src="{% static 'images/logo.png' %}" alt="MamloFoods Logo" class="h-[60px] w-auto">
                 <a href="{% url 'index' %}" class="text-3xl font-bold text-primary">
                     MAMLO FOODS
-                    <span class="block text-sm text-gray-600">Uplifting Communities Naturally</span>
+                    <span class="block text-sm text-gray-600 italic">Uplifting Communities, Naturally</span>
                 </a>
             </div>
             <nav class="hidden md:flex space-x-6 text-black font-bold relative">
@@ -160,7 +160,7 @@
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left px-4">
             <div>
                 <h3 class="text-lg font-bold mb-4">MAMLO FOODS</h3>
-                <p class="text-gray-400">Uplifting Communities Naturally</p>
+                <p class="text-gray-400">Uplifting Communities, Naturally</p>
                 <div class="flex space-x-24 justify-center mt-6 md:justify-start">
                     <a href="https://web.facebook.com/people/MAMLO-FOODS/61565232155511/?_rdc=1&_rdr#" target="_blank"
                         class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-facebook"></i></a>
@@ -174,7 +174,8 @@
                     <li><a href="{% url 'index' %}#home" class="text-gray-400 hover:text-white py-1 block">Home</a></li>
                     <li><a href="{% url 'index' %}#about" class="text-gray-400 hover:text-white py-1 block">About Us</a></li>
                     <li><a href="{% url 'index' %}#news" class="text-gray-400 hover:text-white py-1 block">Blog</a></li>
-                    <li><a href="{% url 'index' %}#contact" class="text-gray-400 hover:text-white py-1 block">Contact</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-white py-1 block">Contact</a></li>
+                    <li><a href="{% url 'founders_story' %}" class="text-gray-400 hover:text-white py-1 block">Founders Story</a></li>
                 </ul>
             </div>
             <div>
@@ -191,6 +192,10 @@
                     <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
                         <i class="fas fa-map-marker-alt text-white"></i>
                         <span>Tom Mboya Estate, Kisumu, Kenya</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
+                        <i class="fas fa-map-marker-alt text-white"></i>
+                        <span>Amagoro Micro factory, Malaba, Kenya</span>
                     </li>
                     <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1">
                         <i class="fas fa-phone-alt text-white"></i>
