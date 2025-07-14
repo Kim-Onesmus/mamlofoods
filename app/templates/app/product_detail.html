@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details | Mamlo Foods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FFF8F2] text-gray-900 font-sans">
+    <!-- Header & Navigation (copied from shop_home.html) -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto flex items-center justify-between px-4 py-4">
+            <!-- Mobile: Toggle left, no logo/name -->
+            <div class="flex items-center md:hidden">
+                <button id="menu-btn" class="text-black focus:outline-none mr-2">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Desktop: Logo and name left -->
+            <div class="items-center space-x-2 hidden md:flex">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="MamloFoods Logo"
+                    class="h-[48px] w-auto">
+                <a href="/" class="text-2xl font-bold text-[#CA2E0A] leading-tight">
+                    MAMLO FOODS
+                    <span class="block text-xs text-gray-600 italic font-normal">E-commerce</span>
+                </a>
+            </div>
+            <!-- Nav Links + Icons (right) -->
+            <div class="flex items-center space-x-6">
+                <nav class="hidden md:flex space-x-6 text-black font-bold items-center">
+                    <a href="/" class="hover:text-[#CA2E0A] transition-colors">Home</a>
+                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">Offers</a>
+                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">My Orders</a>
+                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">Contact</a>
+                </nav>
+                <a href="#" class="relative group ml-2" aria-label="Cart">
+                    <i
+                        class="fa-solid fa-cart-shopping text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
+                    <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1">2</span>
+                </a>
+                <a href="#" class="relative group ml-2" aria-label="Wishlist">
+                    <i
+                        class="fa-regular fa-heart text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
+                    <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1">1</span>
+                </a>
+                <!-- Account Dropdown -->
+                <div class="relative group ml-2">
+                    <button id="account-menu-btn" aria-label="Account menu"
+                        class="flex items-center gap-2 focus:outline-none">
+                        <i
+                            class="fa-regular fa-user text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
+                        <span class="font-semibold text-[#CA2E0A] md:inline">John Doe</span>
+                        <svg class="w-4 h-4 text-[#CA2E0A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="account-menu"
+                        class="hidden absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg py-2 z-50">
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Profile</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My Orders</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Wishlist</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-white border-b shadow">
+            <nav class="flex flex-col space-y-2 text-black font-bold">
+                <a href="/" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="#" class="hover:text-[#CA2E0A]">Offers</a>
+                <a href="#" class="hover:text-[#CA2E0A]">My Orders</a>
+                <a href="#" class="hover:text-[#CA2E0A]">Contact</a>
+            </nav>
+        </div>
+        <script>
+            // Account dropdown desktop
+            const accBtn = document.getElementById('account-menu-btn');
+            const accMenu = document.getElementById('account-menu');
+            if (accBtn && accMenu) {
+                accBtn.onclick = function (e) {
+                    e.stopPropagation();
+                    accMenu.classList.toggle('hidden');
+                };
+                document.body.addEventListener('click', function () {
+                    accMenu.classList.add('hidden');
+                });
+                accMenu.addEventListener('click', function (e) { e.stopPropagation(); });
+            }
+            // Account dropdown mobile
+            const accBtnMob = document.getElementById('account-menu-btn-mobile');
+            const accMenuMob = document.getElementById('account-menu-mobile');
+            if (accBtnMob && accMenuMob) {
+                accBtnMob.onclick = function (e) {
+                    e.stopPropagation();
+                    accMenuMob.classList.toggle('hidden');
+                };
+                document.body.addEventListener('click', function () {
+                    accMenuMob.classList.add('hidden');
+                });
+                accMenuMob.addEventListener('click', function (e) { e.stopPropagation(); });
+            }
+            // Mobile menu toggle
+            document.getElementById('menu-btn').onclick = function () {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            };
+        </script>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="mb-6">
+            <nav class="flex items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
+                <a href="/" class="text-[#CA2E0A] font-bold hover:underline flex items-center gap-1">
+                    <i class="fa fa-home"></i> Home
+                </a>
+                <span class="mx-1">/</span>
+                <span class="text-gray-900 font-semibold">Product</span>
+            </nav>
+        </div>
+        <div
+            class="flex flex-col md:flex-row gap-12 items-center md:items-start bg-white rounded-3xl shadow-xl p-6 md:p-12">
+            <!-- Product Image -->
+            <div class="flex-1 w-full max-w-md mx-auto md:mx-0 relative">
+                <img src="https://images.unsplash.com/photo-1578552049113-8789366b47a7?auto=format&fit=crop&w=500&q=80"
+                    alt="250g Jar"
+                    class="w-full h-96 object-cover rounded-3xl shadow-xl border-4 border-white transition-transform duration-300 hover:scale-105">
+            </div>
+
+            <!-- Product Info & Actions (Redesigned) -->
+            <div class="flex-1 w-full max-w-xl flex flex-col gap-4">
+                <!-- Name -->
+                <h1 class="text-3xl md:text-4xl font-extrabold text-[#CA2E0A] mb-1">250g Jar</h1>
+                <!-- Reviews (stars + count, clickable) -->
+                <div class="flex items-center gap-2 cursor-pointer group" id="reviews-link">
+                    <div class="flex text-yellow-400 text-lg">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <span class="text-sm text-gray-600 group-hover:underline">4.0 (12 reviews)</span>
+                </div>
+                <!-- Price -->
+                <div class="text-2xl font-bold text-gray-900 mb-1">Ksh 350</div>
+                <!-- Stock Status -->
+                <div class="flex items-center gap-2 text-green-700 font-semibold mb-1">
+                    <i class="fa-solid fa-circle-check"></i> In Stock
+                </div>
+                <!-- Size & Product Code -->
+                <div class="flex flex-col gap-1 mb-1">
+                    <div class="flex items-center gap-2">
+                        <span class="text-gray-700 font-semibold">Size:</span>
+                        <span class="text-gray-900">250g</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-gray-700 font-semibold">Product Code:</span>
+                        <span class="text-gray-900">PNT-250G</span>
+                    </div>
+                </div>
+                <!-- Action Row: Quantity, Cart, Wishlist -->
+                <form class="flex flex-row gap-3 items-center mb-2">
+                    <!-- Quantity Control -->
+                    <div class="flex items-center border border-gray-300 rounded-full px-3 py-2 bg-white shadow w-auto">
+                        <button type="button"
+                            class="text-xl font-bold text-[#CA2E0A] hover:text-[#a82307] focus:outline-none">−</button>
+                        <input id="quantity" name="quantity" type="number" min="1" value="1"
+                            class="w-12 text-center border-none bg-transparent text-lg font-bold focus:ring-0 focus:outline-none" />
+                        <button type="button"
+                            class="text-xl font-bold text-[#CA2E0A] hover:text-[#a82307] focus:outline-none">+</button>
+                    </div>
+                    <!-- Add to Cart -->
+                    <button type="submit"
+                        class="bg-[#CA2E0A] text-white font-bold py-2 px-5 rounded-full shadow hover:bg-[#a82307] transition flex items-center gap-2 text-lg focus:ring-2 focus:ring-[#CA2E0A]">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        Add to Cart
+                    </button>
+                    <!-- Wishlist -->
+                    <button type="button"
+                        class="bg-white border border-[#CA2E0A] text-[#CA2E0A] py-2 px-5 rounded-full shadow hover:bg-[#CA2E0A] hover:text-white transition flex items-center gap-2 text-lg focus:ring-2 focus:ring-[#CA2E0A]">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <!-- Tabs for Description and Reviews -->
+        <div class="w-full mx-auto mt-12">
+            <div class="border-b border-gray-200 mb-4 flex justify-center">
+                <button id="tab-desc"
+                    class="tab-btn px-6 py-3 text-[#CA2E0A] font-bold border-b-2 border-[#CA2E0A] focus:outline-none"
+                    aria-selected="true" aria-controls="tabpanel-desc" role="tab">Description</button>
+                <button id="tab-reviews"
+                    class="tab-btn px-6 py-3 text-gray-600 font-bold border-b-2 border-transparent focus:outline-none"
+                    aria-selected="false" aria-controls="tabpanel-reviews" role="tab">Reviews</button>
+            </div>
+            <div id="tabpanel-desc" class="tab-panel" role="tabpanel" aria-labelledby="tab-desc">
+                <div class="bg-white rounded-2xl shadow p-6">
+                    <h2 class="text-xl font-bold mb-2 text-[#CA2E0A]">Product Description</h2>
+                    <p class="text-gray-700 mb-4">Experience the rich, creamy taste of our 250g Classic Jar peanut
+                        butter. Made from carefully selected, high-quality peanuts, roasted to perfection and ground for
+                        a smooth, irresistible texture. Perfect for spreading on toast, adding to smoothies, baking, or
+                        enjoying by the spoonful. No additives, no preservatives—just pure peanut goodness.</p>
+                    <ul class="list-disc pl-6 text-gray-600">
+                        <li>Ingredients: 100% Peanuts</li>
+                        <li>Allergen info: Contains peanuts</li>
+                        <li>Shelf life: 12 months</li>
+                        <li>Storage: Store in a cool, dry place. Stir well if oil separates.</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="tabpanel-reviews" class="tab-panel hidden" role="tabpanel" aria-labelledby="tab-reviews">
+                <div class="bg-white rounded-2xl shadow p-6">
+                    <h2 class="text-xl font-bold mb-4 text-[#CA2E0A]">Customer Reviews</h2>
+                    <!-- Example reviews, replace with dynamic content as needed -->
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="flex text-yellow-400 text-base">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                            <span class="text-gray-700 font-semibold">Jane W.</span>
+                            <span class="text-gray-500 text-xs">- 2 days ago</span>
+                        </div>
+                        <p class="text-gray-700">Delicious and creamy! My kids love it on toast. Will buy again.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="flex text-yellow-400 text-base">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                            <span class="text-gray-700 font-semibold">Peter M.</span>
+                            <span class="text-gray-500 text-xs">- 1 week ago</span>
+                        </div>
+                        <p class="text-gray-700">Good taste but a bit oily for my preference.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="flex text-yellow-400 text-base">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-gray-700 font-semibold">Amina K.</span>
+                            <span class="text-gray-500 text-xs">- 3 weeks ago</span>
+                        </div>
+                        <p class="text-gray-700">Best peanut butter I've tried. Highly recommend!</p>
+                    </div>
+                    <!-- End example reviews -->
+                </div>
+            </div>
+        </div>
+        <!-- Trust/Payment/Delivery Badges -->
+        <section class="py-6 bg-[#FFF8F2] border-t mt-12 rounded-2xl">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8 text-center">
+                <div class="flex items-center gap-2 text-gray-700"><i
+                        class="fa-solid fa-lock text-[#CA2E0A] text-xl"></i> <span>100% Secure Payment</span></div>
+                <div class="flex items-center gap-2 text-gray-700"><i
+                        class="fa-solid fa-truck-fast text-[#CA2E0A] text-xl"></i> <span>Fast Delivery</span></div>
+                <div class="flex items-center gap-2 text-gray-700"><i
+                        class="fa-solid fa-rotate-left text-[#CA2E0A] text-xl"></i> <span>Money-back Guarantee</span>
+                </div>
+                <div class="flex items-center gap-2 text-gray-700"><i
+                        class="fa-solid fa-headset text-[#CA2E0A] text-xl"></i> <span>24/7 Support</span></div>
+            </div>
+        </section>
+        <script>
+            // Simple tab logic
+            const tabDesc = document.getElementById('tab-desc');
+            const tabReviews = document.getElementById('tab-reviews');
+            const panelDesc = document.getElementById('tabpanel-desc');
+            const panelReviews = document.getElementById('tabpanel-reviews');
+            tabDesc.onclick = function () {
+                tabDesc.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
+                tabDesc.classList.remove('text-gray-600', 'border-transparent');
+                tabDesc.setAttribute('aria-selected', 'true');
+                tabReviews.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
+                tabReviews.classList.add('text-gray-600', 'border-transparent');
+                tabReviews.setAttribute('aria-selected', 'false');
+                panelDesc.classList.remove('hidden');
+                panelReviews.classList.add('hidden');
+            };
+            tabReviews.onclick = function () {
+                tabReviews.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
+                tabReviews.classList.remove('text-gray-600', 'border-transparent');
+                tabReviews.setAttribute('aria-selected', 'true');
+                tabDesc.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
+                tabDesc.classList.add('text-gray-600', 'border-transparent');
+                tabDesc.setAttribute('aria-selected', 'false');
+                panelDesc.classList.add('hidden');
+                panelReviews.classList.remove('hidden');
+            };
+            // Make reviews summary clickable to open reviews tab
+            document.getElementById('reviews-link').onclick = function () {
+                tabReviews.click();
+                window.scrollTo({
+                    top: document.getElementById('tabpanel-reviews').getBoundingClientRect().top + window.scrollY - 100,
+                    behavior: 'smooth'
+                });
+            };
+            // Quantity + and - buttons logic
+            const qtyInput = document.getElementById('quantity');
+            const qtyMinus = qtyInput.parentElement.querySelector('button:first-child');
+            const qtyPlus = qtyInput.parentElement.querySelector('button:last-child');
+            qtyMinus.addEventListener('click', function (e) {
+                e.preventDefault();
+                let val = parseInt(qtyInput.value) || 1;
+                if (val > 1) qtyInput.value = val - 1;
+            });
+            qtyPlus.addEventListener('click', function (e) {
+                e.preventDefault();
+                let val = parseInt(qtyInput.value) || 1;
+                qtyInput.value = val + 1;
+            });
+        </script>
+    </main>
+
+    <!-- Footer (copied from shop_home.html) -->
+    <footer class="bg-gray-800 text-white py-12 mt-16">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-left px-4">
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-left">MAMLO FOODS</h3>
+                <p class="text-gray-400 text-left">Uplifting Communities, Naturally</p>
+                <div class="flex space-x-24 justify-start mt-6">
+                    <a href="https://web.facebook.com/people/MAMLO-FOODS/61565232155511/?_rdc=1&_rdr#" target="_blank"
+                        class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/company/mamlo-foods/" target="_blank"
+                        class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-left">Quick Links</h3>
+                <ul class="text-left">
+                    <li><a href="/orders/" class="text-gray-400 hover:text-white py-1 block">My Orders</a></li>
+                    <li><a href="/account/" class="text-gray-400 hover:text-white py-1 block">Account</a></li>
+                    <li><a href="/wishlist/" class="text-gray-400 hover:text-white py-1 block">Wishlist</a></li>
+                    <li><a href="/cart/" class="text-gray-400 hover:text-white py-1 block">Cart</a></li>
+                    <li><a href="/logout/" class="text-gray-400 hover:text-white py-1 block">Logout</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-left">Our Products</h3>
+                <ul class="text-left">
+                    <li><a href="/product/100g/" class="text-gray-400 hover:text-white py-1 block">100g Mini Jar</a>
+                    </li>
+                    <li><a href="/product/250g/" class="text-gray-400 hover:text-white py-1 block">250g Classic Jar</a>
+                    </li>
+                    <li><a href="/product/400g/" class="text-gray-400 hover:text-white py-1 block">400g Family Jar</a>
+                    </li>
+                    <li><a href="/product/800g/" class="text-gray-400 hover:text-white py-1 block">800g Value Jar</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-left">Contact Us</h3>
+                <ul class="text-left">
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-map-marker-alt text-white"></i><span>Tom Mboya Estate, Kisumu, Kenya</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-map-marker-alt text-white"></i><span>Amagoro Micro factory, Malaba,
+                            Kenya</span></li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-phone-alt text-white"></i><span>+254 714 725 864</span></li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-envelope text-white"></i><span>hello@mamlofoods.com</span></li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-clock text-white"></i><span>Mon-Fri 8:00 AM - 5:00 PM</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto text-center mt-8 border-t border-gray-700 pt-6">
+            <p class="text-gray-200">&copy; 2025 MamloFoods. All Rights Reserved.</p>
+            <p class="text-gray-200">Developed by <a class="font-bold" href="#" target="_blank">Kim Technologies</a></p>
+        </div>
+    </footer>
+</body>
+
+</html>

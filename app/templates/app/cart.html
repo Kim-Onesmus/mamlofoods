@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart | Mamlo Foods</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FFF8F2] text-gray-900 font-sans">
+    <!-- Header & Navigation (copied from shop_home.html) -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto flex items-center justify-between px-4 py-4">
+            <!-- Mobile: Toggle left, no logo/name -->
+            <div class="flex items-center md:hidden">
+                <button id="menu-btn" class="text-black focus:outline-none mr-2">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Desktop: Logo and name left -->
+            <div class="items-center space-x-2 hidden md:flex">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="MamloFoods Logo"
+                    class="h-[48px] w-auto">
+                <a href="/" class="text-2xl font-bold text-[#CA2E0A] leading-tight">
+                    MAMLO FOODS
+                    <span class="block text-xs text-gray-600 italic font-normal">E-commerce</span>
+                </a>
+            </div>
+            <!-- Nav Links + Icons (right) -->
+            <div class="flex items-center space-x-6">
+                <nav class="hidden md:flex space-x-6 text-black font-bold items-center">
+                    <a href="/" class="hover:text-[#CA2E0A] transition-colors">Home</a>
+                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">Offers</a>
+                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">My Orders</a>
+                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">Contact</a>
+                </nav>
+                <a href="#" class="relative group ml-2" aria-label="Cart">
+                    <i
+                        class="fa-solid fa-cart-shopping text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
+                    <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1">2</span>
+                </a>
+                <a href="#" class="relative group ml-2" aria-label="Wishlist">
+                    <i
+                        class="fa-regular fa-heart text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
+                    <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1">1</span>
+                </a>
+                <!-- Account Dropdown -->
+                <div class="relative group ml-2">
+                    <button id="account-menu-btn" aria-label="Account menu"
+                        class="flex items-center gap-2 focus:outline-none">
+                        <i
+                            class="fa-regular fa-user text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
+                        <span class="font-semibold text-[#CA2E0A] md:inline">John Doe</span>
+                        <svg class="w-4 h-4 text-[#CA2E0A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="account-menu"
+                        class="hidden absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg py-2 z-50">
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Profile</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My Orders</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Wishlist</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-white border-b shadow">
+            <nav class="flex flex-col space-y-2 text-black font-bold">
+                <a href="/" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="#" class="hover:text-[#CA2E0A]">Offers</a>
+                <a href="#" class="hover:text-[#CA2E0A]">My Orders</a>
+                <a href="#" class="hover:text-[#CA2E0A]">Contact</a>
+            </nav>
+        </div>
+        <script>
+            // Account dropdown desktop
+            const accBtn = document.getElementById('account-menu-btn');
+            const accMenu = document.getElementById('account-menu');
+            if (accBtn && accMenu) {
+                accBtn.onclick = function (e) {
+                    e.stopPropagation();
+                    accMenu.classList.toggle('hidden');
+                };
+                document.body.addEventListener('click', function () {
+                    accMenu.classList.add('hidden');
+                });
+                accMenu.addEventListener('click', function (e) { e.stopPropagation(); });
+            }
+            // Account dropdown mobile
+            const accBtnMob = document.getElementById('account-menu-btn-mobile');
+            const accMenuMob = document.getElementById('account-menu-mobile');
+            if (accBtnMob && accMenuMob) {
+                accBtnMob.onclick = function (e) {
+                    e.stopPropagation();
+                    accMenuMob.classList.toggle('hidden');
+                };
+                document.body.addEventListener('click', function () {
+                    accMenuMob.classList.add('hidden');
+                });
+                accMenuMob.addEventListener('click', function (e) { e.stopPropagation(); });
+            }
+            // Mobile menu toggle
+            document.getElementById('menu-btn').onclick = function () {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            };
+        </script>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+<div class="mb-6">
+    <nav class="flex items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
+        <a href="/" class="text-[#CA2E0A] font-bold hover:underline flex items-center gap-1">
+            <i class="fa fa-home"></i> Home
+        </a>
+        <span class="mx-1">/</span>
+        <span class="text-gray-900 font-semibold">Shopping Cart</span>
+    </nav>
+</div>
+        <div class="overflow-x-auto bg-white rounded-2xl shadow-lg p-4 md:p-8 mb-8">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr class="text-left text-gray-600 uppercase text-xs">
+                        <th class="py-3">Product</th>
+                        <th class="py-3">Name</th>
+                        <th class="py-3">Size</th>
+                        <th class="py-3">Price</th>
+                        <th class="py-3">Quantity</th>
+                        <th class="py-3">Subtotal</th>
+                        <th class="py-3"></th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <!-- Cart Item 1 -->
+                    <tr>
+                        <td class="py-4">
+                            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=80&q=80"
+                                alt="250g Classic Jar" class="w-16 h-16 object-cover rounded-xl border">
+                        </td>
+                        <td class="py-4 font-bold text-[#CA2E0A]">250g Classic Jar</td>
+                        <td class="py-4">250g</td>
+                        <td class="py-4">KES 200</td>
+                        <td class="py-4">
+                            <input type="number" min="1" value="2"
+                                class="w-16 border border-gray-300 rounded px-2 py-1 text-center focus:ring-2 focus:ring-[#CA2E0A]">
+                        </td>
+                        <td class="py-4 font-bold">KES 400</td>
+                        <td class="py-4 text-center">
+                            <button class="text-red-500 hover:text-red-700" title="Remove">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Cart Item 2 -->
+                    <tr>
+                        <td class="py-4">
+                            <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=80&q=80"
+                                alt="400g Family Jar" class="w-16 h-16 object-cover rounded-xl border">
+                        </td>
+                        <td class="py-4 font-bold text-[#CA2E0A]">400g Family Jar</td>
+                        <td class="py-4">400g</td>
+                        <td class="py-4">KES 350</td>
+                        <td class="py-4">
+                            <input type="number" min="1" value="1"
+                                class="w-16 border border-gray-300 rounded px-2 py-1 text-center focus:ring-2 focus:ring-[#CA2E0A]">
+                        </td>
+                        <td class="py-4 font-bold">KES 350</td>
+                        <td class="py-4 text-center">
+                            <button class="text-red-500 hover:text-red-700" title="Remove">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Cart Totals & Actions -->
+        <div class="max-w-xl mx-auto bg-white rounded-2xl shadow p-6 mb-12">
+            <div class="flex flex-col gap-4 mb-6">
+                <div class="flex justify-between text-lg font-semibold">
+                    <span>Subtotal</span>
+                    <span>KES 750</span>
+                </div>
+                <div class="flex justify-between text-lg">
+                    <span>Shipping</span>
+                    <span>KES 150</span>
+                </div>
+                <div class="flex justify-between text-xl font-extrabold border-t pt-4">
+                    <span>Total</span>
+                    <span>KES 900</span>
+                </div>
+            </div>
+            <a href="#"
+                class="block w-full bg-[#CA2E0A] text-white text-center font-bold py-3 rounded-full shadow hover:bg-[#a82307] transition text-lg mb-3">Proceed
+                to Checkout</a>
+            <a href="/" class="block w-full text-center text-[#CA2E0A] font-bold hover:underline">&larr; Continue
+                Shopping</a>
+        </div>
+    </main>
+
+    <!-- Footer (copied from shop_home.html) -->
+    <footer class="bg-gray-800 text-white py-12 mt-16">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-left px-4">
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-left">MAMLO FOODS</h3>
+                <p class="text-gray-400 text-left">Uplifting Communities, Naturally</p>
+                <div class="flex space-x-24 justify-start mt-6">
+                    <a href="https://web.facebook.com/people/MAMLO-FOODS/61565232155511/?_rdc=1&_rdr#" target="_blank"
+                        class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/company/mamlo-foods/" target="_blank"
+                        class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-left">Quick Links</h3>
+                <ul class="text-left">
+                    <li><a href="/orders/" class="text-gray-400 hover:text-white py-1 block">My Orders</a></li>
+                    <li><a href="/account/" class="text-gray-400 hover:text-white py-1 block">Account</a></li>
+                    <li><a href="/wishlist/" class="text-gray-400 hover:text-white py-1 block">Wishlist</a></li>
+                    <li><a href="/cart/" class="text-gray-400 hover:text-white py-1 block">Cart</a></li>
+                    <li><a href="/logout/" class="text-gray-400 hover:text-white py-1 block">Logout</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-left">Our Products</h3>
+                <ul class="text-left">
+                    <li><a href="/product/100g/" class="text-gray-400 hover:text-white py-1 block">100g Mini Jar</a>
+                    </li>
+                    <li><a href="/product/250g/" class="text-gray-400 hover:text-white py-1 block">250g Classic Jar</a>
+                    </li>
+                    <li><a href="/product/400g/" class="text-gray-400 hover:text-white py-1 block">400g Family Jar</a>
+                    </li>
+                    <li><a href="/product/800g/" class="text-gray-400 hover:text-white py-1 block">800g Value Jar</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-left">Contact Us</h3>
+                <ul class="text-left">
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-map-marker-alt text-white"></i><span>Tom Mboya Estate, Kisumu, Kenya</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-map-marker-alt text-white"></i><span>Amagoro Micro factory, Malaba,
+                            Kenya</span></li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-phone-alt text-white"></i><span>+254 714 725 864</span></li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-envelope text-white"></i><span>hello@mamlofoods.com</span></li>
+                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
+                            class="fas fa-clock text-white"></i><span>Mon-Fri 8:00 AM - 5:00 PM</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto text-center mt-8 border-t border-gray-700 pt-6">
+            <p class="text-gray-200">&copy; 2025 MamloFoods. All Rights Reserved.</p>
+            <p class="text-gray-200">Developed by <a class="font-bold" href="#" target="_blank">Kim Technologies</a></p>
+        </div>
+    </footer>
+</body>
+
+</html>
