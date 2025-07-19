@@ -23,4 +23,4 @@ def Login(request):
     return render(request, 'e_commerce/login.html')
 
 def Account(request):
-    return render(request, 'e_commerce/product_detail.html')
+    return render(request, 'e_commerce/account.html')

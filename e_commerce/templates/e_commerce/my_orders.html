@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'ecom_base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>My Orders | Mamlo Foods</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="/static/css/main.css">
-</head>
-
-<body class="bg-[#FFF8F2] text-gray-900 font-sans">
-    <!-- Header (reuse your existing header code here) -->
-    <main class="container mx-auto px-4 py-12">
+{% block content %}
+    <main class="container mx-auto px-4 py-4">
         <!-- Breadcrumb Card -->
         <div class="bg-white rounded-xl shadow p-4 mb-8">
             <nav class="flex items-center text-gray-600 text-sm" aria-label="Breadcrumb">
@@ -20,15 +10,6 @@
                 <span class="mx-2">/</span>
                 <span class="text-[#CA2E0A] font-bold">My Orders</span>
             </nav>
-        </div>
-        <!-- User Welcome -->
-        <div class="flex items-center gap-4 mb-8">
-            <img src="https://ui-avatars.com/api/?name=John+Doe&background=ca2e0a&color=fff&size=64" alt="User Avatar"
-                class="w-12 h-12 rounded-full border-2 border-[#CA2E0A]">
-            <div>
-                <div class="text-lg font-bold">Welcome back, John!</div>
-                <div class="text-gray-500 text-sm">Here are your recent orders.</div>
-            </div>
         </div>
         <!-- Tabs -->
         <div>
@@ -433,6 +414,4 @@
             openModal('review-modal');
         }
     </script>
-</body>
-
-</html>
+{% endblock content %}
