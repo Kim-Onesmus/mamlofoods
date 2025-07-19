@@ -88,12 +88,11 @@
             <!-- Nav Links + Icons (right) -->
             <div class="flex items-center space-x-6">
                 <nav class="hidden md:flex space-x-6 text-black font-bold items-center">
-                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">Home</a>
-                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">Offers</a>
-                    <a href="#" class="hover:text-[#CA2E0A] transition-colors">My Orders</a>
+                    <a href="{% url 'home' %}" class="hover:text-[#CA2E0A] transition-colors">Home</a>
+                    <a href="{% url 'order_page' %}" class="hover:text-[#CA2E0A] transition-colors">My Orders</a>
                     <a href="{% url 'contact' %}" class="hover:text-[#CA2E0A] transition-colors">Contact</a>
                 </nav>
-                <a href="#" class="relative group ml-2" aria-label="Cart">
+                <a href="{% url 'cart' %}" class="relative group ml-2" aria-label="Cart">
                     <i
                         class="fa-solid fa-cart-shopping text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
                     <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1">2</span>
@@ -116,8 +115,8 @@
                     </button>
                     <div id="account-menu"
                         class="hidden absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg py-2 z-50">
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Profile</a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My Orders</a>
+                        <a href="{% url 'account' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Profile</a>
+                        <a href="{% url 'order_page' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My Orders</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Wishlist</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Logout</a>
                     </div>
@@ -127,10 +126,9 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-white border-b shadow">
             <nav class="flex flex-col space-y-2 text-black font-bold">
-                <a href="#" class="hover:text-[#CA2E0A]">Home</a>
-                <a href="#" class="hover:text-[#CA2E0A]">Offers</a>
-                <a href="#" class="hover:text-[#CA2E0A]">My Orders</a>
-                <a href="#" class="hover:text-[#CA2E0A]">Contact</a>
+                <a href="{% url 'home' %}" class="hover:text-[#CA2E0A]">Home</a>
+                <a href="{% url 'order_page' %}" class="hover:text-[#CA2E0A]">My Orders</a>
+                <a href="{% url 'contact' %}" class="hover:text-[#CA2E0A]">Contact</a>
             </nav>
         </div>
         <script>
@@ -187,10 +185,10 @@
             <div>
                 <h3 class="text-lg font-bold mb-4 text-left">Quick Links</h3>
                 <ul class="text-left">
-                    <li><a href="/orders/" class="text-gray-400 hover:text-white py-1 block">My Orders</a></li>
-                    <li><a href="/account/" class="text-gray-400 hover:text-white py-1 block">Account</a></li>
+                    <li><a href="{% url 'order_page' %}" class="text-gray-400 hover:text-white py-1 block">My Orders</a></li>
+                    <li><a href="{% url 'account' %}" class="text-gray-400 hover:text-white py-1 block">Account</a></li>
                     <li><a href="/wishlist/" class="text-gray-400 hover:text-white py-1 block">Wishlist</a></li>
-                    <li><a href="/cart/" class="text-gray-400 hover:text-white py-1 block">Cart</a></li>
+                    <li><a href="{% url 'cart' %}" class="text-gray-400 hover:text-white py-1 block">Cart</a></li>
                     <li><a href="/logout/" class="text-gray-400 hover:text-white py-1 block">Logout</a></li>
                 </ul>
             </div>
