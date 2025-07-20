@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .map(
           (product) => `
                 <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-stretch p-0 overflow-hidden group">
-                    <a href="/product/${
+                    <a href="/store/product/${
                       product.slug
                     }/" class="block focus:ring-2 focus:ring-[#CA2E0A]">
                         <div class="w-full h-48 bg-gray-100 md:h-48 h-32 flex items-center justify-center">

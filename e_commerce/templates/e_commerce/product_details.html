@@ -6,18 +6,9 @@
     <!-- Breadcrumb Card -->
     <div class="bg-white rounded-xl shadow p-4 mb-8">
         <nav class="flex items-center text-gray-600 text-sm" aria-label="Breadcrumb">
-            <a href="/" class="hover:text-[#CA2E0A] font-semibold">Home</a>
+            <a href="{% url 'home' %}" class="hover:text-[#CA2E0A] font-semibold">Home</a>
             <span class="mx-2">/</span>
             <span class="text-[#CA2E0A] font-bold">{{ product.name }}</span>
-        </nav>
-    </div>
-    <div class="mb-6">
-        <nav class="flex items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
-            <a href="/" class="text-[#CA2E0A] font-bold hover:underline flex items-center gap-1">
-                <i class="fa fa-home"></i> Home
-            </a>
-            <span class="mx-1">/</span>
-            <span class="text-gray-900 font-semibold">{{ product.name }}</span>
         </nav>
     </div>
     <div
@@ -64,7 +55,7 @@
                 <button type="submit"
                     class="bg-[#CA2E0A] text-white font-bold py-2 px-5 rounded-full shadow hover:bg-[#a82307] transition flex items-center gap-2 text-lg focus:ring-2 focus:ring-[#CA2E0A]">
                     <i class="fa-solid fa-cart-plus"></i>
-                    Add to Cart
+                    <span class="hidden lg:block">Add to Cart</span>
                 </button>
                 <!-- Wishlist -->
                 <button type="button"
@@ -153,55 +144,55 @@
                     class="fa-solid fa-headset text-[#CA2E0A] text-xl"></i> <span>24/7 Support</span></div>
         </div>
     </section>
-    <script>
-        // Simple tab logic
-        const tabDesc = document.getElementById('tab-desc');
-        const tabReviews = document.getElementById('tab-reviews');
-        const panelDesc = document.getElementById('tabpanel-desc');
-        const panelReviews = document.getElementById('tabpanel-reviews');
-        tabDesc.onclick = function () {
-            tabDesc.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
-            tabDesc.classList.remove('text-gray-600', 'border-transparent');
-            tabDesc.setAttribute('aria-selected', 'true');
-            tabReviews.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
-            tabReviews.classList.add('text-gray-600', 'border-transparent');
-            tabReviews.setAttribute('aria-selected', 'false');
-            panelDesc.classList.remove('hidden');
-            panelReviews.classList.add('hidden');
-        };
-        tabReviews.onclick = function () {
-            tabReviews.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
-            tabReviews.classList.remove('text-gray-600', 'border-transparent');
-            tabReviews.setAttribute('aria-selected', 'true');
-            tabDesc.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
-            tabDesc.classList.add('text-gray-600', 'border-transparent');
-            tabDesc.setAttribute('aria-selected', 'false');
-            panelDesc.classList.add('hidden');
-            panelReviews.classList.remove('hidden');
-        };
-        // Make reviews summary clickable to open reviews tab
-        document.getElementById('reviews-link').onclick = function () {
-            tabReviews.click();
-            window.scrollTo({
-                top: document.getElementById('tabpanel-reviews').getBoundingClientRect().top + window.scrollY - 100,
-                behavior: 'smooth'
+        <script>
+            // Simple tab logic
+            const tabDesc = document.getElementById('tab-desc');
+            const tabReviews = document.getElementById('tab-reviews');
+            const panelDesc = document.getElementById('tabpanel-desc');
+            const panelReviews = document.getElementById('tabpanel-reviews');
+            tabDesc.onclick = function () {
+                tabDesc.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
+                tabDesc.classList.remove('text-gray-600', 'border-transparent');
+                tabDesc.setAttribute('aria-selected', 'true');
+                tabReviews.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
+                tabReviews.classList.add('text-gray-600', 'border-transparent');
+                tabReviews.setAttribute('aria-selected', 'false');
+                panelDesc.classList.remove('hidden');
+                panelReviews.classList.add('hidden');
+            };
+            tabReviews.onclick = function () {
+                tabReviews.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
+                tabReviews.classList.remove('text-gray-600', 'border-transparent');
+                tabReviews.setAttribute('aria-selected', 'true');
+                tabDesc.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
+                tabDesc.classList.add('text-gray-600', 'border-transparent');
+                tabDesc.setAttribute('aria-selected', 'false');
+                panelDesc.classList.add('hidden');
+                panelReviews.classList.remove('hidden');
+            };
+            // Make reviews summary clickable to open reviews tab
+            document.getElementById('reviews-link').onclick = function () {
+                tabReviews.click();
+                window.scrollTo({
+                    top: document.getElementById('tabpanel-reviews').getBoundingClientRect().top + window.scrollY - 100,
+                    behavior: 'smooth'
+                });
+            };
+            // Quantity + and - buttons logic
+            const qtyInput = document.getElementById('quantity');
+            const qtyMinus = qtyInput.parentElement.querySelector('button:first-child');
+            const qtyPlus = qtyInput.parentElement.querySelector('button:last-child');
+            qtyMinus.addEventListener('click', function (e) {
+                e.preventDefault();
+                let val = parseInt(qtyInput.value) || 1;
+                if (val > 1) qtyInput.value = val - 1;
             });
-        };
-        // Quantity + and - buttons logic
-        const qtyInput = document.getElementById('quantity');
-        const qtyMinus = qtyInput.parentElement.querySelector('button:first-child');
-        const qtyPlus = qtyInput.parentElement.querySelector('button:last-child');
-        qtyMinus.addEventListener('click', function (e) {
-            e.preventDefault();
-            let val = parseInt(qtyInput.value) || 1;
-            if (val > 1) qtyInput.value = val - 1;
-        });
-        qtyPlus.addEventListener('click', function (e) {
-            e.preventDefault();
-            let val = parseInt(qtyInput.value) || 1;
-            qtyInput.value = val + 1;
-        });
-    </script>
+            qtyPlus.addEventListener('click', function (e) {
+                e.preventDefault();
+                let val = parseInt(qtyInput.value) || 1;
+                qtyInput.value = val + 1;
+            });
+        </script>
 </main>
 
 {% endblock content %}
