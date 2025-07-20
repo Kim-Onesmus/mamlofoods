@@ -1,139 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'ecom_base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Account | Mamlo Foods</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-
-<body class="bg-[#F8F9FB]">
-<div class="flex flex-col md:flex-row h-full items-stretch">
-    <!-- Sidebar -->
-    <aside
-        class="bg-white md:w-72 w-full shadow md:shadow-lg flex flex-col items-center md:items-stretch p-0 md:rounded-none ml-0 md:ml-24 mt-4">
-        <div class="flex flex-col items-center py-4 border-b border-gray-100">
-            <img src="https://ui-avatars.com/api/?name=Onesmus+Kimanzi&background=ca2e0a&color=fff&size=96"
-                alt="User Avatar" class="w-12 h-12 rounded-full border-2 border-[#CA2E0A] mb-1">
-            <div class="font-bold text-sm">Onesmus Kimanzi</div>
-            <div class="text-gray-500 text-xs">Kimonesmuske@gmail.com</div>
-        </div>
-
-        <nav class="flex-1 w-full mt-2">
-            <ul class="space-y-1">
-                <li>
-                    <button type="button"
-                        class="account-tab-btn flex items-center gap-3 w-full px-4 py-2 text-left rounded-lg text-gray-700 hover:bg-[#FFF3ED] transition font-semibold active-tab bg-[#FFF3ED] text-[#CA2E0A]"
-                        data-tab="profile"><i class="fa fa-user" style="color:#CA2E0A;"></i>Profile</button>
-                </li>
-                <li>
-                    <button type="button"
-                        class="account-tab-btn flex items-center gap-3 w-full px-4 py-2 text-left rounded-lg text-gray-700 hover:bg-[#FFF3ED] transition font-semibold"
-                        data-tab="settings"><i class="fa fa-gear" style="color:#CA2E0A;"></i>Settings</button>
-                </li>
-            </ul>
+{% block content %}
+<main class="container mx-auto px-4 py-4">
+    <!-- Breadcrumb Card -->
+    <div class="bg-white rounded-xl shadow p-4 mb-8">
+        <nav class="flex items-center text-gray-600 text-sm" aria-label="Breadcrumb">
+            <a href="/" class="hover:text-[#CA2E0A] font-semibold">Home</a>
+            <span class="mx-2">/</span>
+            <span class="text-[#CA2E0A] font-bold">Shopping Cart</span>
         </nav>
-
-        <form method="post" action="/logout/" class="w-full mt-auto mb-4">
-            <button type="submit"
-                class="flex items-center gap-3 w-full px-4 py-2 rounded-lg text-red-600 hover:bg-red-50 font-bold transition">
-                <i class="fa fa-sign-out-alt"></i>Logout
-            </button>
-        </form>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 flex justify-center items-start py-10 px-2 md:px-6">
-        <div class="w-full max-w-3xl bg-white rounded-2xl shadow p-6 md:p-10">
-                <!-- Profile Tab -->
-                <div class="account-tab-content" id="tab-profile">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span
-                            class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#FFF3ED] text-[#CA2E0A]">
-                            <i class="fa fa-user fa-lg"></i>
-                        </span>
-                        <h2 class="text-2xl font-bold text-gray-900">Profile</h2>
-                    </div>
-                    <form method="post" autocomplete="off">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label for="first_name" class="block text-gray-700 font-semibold mb-2">First
-                                    Name</label>
-                                <input type="text" id="first_name" name="first_name" required
-                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
-                                    placeholder="Onesmus">
-                            </div>
-                            <div>
-                                <label for="last_name" class="block text-gray-700 font-semibold mb-2">Last Name</label>
-                                <input type="text" id="last_name" name="last_name" required
-                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
-                                    placeholder="Kimanzi">
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
-                            <input type="email" id="email" name="email" required
-                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
-                                placeholder="Kimonesmuske@gmail.com">
-                        </div>
-                        <div class="mb-6">
-                            <label for="phone" class="block text-gray-700 font-semibold mb-2">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required
-                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
-                                placeholder="e.g. +254712345678">
-                        </div>
-                        <button type="submit"
-                            class="mt-2 px-6 py-2 rounded-lg bg-[#CA2E0A] text-white font-bold text-base hover:bg-[#a82307] transition">Update
-                            Profile</button>
-                    </form>
-                </div>
-                <!-- Settings Tab -->
-                <div class="account-tab-content hidden" id="tab-settings">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span
-                            class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#FFF3ED] text-[#CA2E0A]">
-                            <i class="fa fa-gear fa-lg"></i>
-                        </span>
-                        <h2 class="text-2xl font-bold text-gray-900">Account Settings</h2>
-                    </div>
-                    <form method="post" autocomplete="off" class="bg-white rounded-xl">
-                        <div class="mb-6">
-                            <h3 class="text-lg font-semibold mb-4">Change Password</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="current_password" class="block text-gray-700 font-semibold mb-2">Current
-                                        Password</label>
-                                    <input type="password" id="current_password" name="current_password" required
-                                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
-                                        placeholder="">
-                                </div>
-                                <div>
-                                    <label for="new_password" class="block text-gray-700 font-semibold mb-2">New
-                                        Password</label>
-                                    <input type="password" id="new_password" name="new_password" required
-                                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
-                                        placeholder="">
-                                    <span class="text-xs text-gray-400 mt-1 block">Minimum 8 characters</span>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <label for="confirm_new_password" class="block text-gray-700 font-semibold mb-2">Confirm
-                                    New Password</label>
-                                <input type="password" id="confirm_new_password" name="confirm_new_password" required
-                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
-                                    placeholder="">
-                            </div>
-                        </div>
-                        <button type="submit"
-                            class="mt-4 px-6 py-2 rounded-lg bg-[#CA2E0A] text-white font-bold text-base hover:bg-[#a82307] transition">Update
-                            Password</button>
-                    </form>
-                </div>
+    </div>
+    <div class="flex flex-col md:flex-row h-full items-stretch">
+        <!-- Sidebar -->
+        <aside
+            class="bg-white md:w-72 w-full shadow md:shadow-lg flex flex-col items-center md:items-stretch p-0 md:rounded-none ml-0 md:ml-24 mt-4">
+            <div class="flex flex-col items-center py-4 border-b border-gray-100">
+                <img src="https://ui-avatars.com/api/?name=Onesmus+Kimanzi&background=ca2e0a&color=fff&size=96"
+                    alt="User Avatar" class="w-12 h-12 rounded-full border-2 border-[#CA2E0A] mb-1">
+                <div class="font-bold text-sm">Onesmus Kimanzi</div>
+                <div class="text-gray-500 text-xs">Kimonesmuske@gmail.com</div>
             </div>
-        </main>
+
+            <nav class="flex-1 w-full mt-2">
+                <ul class="space-y-1">
+                    <li>
+                        <button type="button"
+                            class="account-tab-btn flex items-center gap-3 w-full px-4 py-2 text-left rounded-lg text-gray-700 hover:bg-[#FFF3ED] transition font-semibold active-tab bg-[#FFF3ED] text-[#CA2E0A]"
+                            data-tab="profile"><i class="fa fa-user" style="color:#CA2E0A;"></i>Profile</button>
+                    </li>
+                    <li>
+                        <button type="button"
+                            class="account-tab-btn flex items-center gap-3 w-full px-4 py-2 text-left rounded-lg text-gray-700 hover:bg-[#FFF3ED] transition font-semibold"
+                            data-tab="settings"><i class="fa fa-gear" style="color:#CA2E0A;"></i>Settings</button>
+                    </li>
+                </ul>
+            </nav>
+
+            <form method="post" action="/logout/" class="w-full mt-auto mb-4">
+                <button type="submit"
+                    class="flex items-center gap-3 w-full px-4 py-2 rounded-lg text-red-600 hover:bg-red-50 font-bold transition">
+                    <i class="fa fa-sign-out-alt"></i>Logout
+                </button>
+            </form>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex justify-center items-start py-10 px-2 md:px-6">
+            <div class="w-full max-w-3xl bg-white rounded-2xl shadow p-6 md:p-10">
+                    <!-- Profile Tab -->
+                    <div class="account-tab-content" id="tab-profile">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#FFF3ED] text-[#CA2E0A]">
+                                <i class="fa fa-user fa-lg"></i>
+                            </span>
+                            <h2 class="text-2xl font-bold text-gray-900">Profile</h2>
+                        </div>
+                        <form method="post" autocomplete="off">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="first_name" class="block text-gray-700 font-semibold mb-2">First
+                                        Name</label>
+                                    <input type="text" id="first_name" name="first_name" required
+                                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
+                                        placeholder="Onesmus">
+                                </div>
+                                <div>
+                                    <label for="last_name" class="block text-gray-700 font-semibold mb-2">Last Name</label>
+                                    <input type="text" id="last_name" name="last_name" required
+                                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
+                                        placeholder="Kimanzi">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+                                <input type="email" id="email" name="email" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
+                                    placeholder="Kimonesmuske@gmail.com">
+                            </div>
+                            <div class="mb-6">
+                                <label for="phone" class="block text-gray-700 font-semibold mb-2">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
+                                    placeholder="e.g. +254712345678">
+                            </div>
+                            <button type="submit"
+                                class="mt-2 px-6 py-2 rounded-lg bg-[#CA2E0A] text-white font-bold text-base hover:bg-[#a82307] transition">Update
+                                Profile</button>
+                        </form>
+                    </div>
+                    <!-- Settings Tab -->
+                    <div class="account-tab-content hidden" id="tab-settings">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#FFF3ED] text-[#CA2E0A]">
+                                <i class="fa fa-gear fa-lg"></i>
+                            </span>
+                            <h2 class="text-2xl font-bold text-gray-900">Account Settings</h2>
+                        </div>
+                        <form method="post" autocomplete="off" class="bg-white rounded-xl">
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold mb-4">Change Password</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="current_password" class="block text-gray-700 font-semibold mb-2">Current
+                                            Password</label>
+                                        <input type="password" id="current_password" name="current_password" required
+                                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
+                                            placeholder="">
+                                    </div>
+                                    <div>
+                                        <label for="new_password" class="block text-gray-700 font-semibold mb-2">New
+                                            Password</label>
+                                        <input type="password" id="new_password" name="new_password" required
+                                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
+                                            placeholder="">
+                                        <span class="text-xs text-gray-400 mt-1 block">Minimum 8 characters</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <label for="confirm_new_password" class="block text-gray-700 font-semibold mb-2">Confirm
+                                        New Password</label>
+                                    <input type="password" id="confirm_new_password" name="confirm_new_password" required
+                                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CA2E0A]"
+                                        placeholder="">
+                                </div>
+                            </div>
+                            <button type="submit"
+                                class="mt-4 px-6 py-2 rounded-lg bg-[#CA2E0A] text-white font-bold text-base hover:bg-[#a82307] transition">Update
+                                Password</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
     </div>
     <script>
         // Tab switching for account page
@@ -146,6 +146,5 @@
             });
         });
     </script>
-</body>
-
-</html>
+</main>
+{% endblock content %}
