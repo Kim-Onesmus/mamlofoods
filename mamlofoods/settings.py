@@ -157,6 +157,9 @@ else:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Custom User Model
+AUTH_USER_MODEL = 'e_commerce.CustomUser'
+
 
 JAZZMIN_SETTINGS = {
     # Title and Branding
