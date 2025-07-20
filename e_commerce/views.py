@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Product
 
@@ -6,8 +6,9 @@ from .models import Product
 def Home(request):
     return render(request, 'e_commerce/home.html')
 
-def ProductDetails(request):
-    return render(request, 'e_commerce/product_details.html')
+def ProductDetails(request, slug):
+    product = get_object_or_404(Product, slug=slug, is_active=True)
+    return render(request, 'e_commerce/product_details.html', {'product': product})
 
 def Cart(request):
     return render(request, 'e_commerce/cart.html')
@@ -45,4 +46,5 @@ def products_json(request):
         }
         for p in products
     ]
+    
     return JsonResponse({'products': data})

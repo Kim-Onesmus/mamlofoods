@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const productCardsContainer = document.getElementById("product-cards");
   if (!productCardsContainer) return;
 
-  fetch("/e_commerce/products-json/")
+  fetch("/store/products-json/")
     .then((response) => response.json())
     .then((data) => {
       const products = data.products;
@@ -23,27 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
             product.name
           }" class="w-full h-full object-cover rounded-t-3xl group-hover:scale-105 transition-transform duration-300">
                         </div>
-                        <div class="p-6 pb-0">
-                            <h3 class="text-xl font-bold text-[#CA2E0A] mb-4">${
-                              product.name
-                            }</h3>
-                            <div class="text-gray-700 text-sm mb-2">${
-                              product.size_or_weight
-                            }</div>
-                            <div class="text-lg font-bold text-gray-900 mb-2">Ksh ${product.price.toLocaleString()}</div>
-                            <div class="text-xs text-gray-500 mb-2">${
-                              product.product_code
-                            }</div>
-                            <div class="text-xs ${
-                              product.stock_status === "Out of Stock"
-                                ? "text-red-600"
-                                : product.stock_status === "Low Stock"
-                                ? "text-orange-500"
-                                : "text-green-600"
-                            } font-semibold mb-2">${product.stock_status}</div>
+                        <div class="p-2 pb-0">
+                            <h3 class="text-[14px] md:text-xl font-bold text-[#CA2E0A]">
+                            ${product.size_or_weight} ${ product.name }</h3>
+                            <div class="text-[14px] md:text-xl font-bold text-gray-900 mb-2">Ksh ${product.price.toLocaleString()}</div>
                         </div>
                     </a>
-                    <div class="flex gap-2 w-full px-6 pb-6 mt-auto">
+                    <div class="flex gap-2 w-full px-2 pb-6 mt-auto">
                         <button class="flex-1 bg-[#CA2E0A] text-white font-bold py-2 rounded-full shadow hover:bg-[#a82307] transition flex items-center justify-center gap-2 focus:ring-2 focus:ring-[#CA2E0A]" title="Add to Cart">
                             <i class="fa-solid fa-cart-plus"></i>
                             <span class="hidden sm:inline">Add to Cart</span>
