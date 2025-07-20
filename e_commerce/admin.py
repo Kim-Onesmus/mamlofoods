@@ -35,13 +35,13 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'product_code', 'price', 'stock_quantity', 'stock_status_display', 'is_active', 'date_added')
     list_filter = ('is_active', 'date_added', 'stock_quantity')
     search_fields = ('name', 'product_code', 'description')
-    readonly_fields = ('id', 'slug', 'product_code', 'date_added')
+    readonly_fields = ('id', 'product_code', 'date_added')
     prepopulated_fields = {'slug': ('name',)}
     ordering = ('-date_added',)
     
     fieldsets = (
         (_('Basic Information'), {
-            'fields': ('name', 'slug', 'product_code', 'size_or_weight', 'price')
+            'fields': ('name', 'size_or_weight', 'price')
         }),
         (_('Inventory'), {
             'fields': ('stock_quantity', 'is_active')
@@ -54,7 +54,7 @@ class ProductAdmin(admin.ModelAdmin):
             'classes': ('wide',)
         }),
         (_('System Information'), {
-            'fields': ('id', 'date_added'),
+            'fields': ('id', 'date_added', 'slug', 'product_code'),
             'classes': ('collapse',)
         }),
     )
@@ -70,6 +70,6 @@ class ProductAdmin(admin.ModelAdmin):
     stock_status_display.short_description = _('Stock Status')
     stock_status_display.admin_order_field = 'stock_quantity'
 
-# Register the CustomUser model with the admin
+
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Product, ProductAdmin)
