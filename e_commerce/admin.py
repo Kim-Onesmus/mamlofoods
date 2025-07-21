@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
-from .models import CustomUser, Product
+from .models import CustomUser, Product, Address, Order, OrderItem
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -72,6 +72,28 @@ class ProductAdmin(admin.ModelAdmin):
     
     stock_status_display.short_description = _('Stock Status')
     stock_status_display.admin_order_field = 'stock_quantity'
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ('user', 'county', 'subcounty', 'town', 'is_default', 'date_added')
+    list_filter = ('is_default', 'county', 'subcounty', 'town')
+    search_fields = ('user__email', 'county', 'subcounty', 'town', 'address_line1')
+    readonly_fields = ('id', 'date_added', 'last_updated')
+    ordering = ('-is_default', '-date_added')
+    raw_id_fields = ('user',)
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'email', 'total', 'status', 'created_at')
+    list_filter = ('status', 'created_at')
+    search_fields = ('name', 'email', 'id')
+    date_hierarchy = 'created_at'
+    inlines = []
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('order', 'product_name', 'quantity', 'price')
+    search_fields = ('product_name', 'order__id')
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

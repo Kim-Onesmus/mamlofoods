@@ -103,3 +103,68 @@ class Product(models.Model):
             return _('Low Stock')
         else:
             return _('In Stock')
+
+class Address(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='addresses')
+    county = models.CharField(max_length=100)
+    subcounty = models.CharField(max_length=100)
+    town = models.CharField(max_length=100)
+    address_line1 = models.CharField(max_length=255)
+    address_line2 = models.CharField(max_length=255, blank=True)
+    is_default = models.BooleanField(default=False)
+    date_added = models.DateTimeField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Addresses'
+        ordering = ['-is_default', '-date_added']
+
+    def __str__(self):
+        return f"{self.user.email}'s address in {self.town}, {self.county}"
+
+    def save(self, *args, **kwargs):
+        if self.is_default:
+            # Set all other addresses of this user to non-default
+            Address.objects.filter(user=self.user, is_default=True).update(is_default=False)
+        # If this is the user's first address, make it default
+        elif not self.pk and not Address.objects.filter(user=self.user).exists():
+            self.is_default = True
+        super().save(*args, **kwargs)
+
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('paid', 'Paid'),
+        ('processing', 'Processing'),
+        ('shipped', 'Shipped'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    ]
+    user = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
+    # address = models.ForeignKey('Address', on_delete=models.SET_NULL, null=True, blank=True)
+    shipping_address = models.CharField(max_length=512)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    payment_method = models.CharField(max_length=20, default='mpesa')
+    mpesa_phone = models.CharField(max_length=20, blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Order #{self.id} - {self.name} ({self.status})"
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    product_name = models.CharField(max_length=255)
+    product_slug = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField()
+    size_or_weight = models.CharField(max_length=100, blank=True)
+    image = models.URLField(blank=True)
+
+    def __str__(self):
+        return f"{self.product_name} x {self.quantity} (Order #{self.order.id})"

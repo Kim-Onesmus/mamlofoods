@@ -14,4 +14,7 @@ urlpatterns = [
     path('account/', views.Account, name='account'),
     path('products-json/', views.products_json, name='products_json'),
     path('product-json/<slug:slug>/', views.product_json, name='product_json'),
+    path('addresses/', views.get_addresses, name='get_addresses'),
+    path('address/add/', views.add_address, name='add_address'),
+    path('order/create/', views.create_order, name='create_order'),
 ]

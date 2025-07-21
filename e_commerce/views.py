@@ -7,6 +7,9 @@ from django.contrib.auth import authenticate, login as auth_login, update_sessio
 from .models import CustomUser
 from django.views.decorators.csrf import csrf_exempt
 import json
+from .models import Address
+from decimal import Decimal
+from .models import Order, OrderItem
 
 # Create your views here.
 def Home(request):
@@ -146,3 +149,120 @@ def product_json(request, slug):
         return JsonResponse({'success': True, 'product': data})
     except Product.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Product not found'}, status=404)
+
+@login_required
+def get_addresses(request):
+    addresses = Address.objects.filter(user=request.user)
+    return JsonResponse({
+        'success': True,
+        'addresses': [{
+            'id': str(addr.id),  # Convert UUID to string
+            'county': addr.county,
+            'subcounty': addr.subcounty,
+            'town': addr.town,
+            'address_line1': addr.address_line1,
+            'address_line2': addr.address_line2,
+            'is_default': addr.is_default
+        } for addr in addresses]
+    })
+
+@login_required
+def add_address(request):
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    
+    try:
+        data = json.loads(request.body)
+        print("Received address data:", data)  # Debug print
+        
+        # Validate required fields
+        required_fields = ['county', 'subcounty', 'town', 'address_line1']
+        missing_fields = [field for field in required_fields if not data.get(field)]
+        if missing_fields:
+            return JsonResponse({
+                'success': False,
+                'error': f'Missing required fields: {", ".join(missing_fields)}'
+            })
+            
+        address = Address.objects.create(
+            user=request.user,
+            county=data['county'],
+            subcounty=data['subcounty'],
+            town=data['town'],
+            address_line1=data['address_line1'],
+            address_line2=data.get('address_line2', '')
+        )
+        print("Created address:", address)  # Debug print
+        
+        return JsonResponse({
+            'success': True,
+            'address_id': str(address.id)
+        })
+    except json.JSONDecodeError:
+        return JsonResponse({
+            'success': False,
+            'error': 'Invalid JSON data'
+        })
+    except KeyError as e:
+        return JsonResponse({
+            'success': False,
+            'error': f'Missing required field: {str(e)}'
+        })
+    except Exception as e:
+        print("Error saving address:", str(e))  # Debug print
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        })
+
+@login_required
+@csrf_exempt
+def create_order(request):
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    try:
+        data = json.loads(request.body)
+        cart = data.get('cart', [])
+        shipping_address = data.get('shipping_address', '')
+        payment_method = data.get('payment_method', 'mpesa')
+        mpesa_phone = data.get('mpesa_phone', '')
+        name = data.get('name', '')
+        email = data.get('email', '')
+        phone = data.get('phone', '')
+
+        if not cart or not shipping_address or not name or not email or not phone:
+            return JsonResponse({'success': False, 'error': 'Missing required fields'})
+
+        total = sum(Decimal(str(item['price'])) * int(item['quantity']) for item in cart)
+        shipping_fee = Decimal('150') if total > 0 else Decimal('0')
+        grand_total = total + shipping_fee
+
+        order = Order.objects.create(
+            user=request.user,
+            shipping_address=shipping_address,
+            name=name,
+            email=email,
+            phone=phone,
+            payment_method=payment_method,
+            mpesa_phone=mpesa_phone,
+            total=grand_total,
+            status='pending',
+        )
+        for item in cart:
+            OrderItem.objects.create(
+                order=order,
+                product_name=item.get('name', ''),
+                product_slug=item.get('slug', ''),
+                price=Decimal(str(item.get('price', 0))),
+                quantity=int(item.get('quantity', 1)),
+                size_or_weight=item.get('size_or_weight', ''),
+                image=item.get('image', ''),
+            )
+        return JsonResponse({
+            'success': True,
+            'order_id': order.id,
+            'total': str(order.total),
+            'status': order.status
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
