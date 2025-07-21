@@ -1,4 +1,5 @@
 {% load static %}
+{% load user_extras %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -108,19 +109,37 @@
                         class="flex items-center gap-2 focus:outline-none">
                         <i
                             class="fa-regular fa-user text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
-                        <span class="font-semibold text-[#CA2E0A] md:inline">John Doe</span>
+                        {% if request.user.is_authenticated %}
+                        <span class="font-semibold text-[#CA2E0A] md:inline">
+                            {{ request.user.get_full_name|default:request.user.email|email_name }}
+                        </span>
+                        {% else %}
+                        <span class="font-semibold text-[#CA2E0A] md:inline">Guest User</span>
+                        {% endif %}
                         <svg class="w-4 h-4 text-[#CA2E0A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div id="account-menu"
                         class="hidden absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg py-2 z-50">
+                        {% if request.user.is_authenticated %}
+                        <!-- <div class="px-4 py-2 text-gray-700 border-b">{{ request.user.email }}</div> -->
                         <a href="{% url 'account' %}"
                             class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Profile</a>
                         <a href="{% url 'order_page' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My
                             Orders</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Wishlist</a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Logout</a>
+                        <form method="post" action="/logout/">
+                            {% csrf_token %}
+                            <button type="submit"
+                                class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Logout</button>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'login_page' %}"
+                            class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Login</a>
+                        <a href="{% url 'register_page' %}"
+                            class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Register</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
