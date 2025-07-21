@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from .models import Product
 from django.views.decorators.http import require_GET
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login as auth_login, update_session_auth_hash
+from django.contrib.auth import authenticate, login as auth_login, update_session_auth_hash, logout
 from .models import CustomUser
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -100,6 +100,10 @@ def Account(request):
             return JsonResponse({'success': False, 'error': 'An unexpected error occurred.'})
 
     return render(request, 'e_commerce/account.html')
+
+def Logout(request):
+    logout(request)
+    return redirect('home')
 
 def products_json(request):
     products = Product.objects.filter(is_active=True).order_by('-date_added')

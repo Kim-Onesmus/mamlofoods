@@ -10,6 +10,7 @@ urlpatterns = [
     path('orders/', views.MyOrders, name='order_page'),
     path('register/', views.Register, name='register_page'),
     path('login/', views.Login, name='login_page'),
+    path('logout/', views.Logout, name='logout'),
     path('account/', views.Account, name='account'),
     path('products-json/', views.products_json, name='products_json'),
     path('product-json/<slug:slug>/', views.product_json, name='product_json'),

@@ -129,7 +129,7 @@
                         <a href="{% url 'order_page' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My
                             Orders</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Wishlist</a>
-                        <form method="post" action="/logout/">
+                        <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button type="submit"
                                 class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Logout</button>
