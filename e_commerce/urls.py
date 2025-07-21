@@ -8,6 +8,7 @@ urlpatterns = [
     path('cart/', views.Cart, name='cart'),
     path('checkout/', views.Checkout, name='checkout'),
     path('orders/', views.MyOrders, name='order_page'),
+    path('orders/json/', views.user_orders_json, name='user_orders_json'),
     path('register/', views.Register, name='register_page'),
     path('login/', views.Login, name='login_page'),
     path('logout/', views.Logout, name='logout'),

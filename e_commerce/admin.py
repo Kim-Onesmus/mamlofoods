@@ -84,16 +84,16 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email', 'total', 'status', 'created_at')
+    list_display = ('order_id', 'name', 'email', 'total', 'status', 'created_at')
     list_filter = ('status', 'created_at')
-    search_fields = ('name', 'email', 'id')
+    search_fields = ('name', 'email', 'order_id')
     date_hierarchy = 'created_at'
     inlines = []
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('order', 'product_name', 'quantity', 'price')
-    search_fields = ('product_name', 'order__id')
+    search_fields = ('product_name', 'order__order_id')
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

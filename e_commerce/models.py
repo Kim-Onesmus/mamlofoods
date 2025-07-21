@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 import uuid
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils import timezone
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -132,6 +133,12 @@ class Address(models.Model):
             self.is_default = True
         super().save(*args, **kwargs)
 
+def generate_order_id():
+    """Generates a unique, human-readable order ID."""
+    date_part = timezone.now().strftime('%Y%m%d')
+    random_part = uuid.uuid4().hex[:6].upper()
+    return f'ORD-{date_part}-{random_part}'
+
 class Order(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
@@ -141,8 +148,9 @@ class Order(models.Model):
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
     ]
+    # Keep the default integer PK for internal relations, add a human-readable ID for customers.
+    order_id = models.CharField(max_length=100, unique=True, editable=False, default=generate_order_id)
     user = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
-    # address = models.ForeignKey('Address', on_delete=models.SET_NULL, null=True, blank=True)
     shipping_address = models.CharField(max_length=512)
     name = models.CharField(max_length=255)
     email = models.EmailField()
@@ -155,7 +163,12 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Order #{self.id} - {self.name} ({self.status})"
+        return f"Order {self.order_id} - {self.name}"
+
+    def save(self, *args, **kwargs):
+        if not self.order_id:
+            self.order_id = generate_order_id()
+        super().save(*args, **kwargs)
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
@@ -167,4 +180,4 @@ class OrderItem(models.Model):
     image = models.URLField(blank=True)
 
     def __str__(self):
-        return f"{self.product_name} x {self.quantity} (Order #{self.order.id})"
+        return f"{self.product_name} x {self.quantity} (Order #{self.order.order_id})"

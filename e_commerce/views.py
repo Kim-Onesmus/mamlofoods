@@ -260,9 +260,29 @@ def create_order(request):
             )
         return JsonResponse({
             'success': True,
-            'order_id': order.id,
+            'order_id': order.order_id, # Use the new human-readable ID
             'total': str(order.total),
             'status': order.status
         })
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+def user_orders_json(request):
+    orders = request.user.orders.prefetch_related('items').order_by('-created_at')
+    data = []
+    for order in orders:
+        data.append({
+            'order_id': order.order_id,
+            'created_at': order.created_at.strftime('%Y-%m-%d %H:%M'),
+            'status': order.get_status_display(),
+            'total': str(order.total),
+            'shipping_address': order.shipping_address,
+            'items': [
+                {
+                    'product_name': item.product_name,
+                    'quantity': item.quantity,
+                } for item in order.items.all()
+            ]
+        })
+    return JsonResponse({'orders': data})
