@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Product
+from django.views.decorators.http import require_GET
 
 # Create your views here.
 def Home(request):
@@ -48,3 +49,24 @@ def products_json(request):
     ]
     
     return JsonResponse({'products': data})
+
+@require_GET
+def product_json(request, slug):
+    try:
+        product = Product.objects.get(slug=slug, is_active=True)
+        data = {
+            'id': str(product.id),
+            'name': product.name,
+            'slug': product.slug,
+            'product_code': product.product_code,
+            'size_or_weight': product.size_or_weight,
+            'image': product.image.url if product.image else '',
+            'date_added': product.date_added.strftime('%Y-%m-%d'),
+            'price': float(product.price),
+            'stock_quantity': product.stock_quantity,
+            'description': product.description,
+            'stock_status': product.stock_status,
+        }
+        return JsonResponse({'success': True, 'product': data})
+    except Product.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Product not found'}, status=404)

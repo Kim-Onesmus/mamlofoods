@@ -95,7 +95,7 @@
                 <a href="{% url 'cart' %}" class="relative group ml-2" aria-label="Cart">
                     <i
                         class="fa-solid fa-cart-shopping text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
-                    <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1">2</span>
+                    <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1"></span>
                 </a>
                 <a href="#" class="relative group ml-2" aria-label="Wishlist">
                     <i
@@ -115,8 +115,10 @@
                     </button>
                     <div id="account-menu"
                         class="hidden absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg py-2 z-50">
-                        <a href="{% url 'account' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Profile</a>
-                        <a href="{% url 'order_page' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My Orders</a>
+                        <a href="{% url 'account' %}"
+                            class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Profile</a>
+                        <a href="{% url 'order_page' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My
+                            Orders</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Wishlist</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Logout</a>
                     </div>
@@ -185,7 +187,8 @@
             <div>
                 <h3 class="text-lg font-bold mb-4 text-left">Quick Links</h3>
                 <ul class="text-left">
-                    <li><a href="{% url 'order_page' %}" class="text-gray-400 hover:text-white py-1 block">My Orders</a></li>
+                    <li><a href="{% url 'order_page' %}" class="text-gray-400 hover:text-white py-1 block">My Orders</a>
+                    </li>
                     <li><a href="{% url 'account' %}" class="text-gray-400 hover:text-white py-1 block">Account</a></li>
                     <li><a href="/wishlist/" class="text-gray-400 hover:text-white py-1 block">Wishlist</a></li>
                     <li><a href="{% url 'cart' %}" class="text-gray-400 hover:text-white py-1 block">Cart</a></li>
