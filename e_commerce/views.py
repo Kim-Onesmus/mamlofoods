@@ -3,6 +3,10 @@ from django.http import JsonResponse
 from .models import Product
 from django.views.decorators.http import require_GET
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login
+from .models import CustomUser
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 def Home(request):
@@ -22,10 +26,42 @@ def Checkout(request):
 def MyOrders(request):
     return render(request, 'e_commerce/my_orders.html')
 
+@csrf_exempt
 def Register(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email', '').strip().lower()
+            password = data.get('password', '')
+            confirm = data.get('confirm_password', '')
+            if not email or not password or not confirm:
+                return JsonResponse({'success': False, 'error': 'All fields are required.'})
+            if password != confirm:
+                return JsonResponse({'success': False, 'error': 'Passwords do not match.'})
+            if CustomUser.objects.filter(email=email).exists():
+                return JsonResponse({'success': False, 'error': 'Email already registered.'})
+            user = CustomUser.objects.create_user(email=email, password=password)
+            user.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
     return render(request, 'e_commerce/register.html')
 
+@csrf_exempt
 def Login(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email', '').strip().lower()
+            password = data.get('password', '')
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return JsonResponse({'success': True, 'redirect': request.GET.get('next', '/')})
+            else:
+                return JsonResponse({'success': False, 'error': 'Invalid email or password.'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
     return render(request, 'e_commerce/login.html')
 
 def Account(request):

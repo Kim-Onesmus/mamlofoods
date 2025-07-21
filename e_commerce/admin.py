@@ -30,6 +30,9 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'first_name', 'last_name', 'phone_number', 'password1', 'password2'),
         }),
     )
+    
+    # Make date_joined readonly
+    readonly_fields = ('date_joined',)
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'product_code', 'price', 'stock_quantity', 'stock_status_display', 'is_active', 'date_added')

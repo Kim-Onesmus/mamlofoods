@@ -45,9 +45,15 @@
                 <span id="cart-total">KES 0</span>
             </div>
         </div>
+        {% if request.user.is_authenticated %}
         <a href="{% url 'checkout' %}"
             class="block w-full bg-[#CA2E0A] text-white text-center font-bold py-3 rounded-full shadow hover:bg-[#a82307] transition text-lg mb-3">Proceed
             to Checkout</a>
+        {% else %}
+        <a href="{% url 'login_page' %}?next={% url 'checkout' %}"
+            class="block w-full bg-[#CA2E0A] text-white text-center font-bold py-3 rounded-full shadow hover:bg-[#a82307] transition text-lg mb-3">Login
+            to Checkout</a>
+        {% endif %}
         <a href="{% url 'home' %}" class="block w-full text-center text-[#CA2E0A] font-bold hover:underline">&larr;
             Continue
             Shopping</a>
