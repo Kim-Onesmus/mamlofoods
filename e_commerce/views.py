@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Product
 from django.views.decorators.http import require_GET
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def Home(request):
@@ -14,6 +15,7 @@ def ProductDetails(request, slug):
 def Cart(request):
     return render(request, 'e_commerce/cart.html')
 
+@login_required
 def Checkout(request):
     return render(request, 'e_commerce/checkout.html')
 
