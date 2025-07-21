@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateCartCounter();
 
   // Delegate Add to Cart on product details page
-  const addToCartForm = document.querySelector("form");
+  const addToCartForm = document.querySelector("#add-to-cart-form");
   if (addToCartForm && addToCartForm.querySelector('button[type="submit"]')) {
     addToCartForm.addEventListener("submit", function (e) {
       e.preventDefault();

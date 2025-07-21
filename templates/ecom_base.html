@@ -98,11 +98,11 @@
                         class="fa-solid fa-cart-shopping text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
                     <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1"></span>
                 </a>
-                <a href="#" class="relative group ml-2" aria-label="Wishlist">
+                <!-- <a href="#" class="relative group ml-2" aria-label="Wishlist">
                     <i
                         class="fa-regular fa-heart text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
                     <span class="absolute -top-2 -right-2 bg-[#CA2E0A] text-white text-xs rounded-full px-1">1</span>
-                </a>
+                </a> -->
                 <!-- Account Dropdown -->
                 <div class="relative group ml-2">
                     <button id="account-menu-btn" aria-label="Account menu"
@@ -111,7 +111,7 @@
                             class="fa-regular fa-user text-2xl text-[#CA2E0A] group-hover:scale-110 transition-transform"></i>
                         {% if request.user.is_authenticated %}
                         <span class="font-semibold text-[#CA2E0A] md:inline">
-                            {{ request.user.get_full_name|default:request.user.email|email_name }}
+                            {{ request.user.first_name|default:request.user.email|email_name }}
                         </span>
                         {% else %}
                         <span class="font-semibold text-[#CA2E0A] md:inline">Guest User</span>
@@ -128,7 +128,6 @@
                             class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Profile</a>
                         <a href="{% url 'order_page' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">My
                             Orders</a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-[#FFF8F2]">Wishlist</a>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button type="submit"
@@ -250,6 +249,8 @@
             <p class="text-gray-200">Developed by <a class="font-bold" href="#" target="_blank">Kim Technologies</a></p>
         </div>
     </footer>
+    <script src="{% static 'js/account.js' %}"></script>
+    <script src="{% static 'js/mains.js' %}"></script>
 </body>
 
 </html>

@@ -41,7 +41,7 @@
                 </div>
             </div>
             <!-- Action Row: Quantity, Cart, Wishlist -->
-            <form class="flex flex-row gap-3 items-center mb-2">
+            <form id="add-to-cart-form" class="flex flex-row gap-3 items-center mb-2">
                 <!-- Quantity Control -->
                 <div class="flex items-center border border-gray-300 rounded-full px-3 py-2 bg-white shadow w-auto">
                     <button type="button"
@@ -135,7 +135,8 @@
     <section class="py-6 bg-[#FFF8F2] border-t mt-12 rounded-2xl">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8 text-center">
             <div class="flex items-center gap-2 text-gray-700"><i class="fa-solid fa-lock text-[#CA2E0A] text-xl"></i>
-                <span>100% Secure Payment</span></div>
+                <span>100% Secure Payment</span>
+            </div>
             <div class="flex items-center gap-2 text-gray-700"><i
                     class="fa-solid fa-truck-fast text-[#CA2E0A] text-xl"></i> <span>Fast Delivery</span></div>
             <div class="flex items-center gap-2 text-gray-700"><i
@@ -144,55 +145,55 @@
                     class="fa-solid fa-headset text-[#CA2E0A] text-xl"></i> <span>24/7 Support</span></div>
         </div>
     </section>
-        <script>
-            // Simple tab logic
-            const tabDesc = document.getElementById('tab-desc');
-            const tabReviews = document.getElementById('tab-reviews');
-            const panelDesc = document.getElementById('tabpanel-desc');
-            const panelReviews = document.getElementById('tabpanel-reviews');
-            tabDesc.onclick = function () {
-                tabDesc.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
-                tabDesc.classList.remove('text-gray-600', 'border-transparent');
-                tabDesc.setAttribute('aria-selected', 'true');
-                tabReviews.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
-                tabReviews.classList.add('text-gray-600', 'border-transparent');
-                tabReviews.setAttribute('aria-selected', 'false');
-                panelDesc.classList.remove('hidden');
-                panelReviews.classList.add('hidden');
-            };
-            tabReviews.onclick = function () {
-                tabReviews.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
-                tabReviews.classList.remove('text-gray-600', 'border-transparent');
-                tabReviews.setAttribute('aria-selected', 'true');
-                tabDesc.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
-                tabDesc.classList.add('text-gray-600', 'border-transparent');
-                tabDesc.setAttribute('aria-selected', 'false');
-                panelDesc.classList.add('hidden');
-                panelReviews.classList.remove('hidden');
-            };
-            // Make reviews summary clickable to open reviews tab
-            document.getElementById('reviews-link').onclick = function () {
-                tabReviews.click();
-                window.scrollTo({
-                    top: document.getElementById('tabpanel-reviews').getBoundingClientRect().top + window.scrollY - 100,
-                    behavior: 'smooth'
-                });
-            };
-            // Quantity + and - buttons logic
-            const qtyInput = document.getElementById('quantity');
-            const qtyMinus = qtyInput.parentElement.querySelector('button:first-child');
-            const qtyPlus = qtyInput.parentElement.querySelector('button:last-child');
-            qtyMinus.addEventListener('click', function (e) {
-                e.preventDefault();
-                let val = parseInt(qtyInput.value) || 1;
-                if (val > 1) qtyInput.value = val - 1;
+    <script>
+        // Simple tab logic
+        const tabDesc = document.getElementById('tab-desc');
+        const tabReviews = document.getElementById('tab-reviews');
+        const panelDesc = document.getElementById('tabpanel-desc');
+        const panelReviews = document.getElementById('tabpanel-reviews');
+        tabDesc.onclick = function () {
+            tabDesc.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
+            tabDesc.classList.remove('text-gray-600', 'border-transparent');
+            tabDesc.setAttribute('aria-selected', 'true');
+            tabReviews.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
+            tabReviews.classList.add('text-gray-600', 'border-transparent');
+            tabReviews.setAttribute('aria-selected', 'false');
+            panelDesc.classList.remove('hidden');
+            panelReviews.classList.add('hidden');
+        };
+        tabReviews.onclick = function () {
+            tabReviews.classList.add('text-[#CA2E0A]', 'border-[#CA2E0A]');
+            tabReviews.classList.remove('text-gray-600', 'border-transparent');
+            tabReviews.setAttribute('aria-selected', 'true');
+            tabDesc.classList.remove('text-[#CA2E0A]', 'border-[#CA2E0A]');
+            tabDesc.classList.add('text-gray-600', 'border-transparent');
+            tabDesc.setAttribute('aria-selected', 'false');
+            panelDesc.classList.add('hidden');
+            panelReviews.classList.remove('hidden');
+        };
+        // Make reviews summary clickable to open reviews tab
+        document.getElementById('reviews-link').onclick = function () {
+            tabReviews.click();
+            window.scrollTo({
+                top: document.getElementById('tabpanel-reviews').getBoundingClientRect().top + window.scrollY - 100,
+                behavior: 'smooth'
             });
-            qtyPlus.addEventListener('click', function (e) {
-                e.preventDefault();
-                let val = parseInt(qtyInput.value) || 1;
-                qtyInput.value = val + 1;
-            });
-        </script>
+        };
+        // Quantity + and - buttons logic
+        const qtyInput = document.getElementById('quantity');
+        const qtyMinus = qtyInput.parentElement.querySelector('button:first-child');
+        const qtyPlus = qtyInput.parentElement.querySelector('button:last-child');
+        qtyMinus.addEventListener('click', function (e) {
+            e.preventDefault();
+            let val = parseInt(qtyInput.value) || 1;
+            if (val > 1) qtyInput.value = val - 1;
+        });
+        qtyPlus.addEventListener('click', function (e) {
+            e.preventDefault();
+            let val = parseInt(qtyInput.value) || 1;
+            qtyInput.value = val + 1;
+        });
+    </script>
 </main>
 
 {% endblock content %}
