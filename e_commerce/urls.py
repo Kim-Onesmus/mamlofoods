@@ -18,4 +18,6 @@ urlpatterns = [
     path('addresses/', views.get_addresses, name='get_addresses'),
     path('address/add/', views.add_address, name='add_address'),
     path('order/create/', views.create_order, name='create_order'),
+    path('orders/cancel/<str:order_id>/', views.cancel_order, name='cancel_order'),
+
 ]

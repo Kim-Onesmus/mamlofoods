@@ -26,8 +26,19 @@ def Cart(request):
 def Checkout(request):
     return render(request, 'e_commerce/checkout.html')
 
+@login_required
 def MyOrders(request):
-    return render(request, 'e_commerce/my_orders.html')
+    user_orders = Order.objects.filter(user=request.user).select_related('user').prefetch_related('items')
+
+    context = {
+        'unpaid_orders': user_orders.filter(status='pending'),
+        'confirmed_orders': user_orders.filter(status='paid'),
+        'intransit_orders': user_orders.filter(status='processing'),
+        'shipped_orders': user_orders.filter(status='shipped'),
+        'completed_orders': user_orders.filter(status='completed'),
+        'cancelled_orders': user_orders.filter(status='cancelled'),
+    }
+    return render(request, 'e_commerce/my_orders.html', context)
 
 @csrf_exempt
 def Register(request):
@@ -60,7 +71,7 @@ def Login(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 auth_login(request, user)
-                return JsonResponse({'success': True, 'redirect': request.GET.get('next', '/')})
+                return JsonResponse({'success': True, 'redirect': request.GET.get('next', '/store/')})
             else:
                 return JsonResponse({'success': False, 'error': 'Invalid email or password.'})
         except Exception as e:
@@ -286,3 +297,13 @@ def user_orders_json(request):
             ]
         })
     return JsonResponse({'orders': data})
+
+
+@csrf_exempt
+def cancel_order(request, order_id):
+    if request.method == 'POST':
+        order = get_object_or_404(Order, order_id=order_id)
+        order.status = 'Cancelled'
+        order.save()
+    return redirect('order_page')
+

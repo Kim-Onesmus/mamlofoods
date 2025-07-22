@@ -46,7 +46,7 @@ if (document.getElementById("register-form")) {
           );
           this.reset();
           setTimeout(() => {
-            window.location.href = "/store/login";
+            window.location.href = "/store/login/";
           }, 3000);
         } else {
           showRegisterModal(data.error || "Registration failed.");

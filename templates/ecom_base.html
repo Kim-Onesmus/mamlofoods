@@ -210,20 +210,16 @@
                     <li><a href="{% url 'account' %}" class="text-gray-400 hover:text-white py-1 block">Account</a></li>
                     <li><a href="/wishlist/" class="text-gray-400 hover:text-white py-1 block">Wishlist</a></li>
                     <li><a href="{% url 'cart' %}" class="text-gray-400 hover:text-white py-1 block">Cart</a></li>
-                    <li><a href="/logout/" class="text-gray-400 hover:text-white py-1 block">Logout</a></li>
+                    <li><a href="{% url 'logout' %}" class="text-gray-400 hover:text-white py-1 block">Logout</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="text-lg font-bold mb-4 text-left">Our Products</h3>
-                <ul class="text-left">
-                    <li><a href="/product/100g/" class="text-gray-400 hover:text-white py-1 block">100g Mini Jar</a>
-                    </li>
-                    <li><a href="/product/250g/" class="text-gray-400 hover:text-white py-1 block">250g Classic Jar</a>
-                    </li>
-                    <li><a href="/product/400g/" class="text-gray-400 hover:text-white py-1 block">400g Family Jar</a>
-                    </li>
-                    <li><a href="/product/800g/" class="text-gray-400 hover:text-white py-1 block">800g Value Jar</a>
-                    </li>
+                <h3 class="text-lg font-bold mb-4">Our Core Values</h3>
+                <ul>
+                    <li><a href="{% url 'index' %}#values" class="text-gray-400 hover:text-white py-1 block">Innovation</a></li>
+                    <li><a href="{% url 'index' %}#values" class="text-gray-400 hover:text-white py-1 block">Collaboration</a></li>
+                    <li><a href="{% url 'index' %}#values" class="text-gray-400 hover:text-white py-1 block">Sustainable
+                            Practices</a></li>
                 </ul>
             </div>
             <div>
@@ -251,6 +247,7 @@
     </footer>
     <script src="{% static 'js/account.js' %}"></script>
     <script src="{% static 'js/mains.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 
 </html>

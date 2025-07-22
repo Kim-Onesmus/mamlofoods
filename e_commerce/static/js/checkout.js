@@ -113,14 +113,21 @@ async function submitOrder(e) {
       localStorage.removeItem("cart"); // Clear the cart on success
       updateCartCounter(); // Update the cart icon in the header
       displayOrderSummary(); // Re-render summary to show it's empty
+
       showOrderModal(
         `<div class="text-green-600 font-bold">Order placed successfully!</div>
-                 <div class="mt-4 text-sm">
-                    <p><b>Order ID:</b> ${data.order_id}</p>
-                    <p><b>Total:</b> KES ${data.total}</p>
-                    <p><b>Status:</b> ${data.status}</p>
-                 </div>`
+     <div class="mt-4 text-sm">
+        <p><b>Order ID:</b> ${data.order_id}</p>
+        <p><b>Total:</b> KES ${data.total}</p>
+        <p><b>Status:</b> ${data.status}</p>
+        <p class="mt-2 text-gray-500">Redirecting in 5 seconds...</p>
+     </div>`
       );
+
+      // Redirect after 5 seconds
+      setTimeout(() => {
+        window.location.href = data.redirect || "/store/orders/";
+      }, 5000);
     } else {
       showOrderModal(
         `<p class="text-red-600">${data.error || "Failed to place order."}</p>`
