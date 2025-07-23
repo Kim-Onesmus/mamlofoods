@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -81,7 +81,7 @@ if DEBUG:
 else:
     DATABASES = {
         'default': dj_database_url.parse(
-            os.getenv('DATABASE_URL')
+            os.getenv('DATABASE_URI')
         )
     }
 
