@@ -194,8 +194,8 @@ function updateCartCounter() {
       "[updateCartCounter] Found counter span, setting textContent to:",
       count
     );
-    counter.textContent = count;
-    counter.style.display = count > 0 ? "" : "none";
+    counter.textContent = count || 0;
+    counter.style.display = "inline";
   } else {
     console.warn("[updateCartCounter] Cart counter span not found in DOM");
   }
@@ -312,7 +312,7 @@ function renderCartTable() {
       })
       .join("");
   }
-  shipping = subtotal > 0 ? 150 : 0;
+  shipping = subtotal > 0 ? 0 : 0;
   const subtotalEl = document.getElementById("cart-subtotal");
   const shippingEl = document.getElementById("cart-shipping");
   const totalEl = document.getElementById("cart-total");

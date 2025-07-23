@@ -26,7 +26,7 @@ def Cart(request):
 def Checkout(request):
     return render(request, 'e_commerce/checkout.html')
 
-@login_required
+@login_required(login_url='login_page')
 def MyOrders(request):
     user_orders = Order.objects.filter(user=request.user).select_related('user').prefetch_related('items')
 
@@ -78,7 +78,7 @@ def Login(request):
             return JsonResponse({'success': False, 'error': str(e)})
     return render(request, 'e_commerce/login.html')
 
-@login_required
+@login_required(login_url='login_page')
 def Account(request):
     if request.method == 'PATCH':
         try:
@@ -161,7 +161,7 @@ def product_json(request, slug):
     except Product.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Product not found'}, status=404)
 
-@login_required
+@login_required(login_url='login_page')
 def get_addresses(request):
     addresses = Address.objects.filter(user=request.user)
     return JsonResponse({
@@ -177,7 +177,7 @@ def get_addresses(request):
         } for addr in addresses]
     })
 
-@login_required
+@login_required(login_url='login_page')
 def add_address(request):
     if request.method != 'POST':
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
@@ -226,7 +226,7 @@ def add_address(request):
             'error': str(e)
         })
 
-@login_required
+@login_required(login_url='login_page')
 @csrf_exempt
 def create_order(request):
     if request.method != 'POST':
@@ -278,7 +278,7 @@ def create_order(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
-@login_required
+@login_required(login_url='login_page')
 def user_orders_json(request):
     orders = request.user.orders.prefetch_related('items').order_by('-created_at')
     data = []
