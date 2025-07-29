@@ -1,7 +1,6 @@
 console.log("Test: mains.js loaded");
 document.addEventListener("DOMContentLoaded", function () {
   const productCardsContainer = document.getElementById("product-cards");
-  const heroSwiperWrapper = document.getElementById("hero-swiper-wrapper");
 
   // Use correct URL for products JSON with /store/ prefix
   fetch("/store/products-json/")
@@ -34,13 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
                   </div>
               </div>
           </a>
-          <div class="flex gap-2 w-full px-2 pb-6 mt-auto">
+          <div class="flex gap-1 w-full px-2 pb-6 mt-auto">
               <button class="flex-1 bg-[#CA2E0A] text-white font-bold py-2 rounded-full shadow hover:bg-[#a82307] transition flex items-center justify-center gap-2 focus:ring-2 focus:ring-[#CA2E0A]" title="Add to Cart">
                   <i class="fa-solid fa-cart-plus"></i>
                   <span class="hidden sm:inline">Add to Cart</span>
-              </button>
-              <button class="bg-white border border-[#CA2E0A] text-[#CA2E0A] py-2 px-4 rounded-full shadow hover:bg-[#CA2E0A] hover:text-white transition flex items-center justify-center focus:ring-2 focus:ring-[#CA2E0A]" title="Add to Wishlist">
-                  <i class="fa-regular fa-heart"></i>
               </button>
           </div>
       </div>
@@ -77,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Product link href:", href);
         const slug = href.split("/").filter(Boolean).pop();
         console.log("Extracted slug:", slug);
-        addToCart(slug, 1);
+        addToCart(slug, 1); // This is correctly set to 1
       }
     });
   }
@@ -183,6 +179,7 @@ function showSuccessModal(message) {
 
 // Update addToCart to use /store/product-json/ for fetch
 function addToCart(slug, quantity) {
+  console.log(`[addToCart] Called with slug: ${slug}, quantity: ${quantity}`);
   fetch(`/store/product-json/${slug}/`)
     .then((res) => res.json())
     .then((data) => {

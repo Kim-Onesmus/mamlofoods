@@ -92,8 +92,8 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('order', 'product_name', 'quantity', 'price')
-    search_fields = ('product_name', 'order__order_id')
+    list_display = ('order', 'product', 'quantity', 'price')
+    search_fields = ('product', 'order__order_id')
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

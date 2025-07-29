@@ -59,7 +59,7 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ request.scheme }}://{{ request.get_host }}{{ item.image }}"
+                            <img src="{{ item.image }}"
                                 alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
                                 <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
@@ -117,7 +117,7 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ request.scheme }}://{{ request.get_host }}{{ item.image }}"
+                            <img src="{{ item.image }}"
                                 alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
                                 <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
@@ -170,7 +170,7 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ request.scheme }}://{{ request.get_host }}{{ item.image }}"
+                            <img src="{{ item.image }}"
                                 alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
                                 <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
@@ -222,7 +222,7 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ request.scheme }}://{{ request.get_host }}{{ item.image }}"
+                            <img src="{{ item.image }}"
                                 alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
                                 <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
@@ -278,7 +278,7 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ request.scheme }}://{{ request.get_host }}{{ item.image }}"
+                            <img src="{{ item.image }}"
                                 alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
                                 <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
@@ -330,7 +330,7 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ request.scheme }}://{{ request.get_host }}{{ item.image }}"
+                            <img src="{{ item.image }}"
                                 alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
                                 <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}

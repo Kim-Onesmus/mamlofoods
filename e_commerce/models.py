@@ -172,12 +172,11 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
-    product_name = models.CharField(max_length=255)
-    product_slug = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     size_or_weight = models.CharField(max_length=100, blank=True)
-    image = models.URLField(blank=True)
 
     def __str__(self):
-        return f"{self.product_name} x {self.quantity} (Order #{self.order.order_id})"
+        return f"{self.product.name if self.product else 'Unknown Product'} x {self.quantity} (Order #{self.order.order_id})"
+

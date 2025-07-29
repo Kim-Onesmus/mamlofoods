@@ -231,6 +231,7 @@ def add_address(request):
 def create_order(request):
     if request.method != 'POST':
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
     try:
         data = json.loads(request.body)
         cart = data.get('cart', [])
@@ -241,10 +242,18 @@ def create_order(request):
         email = data.get('email', '')
         phone = data.get('phone', '')
 
+        print('cart:', cart)  # Debug print
+
         if not cart or not shipping_address or not name or not email or not phone:
             return JsonResponse({'success': False, 'error': 'Missing required fields'})
 
-        total = sum(Decimal(str(item['price'])) * int(item['quantity']) for item in cart)
+        total = Decimal('0')
+        for item in cart:
+            product = Product.objects.filter(id=item.get('product_id')).first()
+            if not product:
+                return JsonResponse({'success': False, 'error': f"Product not found: {item.get('product_id')}"})
+            total += product.price * int(item.get('quantity', 1))
+
         shipping_fee = Decimal('150') if total > 0 else Decimal('0')
         grand_total = total + shipping_fee
 
@@ -259,25 +268,29 @@ def create_order(request):
             total=grand_total,
             status='pending',
         )
+
         for item in cart:
-            OrderItem.objects.create(
-                order=order,
-                product_name=item.get('name', ''),
-                product_slug=item.get('slug', ''),
-                price=Decimal(str(item.get('price', 0))),
-                quantity=int(item.get('quantity', 1)),
-                size_or_weight=item.get('size_or_weight', ''),
-                image=item.get('image', ''),
-            )
+            product = Product.objects.filter(id=item.get('product_id')).first()
+            if product:
+                OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=int(item.get('quantity', 1)),
+                    price=product.price,
+                    size_or_weight=product.size_or_weight,
+                )
+
         return JsonResponse({
             'success': True,
-            'order_id': order.order_id, # Use the new human-readable ID
+            'order_id': order.order_id,
             'total': str(order.total),
             'status': order.status
         })
+
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
-
+    
+    
 @login_required(login_url='login_page')
 def user_orders_json(request):
     orders = request.user.orders.prefetch_related('items').order_by('-created_at')
@@ -303,7 +316,7 @@ def user_orders_json(request):
 def cancel_order(request, order_id):
     if request.method == 'POST':
         order = get_object_or_404(Order, order_id=order_id)
-        order.status = 'Cancelled'
+        order.status = 'cancelled'
         order.save()
     return redirect('order_page')
 
