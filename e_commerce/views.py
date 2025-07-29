@@ -46,6 +46,8 @@ def MyOrders(request):
 @login_required
 def submit_review(request):
     item_id = request.POST.get('item_id')
+
+    print("Received item_id:", item_id)  # Debug print
     rating = request.POST.get('rating')
     content = request.POST.get('content')
 
