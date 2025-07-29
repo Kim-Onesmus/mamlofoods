@@ -4,12 +4,13 @@ from .models import Product
 from django.views.decorators.http import require_GET
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, update_session_auth_hash, logout
+from django.views.decorators.http import require_POST
 from .models import CustomUser
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Address
 from decimal import Decimal
-from .models import Order, OrderItem
+from .models import Order, OrderItem, ProductReview
 
 # Create your views here.
 def Home(request):
@@ -39,6 +40,41 @@ def MyOrders(request):
         'cancelled_orders': user_orders.filter(status='cancelled'),
     }
     return render(request, 'e_commerce/my_orders.html', context)
+
+
+@require_POST
+@login_required
+def submit_review(request):
+    item_id = request.POST.get('item_id')
+    rating = request.POST.get('rating')
+    content = request.POST.get('content')
+
+    try:
+        item = OrderItem.objects.get(id=item_id, order__user=request.user)
+
+        if item.reviewed:
+            return JsonResponse({'success': False, 'message': 'This product is already reviewed.'})
+
+        ProductReview.objects.create(
+            user=request.user,
+            product=item.product,
+            rating=rating,
+            content=content
+        )
+
+        item.reviewed = True
+        item.save()
+
+        order = item.order
+        if all(i.reviewed for i in order.items.all()):
+            order.status = 'complete'
+            order.save()
+
+        return JsonResponse({'success': True, 'message': 'Review submitted successfully.'})
+
+    except OrderItem.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Invalid order item.'})
+
 
 @csrf_exempt
 def Register(request):
@@ -226,6 +262,7 @@ def add_address(request):
             'error': str(e)
         })
 
+
 @login_required(login_url='login_page')
 @csrf_exempt
 def create_order(request):
@@ -249,9 +286,9 @@ def create_order(request):
 
         total = Decimal('0')
         for item in cart:
-            product = Product.objects.filter(id=item.get('product_id')).first()
+            product = Product.objects.filter(slug=item.get('slug')).first()
             if not product:
-                return JsonResponse({'success': False, 'error': f"Product not found: {item.get('product_id')}"})
+                return JsonResponse({'success': False, 'error': f"Product not found: {item.get('slug')}"})
             total += product.price * int(item.get('quantity', 1))
 
         shipping_fee = Decimal('150') if total > 0 else Decimal('0')
@@ -270,7 +307,7 @@ def create_order(request):
         )
 
         for item in cart:
-            product = Product.objects.filter(id=item.get('product_id')).first()
+            product = Product.objects.filter(slug=item.get('slug')).first()
             if product:
                 OrderItem.objects.create(
                     order=order,
@@ -304,7 +341,7 @@ def user_orders_json(request):
             'shipping_address': order.shipping_address,
             'items': [
                 {
-                    'product_name': item.product_name,
+                    'product_name': item.product,
                     'quantity': item.quantity,
                 } for item in order.items.all()
             ]

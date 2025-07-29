@@ -176,7 +176,16 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     size_or_weight = models.CharField(max_length=100, blank=True)
+    reviewed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.product.name if self.product else 'Unknown Product'} x {self.quantity} (Order #{self.order.order_id})"
+
+
+class ProductReview(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)])
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 

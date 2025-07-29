@@ -59,10 +59,10 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ item.image }}"
-                                alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
+                            <img src="{{ item.product.image.url }}"
+                                alt="{{ item.proct.name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
-                                <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
+                                <div class="font-semibold text-sm">{{ item.product.size_or_weight }} {{ item.product.name }}
                                 </div>
                                 <div class="text-xs text-gray-500">Qty: {{ item.quantity }}</div>
                             </div>
@@ -77,7 +77,7 @@
                             data-total="{{ order.total }}" data-status="{{ order.status }}" data-items='[
         {% for item in order.items.all %}
         {
-            "name": "{{ item.product_name|escapejs }}",
+            "name": "{{ item.product.name|escapejs }}",
             "size": "{{ item.size_or_weight|escapejs }}",
             "qty": "{{ item.quantity }}"
         }{% if not forloop.last %},{% endif %}
@@ -117,10 +117,9 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ item.image }}"
-                                alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.proct.name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
-                                <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
+                                <div class="font-semibold text-sm">{{ item.product.size_or_weight }} {{ item.product.name }}
                                 </div>
                                 <div class="text-xs text-gray-500">Qty: {{ item.quantity }}</div>
                             </div>
@@ -135,7 +134,7 @@
                             data-total="{{ order.total }}" data-status="{{ order.status }}" data-items='[
         {% for item in order.items.all %}
         {
-            "name": "{{ item.product_name|escapejs }}",
+            "name": "{{ item.product.name|escapejs }}",
             "size": "{{ item.size_or_weight|escapejs }}",
             "qty": "{{ item.quantity }}"
         }{% if not forloop.last %},{% endif %}
@@ -170,10 +169,9 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ item.image }}"
-                                alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.proct.name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
-                                <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
+                                <div class="font-semibold text-sm">{{ item.product.size_or_weight }} {{ item.product.name }}
                                 </div>
                                 <div class="text-xs text-gray-500">Qty: {{ item.quantity }}</div>
                             </div>
@@ -188,7 +186,7 @@
                             data-total="{{ order.total }}" data-status="{{ order.status }}" data-items='[
         {% for item in order.items.all %}
         {
-            "name": "{{ item.product_name|escapejs }}",
+            "name": "{{ item.product.name|escapejs }}",
             "size": "{{ item.size_or_weight|escapejs }}",
             "qty": "{{ item.quantity }}"
         }{% if not forloop.last %},{% endif %}
@@ -222,17 +220,20 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ item.image }}"
-                                alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
-                                <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
-                                </div>
+                                <div class="font-semibold text-sm">{{ item.product.size_or_weight }} {{ item.product.name }}</div>
                                 <div class="text-xs text-gray-500">Qty: {{ item.quantity }}</div>
                             </div>
-                            <button onclick="openReviewModal('{{ item.product_name }}')"
+                        
+                            {% if not item.reviewed %}
+                            <button onclick="openReviewModal('{{ item.product.name }}', '{{ item.id }}')"
                                 class="ml-2 flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold hover:bg-green-200 transition">
                                 <i class="fa fa-star"></i> Review
                             </button>
+                            {% else %}
+                            <span class="ml-2 inline-block px-2 py-1 rounded-full text-xs bg-gray-200 text-gray-600">Reviewed</span>
+                            {% endif %}
                         </div>
                         {% endfor %}
                     </div>
@@ -244,7 +245,7 @@
                             data-total="{{ order.total }}" data-status="{{ order.status }}" data-items='[
         {% for item in order.items.all %}
         {
-            "name": "{{ item.product_name|escapejs }}",
+            "name": "{{ item.product.name|escapejs }}",
             "size": "{{ item.size_or_weight|escapejs }}",
             "qty": "{{ item.quantity }}"
         }{% if not forloop.last %},{% endif %}
@@ -278,10 +279,9 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ item.image }}"
-                                alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.proct.name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
-                                <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
+                                <div class="font-semibold text-sm">{{ item.product.size_or_weight }} {{ item.product.name }}
                                 </div>
                                 <div class="text-xs text-gray-500">Qty: {{ item.quantity }}</div>
                             </div>
@@ -296,7 +296,7 @@
                             data-total="{{ order.total }}" data-status="{{ order.status }}" data-items='[
         {% for item in order.items.all %}
         {
-            "name": "{{ item.product_name|escapejs }}",
+            "name": "{{ item.product.name|escapejs }}",
             "size": "{{ item.size_or_weight|escapejs }}",
             "qty": "{{ item.quantity }}"
         }{% if not forloop.last %},{% endif %}
@@ -330,10 +330,9 @@
                     <div class="flex gap-3 mt-4 flex-wrap">
                         {% for item in order.items.all %}
                         <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-                            <img src="{{ item.image }}"
-                                alt="{{ item.product_name }}" class="w-8 h-8 rounded object-cover border">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.proct.name }}" class="w-8 h-8 rounded object-cover border">
                             <div>
-                                <div class="font-semibold text-sm">{{ item.size_or_weight }} {{ item.product_name }}
+                                <div class="font-semibold text-sm">{{ item.product.size_or_weight }} {{ item.product.name }}
                                 </div>
                                 <div class="text-xs text-gray-500">Qty: {{ item.quantity }}</div>
                             </div>
@@ -348,7 +347,7 @@
                             data-total="{{ order.total }}" data-status="{{ order.status }}" data-items='[
         {% for item in order.items.all %}
         {
-            "name": "{{ item.product_name|escapejs }}",
+            "name": "{{ item.product.name|escapejs }}",
             "size": "{{ item.size_or_weight|escapejs }}",
             "qty": "{{ item.quantity }}"
         }{% if not forloop.last %},{% endif %}
@@ -454,41 +453,101 @@
         </div>
     </div>
 
-    <!-- Review Modal (for shipped tab items) -->
-    <div id="review-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
-        <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Review <span id="review-product-name"></span></h2>
-                <button onclick="closeModal('review-modal')"
-                    class="text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
-            </div>
-            <form onsubmit="closeModal('review-modal'); return false;">
-                <div class="mb-4">
-                    <label class="block mb-2 font-semibold">Your Review</label>
-                    <textarea class="w-full border rounded p-2" rows="3" placeholder="Write your review..."></textarea>
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2 font-semibold">Rating</label>
-                    <select class="w-full border rounded p-2">
-                        <option>5 - Excellent</option>
-                        <option>4 - Good</option>
-                        <option>3 - Average</option>
-                        <option>2 - Poor</option>
-                        <option>1 - Terrible</option>
-                    </select>
-                </div>
-                <div class="flex justify-end gap-2">
-                    <button type="button" onclick="closeModal('review-modal')"
-                        class="px-4 py-2 rounded bg-gray-200 text-gray-700 font-bold">Cancel</button>
-                    <button type="submit"
-                        class="px-4 py-2 rounded bg-[#CA2E0A] text-white font-bold hover:bg-[#a82307]">Submit
-                        Review</button>
-                </div>
-            </form>
+<!-- Review Modal -->
+<div id="review-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+    <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">Review <span id="review-product-name"></span></h2>
+            <button onclick="closeModal('review-modal')"
+                class="text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
         </div>
+        <form id="review-form">
+            <input type="hidden" id="item-id">
+            <div class="mb-4">
+                <label class="block mb-2 font-semibold">Your Review</label>
+                <textarea class="w-full border rounded p-2" rows="3" placeholder="Write your review..."
+                    required></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 font-semibold">Rating</label>
+                <select class="w-full border rounded p-2" required>
+                    <option value="">Select rating</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Good</option>
+                    <option value="3">3 - Average</option>
+                    <option value="2">2 - Poor</option>
+                    <option value="1">1 - Terrible</option>
+                </select>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeModal('review-modal')"
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-[#CA2E0A] text-white rounded hover:bg-[#a82307]">Submit
+                    Review</button>
+            </div>
+        </form>
     </div>
+</div>
+
+<!-- Feedback Modals -->
+<div id="feedback-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
+        <p id="feedback-message" class="mb-4 text-lg font-medium"></p>
+        <button onclick="closeModal('feedback-modal')" class="px-4 py-2 bg-blue-600 text-white rounded">OK</button>
+    </div>
+</div>
+
 </main>
+
+
 <!-- Footer (reuse your existing footer code here) -->
+<script>
+    let currentItemId = null;
+
+    function openReviewModal(productName, itemId) {
+        document.getElementById("review-product-name").textContent = productName;
+        document.getElementById("item-id").value = itemId;
+        document.getElementById("review-modal").classList.remove("hidden");
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.add("hidden");
+    }
+
+    // Handle form submission
+    document.getElementById('review-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const itemId = document.getElementById("item-id").value;
+        const rating = this.querySelector('select').value;
+        const content = this.querySelector('textarea').value;
+
+        fetch("{% url 'submit_review' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `item_id=${itemId}&rating=${rating}&content=${encodeURIComponent(content)}`
+        })
+            .then(res => res.json())
+            .then(data => {
+                closeModal('review-modal');
+                showFeedbackModal(data.message);
+                if (data.success) {
+                    setTimeout(() => location.reload(), 1500);
+                }
+            });
+    });
+
+    function showFeedbackModal(message) {
+        document.getElementById('feedback-message').textContent = message;
+        document.getElementById('feedback-modal').classList.remove('hidden');
+    }
+</script>
+
+
+
 <script>
     // Tab switching
     document.querySelectorAll('.tab-btn').forEach(btn => {
