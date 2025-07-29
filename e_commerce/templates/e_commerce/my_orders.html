@@ -462,7 +462,7 @@
                 class="text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
         </div>
         <form id="review-form">
-            <input type="hidden" id="item-id">
+            <input type="hidden" id="item-id" name="item_id">
             <div class="mb-4">
                 <label class="block mb-2 font-semibold">Your Review</label>
                 <textarea class="w-full border rounded p-2" rows="3" placeholder="Write your review..."
@@ -519,14 +519,14 @@
         e.preventDefault();
 
         const itemId = document.getElementById("item-id").value;
-        console.log(itemId);
+        console.log('item', itemId);
         const rating = this.querySelector('select').value;
         const content = this.querySelector('textarea').value;
 
         fetch("{% url 'submit_review' %}", {
             method: 'POST',
             headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
+                'X-CSRFToken': getCSRFToken(),
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: `item_id=${itemId}&rating=${rating}&content=${encodeURIComponent(content)}`
@@ -545,6 +545,18 @@
         document.getElementById('feedback-message').textContent = message;
         document.getElementById('feedback-modal').classList.remove('hidden');
     }
+
+    function getCSRFToken() {
+            const name = "csrftoken";
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + "=")) {
+                    return decodeURIComponent(cookie.substring(name.length + 1));
+                }
+            }
+            return "";
+        }
 </script>
 
 

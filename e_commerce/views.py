@@ -47,9 +47,12 @@ def MyOrders(request):
 def submit_review(request):
     item_id = request.POST.get('item_id')
 
-    print("Received item_id:", item_id)  # Debug print
+    print("Received item_id:", item_id)
+
     rating = request.POST.get('rating')
+    print("rating", rating)
     content = request.POST.get('content')
+    print("Content", content)
 
     try:
         item = OrderItem.objects.get(id=item_id, order__user=request.user)
