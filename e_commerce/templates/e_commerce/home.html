@@ -2,26 +2,21 @@
 {% load static %}
 
 {% block content %}
-<main>
-    <!-- Hero Swiper Section -->
-    <section class="relative bg-[#CA2E0A] text-white">
-        <div class="container mx-auto px-0 md:px-4 py-8 md:py-16">
-            <div class="swiper heroSwiper">
-                <div class="swiper-wrapper" id="hero-swiper-wrapper">
-                    <!-- Slides will be injected by JS -->
-                </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-        </div>
-    </section>
+<main class="container mx-auto px-4 py-4">
+    <!-- Breadcrumb Card -->
+    <div class="bg-white rounded-xl shadow p-4 mb-8">
+        <nav class="flex items-center text-gray-600 text-sm" aria-label="Breadcrumb">
+            <a href="{% url 'index' %}" class="hover:text-[#CA2E0A] font-semibold">Home</a>
+            <span class="mx-2">/</span>
+            <span class="text-[#CA2E0A] font-bold">Store</span>
+        </nav>
+    </div>
 
     <!-- Product Cards Section -->
     <section id="products" class="bg-gray-50 py-12">
         <div class="container mx-auto px-4">
             <div id="product-cards" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Product cards will be injected here by JS -->
+                <p class="text-center mx-auto">Loading products....</p>
             </div>
         </div>
     </section>

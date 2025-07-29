@@ -49,62 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
             .join("");
         }
       }
-      // Hero Swiper Slides
-      if (heroSwiperWrapper) {
-        if (!products.length) {
-          heroSwiperWrapper.innerHTML =
-            '<div class="swiper-slide flex items-center justify-center text-white text-2xl">No products available.</div>';
-        } else {
-          heroSwiperWrapper.innerHTML = products
-            .map(
-              (product) => `
-            <div class="swiper-slide flex flex-col md:flex-row items-center justify-between px-4 py-8 md:py-12">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight drop-shadow">${
-                      product.size_or_weight
-                    } ${product.name}</h1>
-                    <div class="flex justify-start md:justify-start mb-4"></div>
-                    <p class="text-lg md:text-xl mb-6 font-medium">Ksh ${product.price.toLocaleString()}</p>
-                    <a href="/store/product/${
-                      product.slug
-                    }/" class="inline-block bg-white text-[#CA2E0A] font-bold px-8 py-3 rounded-full shadow hover:bg-gray-100 hover:text-[#a82307] transition">View Product</a>
-                </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <img src="${product.image}" alt="${
-                product.name
-              }" class="w-80 h-80 object-cover rounded-2xl shadow-xl border-4 border-white">
-                </div>
-            </div>
-          `
-            )
-            .join("");
-          if (window.Swiper) {
-            new Swiper(".heroSwiper", {
-              loop: true,
-              effect: "slide",
-              pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-              },
-              navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-              },
-              autoplay: {
-                delay: 5000,
-              },
-            });
-          }
-        }
-      }
     })
     .catch((err) => {
       if (productCardsContainer)
         productCardsContainer.innerHTML =
           '<div class="col-span-4 text-center text-red-500">Failed to load products.</div>';
-      if (heroSwiperWrapper)
-        heroSwiperWrapper.innerHTML =
-          '<div class="swiper-slide flex items-center justify-center text-white text-2xl">Failed to load products.</div>';
     });
 
   // Enhanced debugging: log every click on productCardsContainer
