@@ -462,6 +462,7 @@
                 class="text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
         </div>
         <form id="review-form">
+            {% csrf_token %}
             <input type="hidden" id="item-id" name="item_id">
             <div class="mb-4">
                 <label class="block mb-2 font-semibold">Your Review</label>
@@ -502,9 +503,16 @@
 
 <!-- Footer (reuse your existing footer code here) -->
 <script>
-    let currentItemId = null;
-
     function openReviewModal(productName, itemId) {
+        console.log("[DEBUG] Opening review modal for product:", productName);
+        console.log("[DEBUG] itemId passed:", itemId);
+
+        if (!itemId) {
+            console.error("[ERROR] itemId is missing or undefined!");
+            alert("Something went wrong. Cannot submit review without a valid item.");
+            return;
+        }
+
         document.getElementById("review-product-name").textContent = productName;
         document.getElementById("item-id").value = itemId;
         document.getElementById("review-modal").classList.remove("hidden");
@@ -514,50 +522,73 @@
         document.getElementById(modalId).classList.add("hidden");
     }
 
-    // Handle form submission
-    document.getElementById('review-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const itemId = document.getElementById("item-id").value;
-        console.log('item', itemId);
-        const rating = this.querySelector('select').value;
-        const content = this.querySelector('textarea').value;
-
-        fetch("{% url 'submit_review' %}", {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': getCSRFToken(),
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `item_id=${itemId}&rating=${rating}&content=${encodeURIComponent(content)}`
-        })
-            .then(res => res.json())
-            .then(data => {
-                closeModal('review-modal');
-                showFeedbackModal(data.message);
-                if (data.success) {
-                    setTimeout(() => location.reload(), 1500);
-                }
-            });
-    });
-
     function showFeedbackModal(message) {
         document.getElementById('feedback-message').textContent = message;
         document.getElementById('feedback-modal').classList.remove('hidden');
     }
 
     function getCSRFToken() {
-            const name = "csrftoken";
-            const cookies = document.cookie.split(";");
-            for (let cookie of cookies) {
-                cookie = cookie.trim();
-                if (cookie.startsWith(name + "=")) {
-                    return decodeURIComponent(cookie.substring(name.length + 1));
-                }
+        const name = "csrftoken";
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + "=")) {
+                return decodeURIComponent(cookie.substring(name.length + 1));
             }
-            return "";
         }
+
+        console.warn("[WARN] CSRF token not found in cookies.");
+        return "";
+    }
+
+    document.getElementById('review-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const itemId = document.getElementById("item-id").value;
+        const rating = this.querySelector('select').value;
+        const content = this.querySelector('textarea').value;
+
+        console.log("[DEBUG] Submitting review with:");
+        console.log(" - itemId:", itemId);
+        console.log(" - rating:", rating);
+        console.log(" - content:", content);
+
+        if (!itemId || !rating || !content.trim()) {
+            console.error("[ERROR] Missing required fields.");
+            alert("Please fill in all fields before submitting your review.");
+            return;
+        }
+
+        const csrfToken = getCSRFToken();
+
+        fetch("{% url 'submit_review' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `item_id=${encodeURIComponent(itemId)}&rating=${encodeURIComponent(rating)}&content=${encodeURIComponent(content)}`
+        })
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                console.log("[DEBUG] Response from server:", data);
+                closeModal('review-modal');
+                showFeedbackModal(data.message);
+                if (data.success) {
+                    setTimeout(() => location.reload(), 1500);
+                }
+            })
+            .catch(err => {
+                console.error("[ERROR] Failed to submit review:", err);
+                showFeedbackModal("Failed to submit review. Please try again later.");
+            });
+    });
 </script>
+
 
 
 
