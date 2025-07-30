@@ -17,3 +17,7 @@ def times(number):
 @register.filter
 def subtract(value, arg):
     return int(value) - int(arg)
+
+@register.filter
+def to(start, end):
+    return range(start, int(end)+1)

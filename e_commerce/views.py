@@ -11,6 +11,7 @@ import json
 from .models import Address
 from decimal import Decimal
 from .models import Order, OrderItem, ProductReview
+from django.db.models import Avg
 
 # Create your views here.
 def Home(request):
@@ -19,9 +20,22 @@ def Home(request):
 def ProductDetails(request, slug):
     product = get_object_or_404(Product, slug=slug, is_active=True)
     reviews = ProductReview.objects.filter(product=product).select_related('user').order_by('-created_at')
+
+    average = reviews.aggregate(avg=Avg('rating'))['avg'] or 0
+    full_stars = int(average)
+    half_star = 1 if (average - full_stars) >= 0.5 else 0
+    empty_stars = 5 - full_stars - half_star
+
+    review_count = reviews.count()
+
     return render(request, 'e_commerce/product_details.html', {
         'product': product,
         'reviews': reviews,
+        'average_rating': round(average, 1),
+        'full_stars': full_stars,
+        'half_star': half_star,
+        'empty_stars': empty_stars,
+        'review_count': review_count,
     })
 
 

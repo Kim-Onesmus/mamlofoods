@@ -22,7 +22,30 @@
         <!-- Product Info & Actions -->
         <div class="flex-1 w-full max-w-xl flex flex-col gap-4">
             <!-- Name -->
-            <h1 class="text-3xl md:text-4xl font-extrabold text-[#CA2E0A] mb-1">{{ product.name }}</h1>
+            <h1 class="text-3xl md:text-3xl font-extrabold text-[#CA2E0A] mb-1">{{ product.name }}</h1>
+            {% if average_rating > 0 %}
+            <div class="flex items-center gap-2 mb-4">
+                <div class="flex text-yellow-400 text-base">
+                    {% with ''|center:full_stars as full %}
+                    {% for _ in full %}
+                    <i class="fa-solid fa-star text-yellow-400"></i>
+                    {% endfor %}
+                    {% endwith %}
+                    {% if half_star %}
+                    <i class="fa-solid fa-star-half-stroke text-yellow-400"></i>
+                    {% endif %}
+                    {% with ''|center:empty_stars as empty %}
+                    {% for _ in empty %}
+                    <i class="fa-regular fa-star text-yellow-400"></i>
+                    {% endfor %}
+                    {% endwith %}
+                </div>
+                <span class="text-gray-600 text-sm">({{ review_count }})</span>
+            </div>
+            {% else %}
+            <p class="text-gray-500 text-sm mb-4">No ratings yet.</p>
+            {% endif %}
+
             <!-- Price -->
             <div class="text-2xl font-bold text-gray-900 mb-1">Ksh {{ product.price|floatformat:2 }}</div>
             <!-- Stock Status -->
@@ -91,13 +114,14 @@
         <div class="mb-6">
             <div class="flex items-center gap-2 mb-1">
                 <div class="flex text-yellow-400 text-base">
-                    {% for i in "12345"|slice:":review.rating"|make_list %}
+                    {% for i in review.rating|times %}
                     <i class="fa-solid fa-star"></i>
                     {% endfor %}
-                    {% for i in "12345"|slice:"review.rating:"|make_list %}
+                    {% for i in 5|subtract:review.rating|times %}
                     <i class="fa-regular fa-star"></i>
                     {% endfor %}
                 </div>
+
                 <span class="text-gray-700 font-semibold">
                     {{ request.user.first_name|default:request.user.email|email_name }}</span>
                 <span class="text-gray-500 text-xs">- {{ review.created_at|timesince }} ago</span>
@@ -106,7 +130,7 @@
         </div>
         {% endfor %}
         {% else %}
-        <p class="text-gray-600">No reviews yet. Be the first to review this product.</p>
+        <p class="text-gray-600">No reviews yet. Order today to be the first to review this product.</p>
         {% endif %}
     </div>
 </div>
