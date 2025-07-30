@@ -109,6 +109,84 @@ async function submitOrder(e) {
     });
     const data = await response.json();
 
+    if (data.status === 200) {
+      const orderId = data.order_id;
+      showOrderModal(`
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-green-600 font-bold">${
+            data.message || "Payment initiated"
+          }</p>
+        </div>
+      `);
+
+      const checkPaymentStatus = async () => {
+        let retries = 40;
+        let successful = false;
+        while (retries > 0) {
+          try {
+            const payResponse = await fetch(
+              `/check_payment?order_id=${orderId}`
+            );
+            const payResponseData = await payResponse.json();
+            // console.log("Pay Response", payResponseData);
+
+            if (payResponseData.status === 202) {
+              showOrderModal(`
+                <div class="flex flex-col items-center gap-2">
+                  <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                  <p class="text-green-600 font-bold">${
+                    data.message || "Checking payment please wait"
+                  }</p>
+                </div>
+              `);
+            } else if (payResponseData.status === 200) {
+              showOrderModal(`
+                <div class="flex flex-col items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-green-500 text-2xl"></i>
+                  <p class="text-green-600 font-bold">${
+                    data.message || "Payment confirmed"
+                  }</p>
+                </div>
+              `);
+              successful = true;
+              break;
+            } else {
+              showOrderModal(`
+                <div class="flex flex-col items-center gap-2">
+                  <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+                  <p class="text-red-600 font-bold">${data.message || "An error occurred"}</p>
+                </div>
+              `);
+              successful = true;
+              window.location.href = "/store/orders/";
+              break;
+            }
+          } catch (error) {
+            handlePaymentError(
+              "An error occurred while checking payment status."
+            );
+            window.location.href = "/buyer-orders";
+          }
+          retries--;
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+
+        if (!successful) {
+          handlePaymentError(
+            "You didnt interact with the STK push within the specified time"
+          );
+          window.location.href = "/buyer-orders";
+        }
+      };
+
+      checkPaymentStatus();
+    } else {
+      handlePaymentError(
+        responseData.message || "There was an error while initiating payment."
+      );
+    }
+
     if (data.success) {
       localStorage.removeItem("cart"); // Clear the cart on success
       updateCartCounter(); // Update the cart icon in the header

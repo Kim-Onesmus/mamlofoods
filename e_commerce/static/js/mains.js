@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
               }" class="w-full h-full object-cover rounded-t-3xl group-hover:scale-105 transition-transform duration-300">
               </div>
               <div class="p-2 pb-0">
-                  <h3 class="text-[14px] md:text-xl font-bold text-[#CA2E0A]">
+                  <h3 class="text-[12px] md:text-[15px] font-bold text-gray-900">
                   ${product.size_or_weight} ${product.name}</h3>
-                  <div class="text-[14px] md:text-xl font-bold text-gray-900 mb-2">
+                  <div class="text-[12px] md:text-[15px] font-bold text-[#CA2E0A] mb-2">
                     Ksh ${product.price.toLocaleString()}
                   </div>
               </div>

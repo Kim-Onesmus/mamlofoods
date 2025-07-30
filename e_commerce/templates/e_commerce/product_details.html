@@ -43,7 +43,12 @@
                 <span class="text-gray-600 text-sm">({{ review_count }})</span>
             </div>
             {% else %}
-            <p class="text-gray-500 text-sm mb-4">No ratings yet.</p>
+            <div class="flex text-yellow-400 text-base">
+                {% for _ in "12345"|make_list %}
+                <i class="fa-regular fa-star"></i>
+                {% endfor %}
+            </div>
+
             {% endif %}
 
             <!-- Price -->
