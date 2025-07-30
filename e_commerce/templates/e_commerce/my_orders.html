@@ -227,13 +227,15 @@
                             </div>
                         
                             {% if not item.reviewed %}
-                            <button onclick="openReviewModal('{{ item.product.name|escapejs }}', '{{ item.id }}')"
-                                class="ml-2 flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold hover:bg-green-200 transition">
-                                <i class="fa fa-star"></i> Review
+                            <button
+                                class="open-review-modal ml-2 flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold hover:bg-green-200 transition"
+                                data-product-name="{{ item.product.name|escapejs }}" data-item-id="{{ item.id }}">
+                                <i class="fa fa-star"></i> Review {{ item.id }}
                             </button>
                             {% else %}
                             <span class="ml-2 inline-block px-2 py-1 rounded-full text-xs bg-gray-200 text-gray-600">Reviewed</span>
                             {% endif %}
+
                         </div>
                         {% endfor %}
                     </div>
@@ -457,7 +459,9 @@
 <div id="review-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
     <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">Review <span id="review-product-name"></span></h2>
+            <h2 class="text-xl font-bold">
+                Review <span id="review-product-name"></span> <span class="text-sm text-gray-400" id="review-item-id"></span>
+            </h2>
             <button onclick="closeModal('review-modal')"
                 class="text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
         </div>
@@ -500,96 +504,108 @@
 
 </main>
 
-
-<!-- Footer (reuse your existing footer code here) -->
 <script>
-    function openReviewModal(productName, itemId) {
-        console.log("[DEBUG] Opening review modal for product:", productName);
-        console.log("[DEBUG] itemId passed:", itemId);
+    // Bind review buttons after DOM loads
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".open-review-modal").forEach(button => {
+            button.addEventListener("click", () => {
+                const productName = button.getAttribute("data-product-name");
+                const itemId = button.getAttribute("data-item-id");
+                console.log("[DEBUG] Before calling openReviewModal:", productName, itemId);
+                console.log("[DEBUG] typeof openReviewModal:", typeof openReviewModal);
+                openReviewModal(productName, itemId);
+                console.log("[DEBUG] Review button clicked for item ID:", itemId);
+            });
+        });
+    });
 
+    function openReviewModal(productName, itemId) {
+        console.log("[DEBUG] Opening modal for:", productName, itemId);
         if (!itemId) {
-            console.error("[ERROR] itemId is missing or undefined!");
-            alert("Something went wrong. Cannot submit review without a valid item.");
-            return;
+            return showFeedbackModal("Internal error: Item ID missing.");
         }
 
         document.getElementById("review-product-name").textContent = productName;
+        document.getElementById("review-item-id").textContent = `(ID: ${itemId})`;
         document.getElementById("item-id").value = itemId;
         document.getElementById("review-modal").classList.remove("hidden");
     }
 
     function closeModal(modalId) {
-        document.getElementById(modalId).classList.add("hidden");
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.add("hidden");
     }
 
     function showFeedbackModal(message) {
-        document.getElementById('feedback-message').textContent = message;
-        document.getElementById('feedback-modal').classList.remove('hidden');
+        document.getElementById("feedback-message").textContent = message;
+        document.getElementById("feedback-modal").classList.remove("hidden");
     }
 
     function getCSRFToken() {
-        const name = "csrftoken";
         const cookies = document.cookie.split(";");
-
         for (let cookie of cookies) {
-            cookie = cookie.trim();
-            if (cookie.startsWith(name + "=")) {
-                return decodeURIComponent(cookie.substring(name.length + 1));
+            if (cookie.trim().startsWith("csrftoken=")) {
+                return decodeURIComponent(cookie.trim().split("=")[1]);
             }
         }
-
-        console.warn("[WARN] CSRF token not found in cookies.");
         return "";
     }
 
-    document.getElementById('review-form').addEventListener('submit', function (e) {
+    // Submit review form
+    const reviewForm = document.getElementById("review-form");
+    reviewForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
         const itemId = document.getElementById("item-id").value;
-        const rating = this.querySelector('select').value;
-        const content = this.querySelector('textarea').value;
+        const rating = this.querySelector("select").value;
+        const content = this.querySelector("textarea").value.trim();
 
-        console.log("[DEBUG] Submitting review with:");
-        console.log(" - itemId:", itemId);
-        console.log(" - rating:", rating);
-        console.log(" - content:", content);
+        console.log("[DEBUG] submiting review:", rating, content, itemId);
 
-        if (!itemId || !rating || !content.trim()) {
-            console.error("[ERROR] Missing required fields.");
-            alert("Please fill in all fields before submitting your review.");
-            return;
+        if (!itemId || !rating || !content) {
+            return showFeedbackModal("Please fill in all fields before submitting your review.");
         }
 
         const csrfToken = getCSRFToken();
+        if (!csrfToken) return showFeedbackModal("Security error: CSRF token missing.");
+
+        const formData = new URLSearchParams();
+        formData.append("item_id", itemId);
+        formData.append("rating", rating);
+        formData.append("content", content);
 
         fetch("{% url 'submit_review' %}", {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'X-CSRFToken': csrfToken,
-                'Content-Type': 'application/x-www-form-urlencoded',
+                "X-CSRFToken": csrfToken,
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json"
             },
-            body: `item_id=${encodeURIComponent(itemId)}&rating=${encodeURIComponent(rating)}&content=${encodeURIComponent(content)}`
+            body: formData.toString()
         })
             .then(res => {
-                if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+                if (!res.ok) {
+                    return res.json().catch(() => {
+                        throw new Error("Server error occurred.");
+                    }).then(data => {
+                        throw new Error(data.message || "Submission failed.");
+                    });
+                }
                 return res.json();
             })
             .then(data => {
-                console.log("[DEBUG] Response from server:", data);
-                closeModal('review-modal');
-                showFeedbackModal(data.message);
+                closeModal("review-modal");
+                showFeedbackModal(data.message || "Review submitted successfully!");
                 if (data.success) {
                     setTimeout(() => location.reload(), 1500);
                 }
             })
             .catch(err => {
-                console.error("[ERROR] Failed to submit review:", err);
-                showFeedbackModal("Failed to submit review. Please try again later.");
+                console.error("[ERROR] Review submission failed:", err);
+                showFeedbackModal(err.message || "An error occurred while submitting review.");
             });
     });
 </script>
-
-
 
 
 <script>
