@@ -230,7 +230,7 @@
                             <button
                                 class="open-review-modal ml-2 flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold hover:bg-green-200 transition"
                                 data-product-name="{{ item.product.name|escapejs }}" data-item-id="{{ item.id }}">
-                                <i class="fa fa-star"></i> Review {{ item.id }}
+                                <i class="fa fa-star"></i> Review
                             </button>
                             {% else %}
                             <span class="ml-2 inline-block px-2 py-1 rounded-full text-xs bg-gray-200 text-gray-600">Reviewed</span>
@@ -467,7 +467,7 @@
         </div>
         <form id="review-form">
             {% csrf_token %}
-            <input type="hidden" id="item-id" name="item_id">
+            <input type="hidden" id="item_id" name="item_id">
             <div class="mb-4">
                 <label class="block mb-2 font-semibold">Your Review</label>
                 <textarea class="w-full border rounded p-2" rows="3" placeholder="Write your review..."
@@ -505,31 +505,27 @@
 </main>
 
 <script>
+    let currentItemId = null;
     // Bind review buttons after DOM loads
     document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".open-review-modal").forEach(button => {
             button.addEventListener("click", () => {
                 const productName = button.getAttribute("data-product-name");
                 const itemId = button.getAttribute("data-item-id");
-                console.log("[DEBUG] Before calling openReviewModal:", productName, itemId);
-                console.log("[DEBUG] typeof openReviewModal:", typeof openReviewModal);
-                openReviewModal(productName, itemId);
                 console.log("[DEBUG] Review button clicked for item ID:", itemId);
+                currentItemId = itemId;
+                if (!itemId) {
+                    return showFeedbackModal("Internal error: Item ID missing.");
+                }
+
+                document.getElementById("review-product-name").textContent = productName;
+                document.getElementById("review-item-id").textContent = `(ID: ${itemId})`;
+                document.getElementById("item_id").value = itemId;
+                document.getElementById("review-modal").classList.remove("hidden");
             });
         });
     });
 
-    function openReviewModal(productName, itemId) {
-        console.log("[DEBUG] Opening modal for:", productName, itemId);
-        if (!itemId) {
-            return showFeedbackModal("Internal error: Item ID missing.");
-        }
-
-        document.getElementById("review-product-name").textContent = productName;
-        document.getElementById("review-item-id").textContent = `(ID: ${itemId})`;
-        document.getElementById("item-id").value = itemId;
-        document.getElementById("review-modal").classList.remove("hidden");
-    }
 
     function closeModal(modalId) {
         const modal = document.getElementById(modalId);
@@ -556,10 +552,10 @@
     reviewForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const itemId = document.getElementById("item-id").value;
+        const itemId = currentItemId;
         const rating = this.querySelector("select").value;
         const content = this.querySelector("textarea").value.trim();
-
+        console.log("[DEBUG] Hidden input value set to:", document.getElementById("item_id").value);
         console.log("[DEBUG] submiting review:", rating, content, itemId);
 
         if (!itemId || !rating || !content) {

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
-from .models import CustomUser, Product, Address, Order, OrderItem
+from .models import CustomUser, Product, Address, Order, OrderItem, ProductReview
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -95,6 +95,13 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('order', 'product', 'quantity', 'price')
     search_fields = ('product', 'order__order_id')
 
+
+@admin.register(ProductReview)
+class ProductReviewAdmin(admin.ModelAdmin):
+    list_display = ('product', 'user', 'rating', 'created_at')
+    list_filter = ('rating', 'created_at')
+    search_fields = ('product__name', 'user__username', 'content')
+    readonly_fields = ('created_at',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Product, ProductAdmin)

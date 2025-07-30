@@ -18,7 +18,12 @@ def Home(request):
 
 def ProductDetails(request, slug):
     product = get_object_or_404(Product, slug=slug, is_active=True)
-    return render(request, 'e_commerce/product_details.html', {'product': product})
+    reviews = ProductReview.objects.filter(product=product).select_related('user').order_by('-created_at')
+    return render(request, 'e_commerce/product_details.html', {
+        'product': product,
+        'reviews': reviews,
+    })
+
 
 def Cart(request):
     return render(request, 'e_commerce/cart.html')
@@ -72,7 +77,7 @@ def submit_review(request):
 
         order = item.order
         if all(i.reviewed for i in order.items.all()):
-            order.status = 'complete'
+            order.status = 'completed'
             order.save()
 
         return JsonResponse({'success': True, 'message': 'Review submitted successfully.'})
