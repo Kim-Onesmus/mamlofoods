@@ -14,6 +14,8 @@ from .models import Order, OrderItem, ProductReview
 from django.db.models import Avg
 from django.db import transaction
 from django.contrib import messages
+import os, base64, requests
+from django.urls import reverse
 
 # Create your views here.
 def Home(request):
@@ -324,7 +326,9 @@ def create_order(request):
             total += product.price * int(item.get('quantity', 1))
 
         shipping_fee = Decimal('150') if total > 0 else Decimal('0')
-        grand_total = total + shipping_fee
+        grand_total = int(total)
+
+        print('Grand Total:', grand_total, 'Shipping Fee:', shipping_fee)
 
         with transaction.atomic():
             order = Order(
@@ -340,21 +344,35 @@ def create_order(request):
             )
 
             order_items_to_create = []
+
             for item in cart:
                 product = Product.objects.filter(slug=item.get('slug')).first()
-                if product:
-                    order_item = OrderItem(
-                        order=order,  # still unsaved, OK for now
-                        product=product,
-                        quantity=int(item.get('quantity', 1)),
-                        price=product.price,
-                        size_or_weight=product.size_or_weight,
-                    )
-                    order_items_to_create.append(order_item)
+                
+                if not product:
+                    messages.error(request, 'One or more products in your cart are no longer available.')
+                    return JsonResponse({'status': 500, 'message': 'Some products are no longer available.'})
+
+                requested_quantity = int(item.get('quantity', 1))
+
+                if product.stock_quantity < requested_quantity:
+                    messages.error(request, f"Not enough stock for {product.name}. Available: {product.stock_quantity}")
+                    return JsonResponse({'status': 400, 'message': f"Not enough stock for {product.name}. Only {product.stock_quantity} left."})
+
+                order_item = OrderItem(
+                    order=order,  # still unsaved, OK for now
+                    product=product,
+                    quantity=requested_quantity,
+                    price=product.price,
+                    size_or_weight=product.size_or_weight,
+                )
+                order_items_to_create.append(order_item)
+
 
             order_id = order.id
-            payment_response = MakePayments(request, mpesa_phone_number, grand_total, order_id)
+            payment_response = MakePayments(request, mpesa_phone, grand_total, order_id)
             data = json.loads(payment_response.content)
+
+            print('Payment Response:', data)
 
             if data['status'] != 200:
                 transaction.set_rollback(True)
@@ -363,10 +381,6 @@ def create_order(request):
             else:
                 order.save()
                 OrderItem.objects.bulk_create(order_items_to_create)
-                cart.cart_items.all().delete()
-                cart.total_price = 0
-                cart.save()
-
                 return JsonResponse({
                     'status': 200,
                     'message': data['message'],
@@ -376,8 +390,188 @@ def create_order(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
         
+def AccessToken(request):
+    client_id = os.getenv('KCB_CONSUMER_KEY')
+    client_secret = os.getenv('KCB_CONSUMER_SECRET')
+    auth_value = base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
+    url = f"{os.getenv('KCB_BASE_URL')}/token?grant_type=client_credentials"
+    
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': f'Basic {auth_value}'
+    }
+    response = requests.post(url, headers=headers)
+    
+    if response.status_code == 200:
+        token = response.json().get('access_token')
+        return token 
+    return JsonResponse({'error': 'Unable to retrieve access token'}, status=500)
 
 
+@csrf_exempt
+def MakePayments(request, mpesa_phone, grand_total, order_id):
+    access_token = AccessToken(request)
+    if access_token is None:
+        return JsonResponse({
+            'status': 500,
+            'message': 'Failed to obtain access token.',
+        })
+
+    url = f"{os.getenv('KCB_BASE_URL')}/mm/api/request/1.0.0/stkpush"
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'application/json'
+    }
+
+
+    payload = {
+        "phoneNumber": mpesa_phone,
+        "amount": str(grand_total),  
+        "invoiceNumber": f"7932911-Kim_Technologies",
+        "sharedShortCode": True,
+        "orgShortCode": "",
+        "orgPassKey": "",
+        "callbackUrl": request.build_absolute_uri(reverse('callback')) + f"?order_id={order_id}",
+        "transactionDescription": "Buy sanitary pads"
+    }
+
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response_data = response.json().get('response', {})
+        print('Response', response.json())
+
+        if response.status_code == 200 and response_data.get('ResponseCode') == '0':
+            return JsonResponse({
+                'status': 200,
+                'message': '📲 STK Push Sent! ✅ Check your 📱 phone to complete the payment. 💳',
+            })
+        else:
+            print(f"KCB API Error: {response.status_code}, {response_data}")
+            return JsonResponse({
+                'status': 500,
+                'message': response_data.get('ResponseDescription', f"KCB API error: {response.status_code}, {response_data} Please try again"), # include response data
+            })
+    except requests.exceptions.RequestException as e:
+        print(f"Request Exception: {e}")
+        return JsonResponse({
+            'status': 500,
+            'message': f"Failed to connect to KCB: {e}",
+        })
+    except Exception as e:
+        print(f"General Exception: {e}")
+        return JsonResponse({
+                'status': 500,
+                'message': f"An error occurred: {e}",
+            })
+
+
+
+
+@csrf_exempt
+def Callback(request):
+    print('Callback received, Processing data')
+    if request.method == "POST":
+        try:
+            order_id = request.GET.get("order_id")
+            print('Order Id', order_id)
+            if not order_id:
+                return JsonResponse({"error": "Order id not provided in callback URL"}, status=400)
+            
+            callback_data = json.loads(request.body)
+            print('Callback Data', callback_data)
+
+            stk_callback = callback_data.get("Body", {}).get("stkCallback", {})
+            result_code = stk_callback.get("ResultCode", None)
+            result_desc = stk_callback.get("ResultDesc", "")
+            merchant_request_id = stk_callback.get("MerchantRequestID", "")
+            checkout_request_id = stk_callback.get("CheckoutRequestID", "")
+            callback_metadata = stk_callback.get("CallbackMetadata", {}).get("Item", [])
+
+            amount = None
+            receipt_number = None
+            transaction_date = None
+            phone_number = None
+
+            for item in callback_metadata:
+                name = item.get("Name")
+                value = item.get("Value", None)
+                if name == "Amount":
+                    amount = value
+                elif name == "MpesaReceiptNumber":
+                    receipt_number = value
+                elif name == "TransactionDate":
+                    transaction_date = value
+                elif name == "PhoneNumber":
+                    phone_number = value
+
+
+            if result_code == 0:
+                order = Order.objects.get(id=order_id)
+                order_items = OrderItem.objects.filter(order=order)
+
+                # Update order details
+                order.receipt_number = receipt_number
+                order.merchant_request_id = merchant_request_id
+                order.checkout_request_id = checkout_request_id
+                order.result_desc = result_desc
+                order.result_code = result_code
+                order.status = 'paid'  # or 'processing' depending on your flow
+                order.save()
+
+                # Deduct quantities from products
+                for item in order_items:
+                    product = item.product
+                    if product and product.stock_quantity >= item.quantity:
+                        product.stock_quantity -= item.quantity
+                        product.save()
+                    elif product:
+                        # You may log a warning or take other actions here if stock is insufficient
+                        print(f"Warning: Not enough stock for {product.name}")
+
+                return JsonResponse({
+                    'status': 200,
+                    'message': 'Payment Successful',
+                })
+
+            else:
+                order = Order.objects.get(id=order_id)
+                print('order', order)
+                order.merchant_request_id = merchant_request_id
+                order.checkout_request_id = checkout_request_id
+                order.result_desc = result_desc
+                order.result_code = result_code
+                order.save()
+                return JsonResponse({
+                    'status': 500,
+                    'message': f'{result_desc}',
+                })
+            
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+    return JsonResponse({"error": "Invalid request"}, status=400)    
+
+
+def CheckPayment(request):
+    order__id = request.GET.get('order_id')
+    if not order__id:
+        return JsonResponse({'status': 400, 'message': 'Order ID is required...'})
+
+    try:
+        order = Order.objects.get(id=order__id)
+    except Order.DoesNotExist:
+        return JsonResponse({'status': 404, 'message': 'Order record not found.'})
+    
+    result_code = int(order.result_code) if order.result_code is not None else None
+    
+    if result_code is None:
+        return JsonResponse({
+            'status': 202, 
+            'message': 'Checking payment, please wait...'
+        })
+    elif result_code == 0:
+        return JsonResponse({'status': 200, 'message': order.result_desc})
+    else:
+        return JsonResponse({'status': 201, 'message': order.result_desc})
 
 
 

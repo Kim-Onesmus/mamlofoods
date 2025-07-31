@@ -21,4 +21,7 @@ urlpatterns = [
     path('orders/cancel/<str:order_id>/', views.cancel_order, name='cancel_order'),
     path('submit-review/', views.submit_review, name='submit_review'),
 
+    path('c2b/callback', views.Callback, name="callback"),
+    path('check_payment', views.CheckPayment, name='check_payment'),
+
 ]
