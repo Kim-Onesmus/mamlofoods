@@ -303,10 +303,16 @@ def create_order(request):
         email = data.get('email', '')
         phone = data.get('phone', '')
 
-        print('cart:', cart)  # Debug print
 
         if not cart or not shipping_address or not name or not email or not phone:
             return JsonResponse({'success': False, 'error': 'Missing required fields'})
+        
+        if mpesa_phone.startswith('+254'):
+            mpesa_phone = '254' + mpesa_phone[4:]
+        elif mpesa_phone.startswith('07') or mpesa_phone.startswith('01'):
+            mpesa_phone = '254' + mpesa_phone[1:]
+        elif mpesa_phone.startswith('254') and len(mpesa_phone) == 12:
+            pass
 
         total = Decimal('0')
         for item in cart:

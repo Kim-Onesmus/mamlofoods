@@ -128,7 +128,7 @@
                 </div>
 
                 <span class="text-gray-700 font-semibold">
-                    {{ request.user.first_name|default:request.user.email|email_name }}</span>
+                    {{ review.user.first_name|default:review.user.email|email_name }}</span>
                 <span class="text-gray-500 text-xs">- {{ review.created_at|timesince }} ago</span>
             </div>
             <p class="text-gray-700">{{ review.content }}</p>
