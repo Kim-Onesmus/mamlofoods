@@ -12,6 +12,8 @@ from .models import Address
 from decimal import Decimal
 from .models import Order, OrderItem, ProductReview
 from django.db.models import Avg
+from django.db import transaction
+from django.contrib import messages
 
 # Create your views here.
 def Home(request):
@@ -324,39 +326,61 @@ def create_order(request):
         shipping_fee = Decimal('150') if total > 0 else Decimal('0')
         grand_total = total + shipping_fee
 
-        order = Order.objects.create(
-            user=request.user,
-            shipping_address=shipping_address,
-            name=name,
-            email=email,
-            phone=phone,
-            payment_method=payment_method,
-            mpesa_phone=mpesa_phone,
-            total=grand_total,
-            status='pending',
-        )
+        with transaction.atomic():
+            order = Order(
+                user=request.user,
+                shipping_address=shipping_address,
+                name=name,
+                email=email,
+                phone=phone,
+                payment_method=payment_method,
+                mpesa_phone=mpesa_phone,
+                total=grand_total,
+                status='pending',
+            )
 
-        for item in cart:
-            product = Product.objects.filter(slug=item.get('slug')).first()
-            if product:
-                OrderItem.objects.create(
-                    order=order,
-                    product=product,
-                    quantity=int(item.get('quantity', 1)),
-                    price=product.price,
-                    size_or_weight=product.size_or_weight,
-                )
+            order_items_to_create = []
+            for item in cart:
+                product = Product.objects.filter(slug=item.get('slug')).first()
+                if product:
+                    order_item = OrderItem(
+                        order=order,  # still unsaved, OK for now
+                        product=product,
+                        quantity=int(item.get('quantity', 1)),
+                        price=product.price,
+                        size_or_weight=product.size_or_weight,
+                    )
+                    order_items_to_create.append(order_item)
 
-        return JsonResponse({
-            'success': True,
-            'order_id': order.order_id,
-            'total': str(order.total),
-            'status': order.status
-        })
+            order_id = order.id
+            payment_response = MakePayments(request, mpesa_phone_number, grand_total, order_id)
+            data = json.loads(payment_response.content)
 
+            if data['status'] != 200:
+                transaction.set_rollback(True)
+                messages.error(request, 'An error occurred while initiating STK push')
+                return JsonResponse({'status': 500, 'message': data['message']})
+            else:
+                order.save()
+                OrderItem.objects.bulk_create(order_items_to_create)
+                cart.cart_items.all().delete()
+                cart.total_price = 0
+                cart.save()
+
+                return JsonResponse({
+                    'status': 200,
+                    'message': data['message'],
+                    'order_id': order_id
+                })
+            
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
-    
+        
+
+
+
+
+
     
 @login_required(login_url='login_page')
 def user_orders_json(request):

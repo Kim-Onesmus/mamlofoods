@@ -82,13 +82,44 @@ class AddressAdmin(admin.ModelAdmin):
     ordering = ('-is_default', '-date_added')
     raw_id_fields = ('user',)
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0
+    readonly_fields = ('product', 'quantity', 'price', 'size_or_weight')
+    can_delete = False
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_id', 'name', 'email', 'total', 'status', 'created_at')
     list_filter = ('status', 'created_at')
-    search_fields = ('name', 'email', 'order_id')
+    search_fields = ('name', 'email', 'order_id', 'phone', 'mpesa_phone')
     date_hierarchy = 'created_at'
-    inlines = []
+    readonly_fields = (
+        'order_id', 'user', 'shipping_address', 'name', 'email', 'phone', 'mpesa_phone',
+        'total', 'payment_method', 'receipt_number', 'transaction_date',
+        'merchant_request_id', 'checkout_request_id', 'result_code', 'result_desc', 'created_at', 'updated_at'
+    )
+    fieldsets = (
+        ('Customer Info', {
+            'fields': ('order_id', 'user', 'name', 'email', 'phone', 'mpesa_phone', 'shipping_address')
+        }),
+        ('Order Details', {
+            'fields': ('total', 'payment_method', 'status')
+        }),
+        ('Payment Response', {
+            'classes': ('collapse',),
+            'fields': (
+                'receipt_number', 'transaction_date', 'merchant_request_id',
+                'checkout_request_id', 'result_code', 'result_desc'
+            )
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at')
+        }),
+    )
+    inlines = [OrderItemInline]
+
+
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):

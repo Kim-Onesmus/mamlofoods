@@ -156,11 +156,19 @@ class Order(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     payment_method = models.CharField(max_length=20, default='mpesa')
-    mpesa_phone = models.CharField(max_length=20, blank=True)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+    mpesa_phone = models.CharField(max_length=20, blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    receipt_number = models.CharField(max_length=20, blank=True, null=True)
+    transaction_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    merchant_request_id = models.CharField(max_length=200, blank=True, null=True)
+    checkout_request_id = models.CharField(max_length=200, blank=True, null=True)
+    result_code = models.IntegerField(blank=True, null=True)
+    result_desc = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return f"Order {self.order_id} - {self.name}"
@@ -169,6 +177,7 @@ class Order(models.Model):
         if not self.order_id:
             self.order_id = generate_order_id()
         super().save(*args, **kwargs)
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
