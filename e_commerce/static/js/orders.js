@@ -71,7 +71,7 @@ async function submitOrder(e) {
 
   // --- 3. Submit to Backend ---
   try {
-    const response = await fetch("/store/repay_order/", {
+    const response = await fetch("/store/repay_orders/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

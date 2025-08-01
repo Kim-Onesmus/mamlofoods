@@ -558,7 +558,7 @@ def RepayOrder(request):
     try:
         data = json.loads(request.body)
         print('Json data', data)
-        mpesa_phone = data.get("mpesa_phone")
+        mpesa_phone = data.get("mpesa_number")
         totals = data.get("total")
         order_id = data.get("order_id")
         total = int(float(totals))
