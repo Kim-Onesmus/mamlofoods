@@ -124,9 +124,9 @@ USE_TZ = True
 # Static files settings (for both modes)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'app/static'),
+    os.path.join(BASE_DIR, 'app/static'),
     os.path.join(BASE_DIR, 'e_commerce/static')
 ]
 

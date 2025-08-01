@@ -107,10 +107,17 @@ async function submitOrder(e) {
       },
       body: JSON.stringify(orderData),
     });
+    console.log("[DEBUG] Order creation response:", response);
+
     const data = await response.json();
+    console.log("[DEBUG] Parsed response data:", data);
 
     if (data.status === 200) {
       const orderId = data.order_id;
+      console.log("[DEBUG] Order ID:", orderId);
+      localStorage.removeItem("cart");
+      updateCartCounter();
+      document.getElementById("order-modal-content").innerHTML = "";
       showOrderModal(`
         <div class="flex flex-col items-center gap-2">
           <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
@@ -126,26 +133,28 @@ async function submitOrder(e) {
         while (retries > 0) {
           try {
             const payResponse = await fetch(
-              `/check_payment?order_id=${orderId}`
+              `/store/check_payment?order_id=${orderId}`
             );
             const payResponseData = await payResponse.json();
             // console.log("Pay Response", payResponseData);
 
             if (payResponseData.status === 202) {
+              document.getElementById("order-modal-content").innerHTML = "";
               showOrderModal(`
                 <div class="flex flex-col items-center gap-2">
                   <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
                   <p class="text-green-600 font-bold">${
-                    data.message || "Checking payment please wait"
+                    payResponseData.message || "Checking payment please wait"
                   }</p>
                 </div>
               `);
             } else if (payResponseData.status === 200) {
+              document.getElementById("order-modal-content").innerHTML = "";
               showOrderModal(`
                 <div class="flex flex-col items-center gap-2">
                   <i class="fa-solid fa-circle-check text-green-500 text-2xl"></i>
                   <p class="text-green-600 font-bold">${
-                    data.message || "Payment confirmed"
+                    payResponseData.message || "Payment confirmed"
                   }</p>
                   <p>Redirecting in 5 seonds.....</p>
                 </div>
@@ -156,11 +165,12 @@ async function submitOrder(e) {
               }, 5000);
               break;
             } else {
+              document.getElementById("order-modal-content").innerHTML = "";
               showOrderModal(`
                 <div class="flex flex-col items-center gap-2">
                   <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
                   <p class="text-red-600 font-bold">${
-                    data.message || "An error occurred"
+                    payResponseData.message || "An error occurred"
                   }</p>
                   <p>Redirecting in 5 seonds.....</p>
                 </div>
@@ -172,6 +182,7 @@ async function submitOrder(e) {
               break;
             }
           } catch (error) {
+            document.getElementById("order-modal-content").innerHTML = "";
             showOrderModal(`
                 <div class="flex flex-col items-center gap-2">
                   <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
@@ -190,16 +201,17 @@ async function submitOrder(e) {
         }
 
         if (!successful) {
+          document.getElementById("order-modal-content").innerHTML = "";
           showOrderModal(`
-                <div class="flex flex-col items-center gap-2">
-                  <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
-                  <p class="text-red-600 font-bold">${
-                    data.message ||
-                    "You didnt interact with the STK push within the specified time"
-                  }</p>
-                  <p>Redirecting in 5 seonds.....</p>
-                </div>
-              `);
+            <div class="flex flex-col items-center gap-2">
+              <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+              <p class="text-red-600 font-bold">${
+                data.message ||
+                "You didnt interact with the STK push within the specified time"
+              }</p>
+              <p>Redirecting in 5 seonds.....</p>
+            </div>
+          `);
           setTimeout(() => {
             window.location.href = data.redirect || "/store/orders/";
           }, 5000);
@@ -207,54 +219,30 @@ async function submitOrder(e) {
       };
 
       checkPaymentStatus();
-
     } else {
+      document.getElementById("order-modal-content").innerHTML = "";
+      console.log("[DEBUG] Error payload:", data);
       showOrderModal(`
-                <div class="flex flex-col items-center gap-2">
-                  <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
-                  <p class="text-red-600 font-bold">${
-                    data.message ||
-                    "There was an error while initiating payment."
-                  }</p>
-                </div>
-              `);
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+          <p class="text-red-600 font-bold">${
+            data.message ||
+            "There was an error while initiating payment."
+          }</p>
+        </div>
+      `);
     }
-
-    // if (data.success) {
-    //   localStorage.removeItem("cart"); // Clear the cart on success
-    //   updateCartCounter(); // Update the cart icon in the header
-    //   displayOrderSummary(); // Re-render summary to show it's empty
-
-    //   showOrderModal(
-    //     `<div class="text-green-600 font-bold">Order placed successfully!</div>
-    //  <div class="mt-4 text-sm">
-    //     <p><b>Order ID:</b> ${data.order_id}</p>
-    //     <p><b>Total:</b> KES ${data.total}</p>
-    //     <p><b>Status:</b> ${data.status}</p>
-    //     <p class="mt-2 text-gray-500">Redirecting in 5 seconds...</p>
-    //  </div>`
-    //   );
-
-    //   // Redirect after 5 seconds
-    //   setTimeout(() => {
-    //     window.location.href = data.redirect || "/store/orders/";
-    //   }, 5000);
-    // } else {
-    //   showOrderModal(
-    //     `<p class="text-red-600">${data.error || "Failed to place order."}</p>`
-    //   );
-    // }
-
   } catch (error) {
+    document.getElementById("order-modal-content").innerHTML = "";
     showOrderModal(`
-                <div class="flex flex-col items-center gap-2">
-                  <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
-                  <p class="text-red-600 font-bold">${
-                    data.message ||
-                    "There was an error while initiating payment....."
-                  }</p>
-                </div>
-              `);
+      <div class="flex flex-col items-center gap-2">
+        <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+        <p class="text-red-600 font-bold">${
+          data.message ||
+          "There was an error while initiating payment....."
+        }</p>
+      </div>
+    `);
   } finally {
     btn.disabled = false;
     btn.textContent = oldText;

@@ -1,155 +1,243 @@
-console.log("orders.js loaded");
+console.log("✅ Order.js loaded successfully!");
 
+// =================================================================================
+// MAIN INITIALIZATION
+// =================================================================================
 document.addEventListener("DOMContentLoaded", function () {
-  fetchAndDisplayOrders();
+  // Setup all event listeners for the page
+  initializeEventListeners();
+
+  document
+    .getElementById("order-modal-close")
+    ?.addEventListener("click", closeOrderModal);
+  document
+    .getElementById("order-modal-close2")
+    ?.addEventListener("click", closeOrderModal);
 });
 
-function fetchAndDisplayOrders() {
-  fetch("/store/orders/json/")
-    .then((res) => res.json())
-    .then((data) => {
-      const orders = data.orders || [];
-      // Clear all tab contents (remove static HTML)
-      document
-        .querySelectorAll(".tab-content")
-        .forEach((tab) => (tab.innerHTML = ""));
-      // Track if any order was rendered in each tab
-      const tabHasOrders = {
-        unpaid: false,
-        confirmed: false,
-        intransit: false,
-        shipped: false,
-        completed: false,
-        cancelled: false,
-      };
-      if (orders.length === 0) {
-        document.querySelectorAll(".tab-content").forEach((tab) => {
-          tab.innerHTML =
-            '<div class="text-gray-500 text-center py-8">You have not placed any orders yet.</div>';
-        });
-        return;
-      }
-      orders.forEach((order) => {
-        const tabId = getTabIdForStatus(order.status);
-        const tab = document.getElementById("tab-" + tabId);
-        if (!tab) return;
-        tab.innerHTML += renderOrderCard(order, tabId);
-        tabHasOrders[tabId] = true;
-      });
-      // For tabs with no orders, show a message
-      Object.keys(tabHasOrders).forEach((tabId) => {
-        if (!tabHasOrders[tabId]) {
-          const tab = document.getElementById("tab-" + tabId);
-          if (tab)
-            tab.innerHTML =
-              '<div class="text-gray-500 text-center py-8">No orders in this category.</div>';
-        }
-      });
-    });
+// =================================================================================
+// EVENT LISTENERS
+// =================================================================================
+function initializeEventListeners() {
+  // Main checkout form submission
+  const orderForm = document.getElementById("repay-order");
+  if (orderForm) {
+    orderForm.addEventListener("submit", submitOrder);
+  }
 }
 
-function getTabIdForStatus(status) {
-  // Map backend status to tab id
-  const map = {
-    Pending: "unpaid",
-    Unpaid: "unpaid",
-    Paid: "confirmed",
-    Confirmed: "confirmed",
-    Processing: "intransit",
-    "In Transit": "intransit",
-    Shipped: "shipped",
-    Completed: "completed",
-    Cancelled: "cancelled",
-  };
-  return map[status] || "unpaid";
-}
+// =================================================================================
+// ORDER SUBMISSION
+// =================================================================================
+async function submitOrder(e) {
+  e.preventDefault();
 
-function renderOrderCard(order, tabId) {
-  // Pick color and label for status
-  const statusStyles = {
-    unpaid: {
-      label: "Unpaid",
-      badge: "bg-red-100 text-red-600",
-      btn: "bg-red-500 hover:bg-red-600",
-    },
-    confirmed: {
-      label: "Confirmed",
-      badge: "bg-blue-100 text-blue-600",
-      btn: "bg-blue-500 hover:bg-blue-600",
-    },
-    intransit: {
-      label: "In Transit",
-      badge: "bg-yellow-100 text-yellow-700",
-      btn: "bg-yellow-500 hover:bg-yellow-600",
-    },
-    shipped: {
-      label: "Shipped",
-      badge: "bg-purple-100 text-purple-700",
-      btn: "bg-purple-500 hover:bg-purple-600",
-    },
-    completed: {
-      label: "Completed",
-      badge: "bg-green-100 text-green-700",
-      btn: "bg-green-500 hover:bg-green-600",
-    },
-    cancelled: {
-      label: "Cancelled",
-      badge: "bg-gray-200 text-gray-700",
-      btn: "bg-gray-500 hover:bg-gray-600",
-    },
+  const payForm = document.getElementById("repay-order");
+  const payButton = payForm.querySelector('button[type="submit"]');
+  const mpesaInput = document.getElementById("mpesa_number");
+  const orderIdInput = document.getElementById("pay-order-id");
+  const totalInput = document.getElementById("pay-total-input");
+
+  const oldText = payButton.textContent;
+  payButton.disabled = true;
+  payButton.textContent = "Initiating payment...";
+
+  // 1. Gather Data
+  const orderData = {
+    order_id: orderIdInput.value,
+    total: totalInput.value,
+    mpesa_number: mpesaInput.value,
   };
-  const style = statusStyles[tabId] || statusStyles.unpaid;
-  // Format date
-  const placedOn = order.created_at ? `• Placed on ${order.created_at}` : "";
-  // Format total
-  const total = `Ksh. ${parseFloat(order.total).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-  })}`;
-  // Items
-  const itemsHtml = order.items
-    .map(
-      (item) => `
-        <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2">
-            <img src="https://via.placeholder.com/40" alt="Item" class="w-8 h-8 rounded object-cover border">
-            <div>
-                <div class="font-semibold text-sm">${item.product_name}</div>
-                <div class="text-xs text-gray-500">Qty: ${item.quantity}</div>
-            </div>
-        </div>
-    `
+
+  // 2. Validate
+  if (
+    !/^(\+257\d{8}|2547\d{8}|07\d{8}|01\d{8}|2541\d{8}|\+2541\d{8})$/.test(
+      orderData.mpesa_number
     )
-    .join("");
-  // Action buttons
-  let actions = `<button onclick="openModal('details-modal')" class="flex items-center gap-1 px-3 py-1 rounded-full border text-gray-700 text-xs hover:bg-gray-100"><i class="fa fa-eye"></i> Details</button>
-                   <button onclick="openModal('invoice-modal')" class="flex items-center gap-1 px-3 py-1 rounded-full border text-gray-700 text-xs hover:bg-gray-100"><i class="fa fa-download"></i> Invoice</button>`;
-  if (tabId === "unpaid") {
-    actions += `<button onclick="openModal('pay-modal')" class="ml-2 flex items-center gap-1 ${style.btn} text-white px-3 py-1 rounded-full font-bold text-xs transition"><i class="fa fa-credit-card"></i> Pay</button>`;
-    actions += `<button onclick="openModal('cancel-modal')" class="flex items-center gap-1 px-3 py-1 rounded-full border border-red-200 text-red-600 text-xs hover:bg-red-50"><i class="fa fa-times"></i> Cancel</button>`;
+  ) {
+    document.getElementById("order-modal-content").innerHTML = "";
+    showOrderModal(`
+        <div class="flex flex-col items-center gap-2">
+      <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+      <p class="text-red-600 font-bold">
+        Please enter a valid M-Pesa number starting with 07...
+      </p>
+    </div>;
+      `);
+    payButton.disabled = false;
+    payButton.textContent = oldText;
+    return;
   }
-  if (tabId === "shipped") {
-    // Add review button for each item
-    // (You can enhance this to only show for items not yet reviewed)
-    // For now, add a review button to each item
-  }
-  if (tabId === "cancelled") {
-    // No actions
-    actions = `<button onclick="openModal('details-modal')" class="flex items-center gap-1 px-3 py-1 rounded-full border text-gray-700 text-xs hover:bg-gray-100"><i class="fa fa-eye"></i> Details</button>
-                   <button onclick="openModal('invoice-modal')" class="flex items-center gap-1 px-3 py-1 rounded-full border text-gray-700 text-xs hover:bg-gray-100"><i class="fa fa-download"></i> Invoice</button>`;
-  }
-  return `
-    <div class="bg-white rounded-2xl shadow p-4 mb-6 border">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-            <div class="flex items-center gap-3">
-                <span class="inline-block px-3 py-1 rounded-full ${style.badge} text-xs font-bold">${style.label}</span>
-                <span class="font-semibold text-gray-800">${order.order_id}</span>
-                <span class="text-xs text-gray-400">${placedOn}</span>
-            </div>
-            <div class="flex items-center gap-2 mt-2 md:mt-0">
-                <span class="font-bold text-indigo-900 text-lg">${total}</span>
-            </div>
+
+  // --- 3. Submit to Backend ---
+  try {
+    const response = await fetch("/store/repay_orders/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCSRFToken(),
+      },
+      body: JSON.stringify(orderData),
+    });
+    console.log("[DEBUG] Order creation response:", response);
+
+    const data = await response.json();
+    console.log("[DEBUG] Parsed response data:", data);
+
+    if (data.status === 200) {
+      const orderId = data.order_id;
+      console.log("[DEBUG] Order ID:", orderId);
+      document.getElementById("order-modal-content").innerHTML = "";
+      showOrderModal(`
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-green-600 font-bold">${
+            data.message || "Payment initiated"
+          }</p>
         </div>
-        <div class="flex gap-3 mt-4 flex-wrap">${itemsHtml}</div>
-        <div class="flex justify-end gap-2 mt-4">${actions}</div>
-    </div>
-    `;
+      `);
+
+      const checkPaymentStatus = async () => {
+        let retries = 40;
+        let successful = false;
+        while (retries > 0) {
+          try {
+            const payResponse = await fetch(
+              `/store/check_payment?order_id=${orderId}`
+            );
+            const payResponseData = await payResponse.json();
+            // console.log("Pay Response", payResponseData);
+
+            if (payResponseData.status === 202) {
+              document.getElementById("order-modal-content").innerHTML = "";
+              showOrderModal(`
+                <div class="flex flex-col items-center gap-2">
+                  <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                  <p class="text-green-600 font-bold">${
+                    payResponseData.message || "Checking payment please wait"
+                  }</p>
+                </div>
+              `);
+            } else if (payResponseData.status === 200) {
+              document.getElementById("order-modal-content").innerHTML = "";
+              showOrderModal(`
+                <div class="flex flex-col items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-green-500 text-2xl"></i>
+                  <p class="text-green-600 font-bold">${
+                    payResponseData.message || "Payment confirmed"
+                  }</p>
+                  <p>Redirecting in 5 seonds.....</p>
+                </div>
+              `);
+              successful = true;
+              setTimeout(() => {
+                window.location.href = data.redirect || "/store/orders/";
+              }, 5000);
+              break;
+            } else {
+              document.getElementById("order-modal-content").innerHTML = "";
+              showOrderModal(`
+                <div class="flex flex-col items-center gap-2">
+                  <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+                  <p class="text-red-600 font-bold">${
+                    payResponseData.message || "An error occurred"
+                  }</p>
+                  <p>Redirecting in 5 seonds.....</p>
+                </div>
+              `);
+              successful = true;
+              setTimeout(() => {
+                window.location.href = data.redirect || "/store/orders/";
+              }, 5000);
+              break;
+            }
+          } catch (error) {
+            document.getElementById("order-modal-content").innerHTML = "";
+            showOrderModal(`
+                <div class="flex flex-col items-center gap-2">
+                  <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+                  <p class="text-red-600 font-bold">${
+                    data.message || "An error occurred while checking payment"
+                  }</p>
+                  <p>Redirecting in 5 seonds.....</p>
+                </div>
+              `);
+            setTimeout(() => {
+              window.location.href = data.redirect || "/store/orders/";
+            }, 5000);
+          }
+          retries--;
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+
+        if (!successful) {
+          document.getElementById("order-modal-content").innerHTML = "";
+          showOrderModal(`
+            <div class="flex flex-col items-center gap-2">
+              <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+              <p class="text-red-600 font-bold">${
+                data.message ||
+                "You didnt interact with the STK push within the specified time"
+              }</p>
+              <p>Redirecting in 5 seonds.....</p>
+            </div>
+          `);
+          setTimeout(() => {
+            window.location.href = data.redirect || "/store/orders/";
+          }, 5000);
+        }
+      };
+
+      checkPaymentStatus();
+    } else {
+      document.getElementById("order-modal-content").innerHTML = "";
+      console.log("[DEBUG] Error payload:", data);
+      showOrderModal(`
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+          <p class="text-red-600 font-bold">${
+            data.message || "There was an error while initiating payment."
+          }</p>
+        </div>
+      `);
+    }
+  } catch (error) {
+    document.getElementById("order-modal-content").innerHTML = "";
+    showOrderModal(`
+      <div class="flex flex-col items-center gap-2">
+        <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+        <p class="text-red-600 font-bold">There was an error while initiating payment.....</p>
+      </div>
+    `);
+  } finally {
+    payButton.disabled = false;
+    payButton.textContent = oldText;
+  }
+}
+
+
+
+// =================================================================================
+// MODAL & UTILITY FUNCTIONS
+// =================================================================================
+function showOrderModal(contentHtml) {
+  const modal = document.getElementById("order-modal");
+  const content = document.getElementById("order-modal-content");
+  if (content) content.innerHTML = contentHtml;
+  if (modal) modal.style.display = "flex";
+}
+
+function closeOrderModal() {
+  document.getElementById("order-modal").style.display = "none";
+}
+
+function getCSRFToken() {
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "csrftoken") {
+      return decodeURIComponent(value);
+    }
+  }
+  return "";
 }
