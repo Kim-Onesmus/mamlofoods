@@ -79,7 +79,8 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate slug if not provided
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = f"{self.size_or_weight}-{self.name}"
+            self.slug = slugify(base_slug)
         
         # Auto-generate product code if not provided
         if not self.product_code:
