@@ -52,7 +52,7 @@ def Checkout(request):
 
 @login_required(login_url='login_page')
 def MyOrders(request):
-    user_orders = Order.objects.filter(user=request.user).select_related('user').prefetch_related('items')
+    user_orders = Order.objects.filter(user=request.user).select_related('user').prefetch_related('items').order_by('-created_at')
 
     context = {
         'unpaid_orders': user_orders.filter(status='pending'),
@@ -368,7 +368,8 @@ def create_order(request):
                 order_items_to_create.append(order_item)
 
 
-            order_id = order.id
+            order_id = order.order_id
+            print('order id', order_id)
             payment_response = MakePayments(request, mpesa_phone, grand_total, order_id)
             data = json.loads(payment_response.content)
 
@@ -465,8 +466,6 @@ def MakePayments(request, mpesa_phone, grand_total, order_id):
             })
 
 
-
-
 @csrf_exempt
 def Callback(request):
     print('Callback received, Processing data')
@@ -506,7 +505,7 @@ def Callback(request):
 
 
             if result_code == 0:
-                order = Order.objects.get(id=order_id)
+                order = Order.objects.get(order_id=order_id)
                 order_items = OrderItem.objects.filter(order=order)
 
                 # Update order details
@@ -534,7 +533,7 @@ def Callback(request):
                 })
 
             else:
-                order = Order.objects.get(id=order_id)
+                order = Order.objects.get(order_id=order_id)
                 print('order', order)
                 order.merchant_request_id = merchant_request_id
                 order.checkout_request_id = checkout_request_id
@@ -551,13 +550,42 @@ def Callback(request):
     return JsonResponse({"error": "Invalid request"}, status=400)    
 
 
+
+@csrf_exempt
+def RepayOrder(request):
+    if request.method != 'POST':
+        return JsonResponse({'status': 405, 'message': 'Method not allowed'}, status=405)
+    try:
+        data = json.loads(request.body)
+        print('Json data', data)
+        mpesa_phone = data.get("mpesa_phone")
+        totals = data.get("total")
+        order_id = data.get("order_id")
+        total = int(float(totals))
+        print('Total', total)
+        payment_response = MakePayments(request, mpesa_phone, total, order_id)
+        data = json.loads(payment_response.content)
+        if data['status'] != 200:
+            messages.error(request, 'An error occurred while initiating STK push')
+            return JsonResponse({'status': 500, 'message': data['message']})
+        else:
+            return JsonResponse({
+                'status': 200,
+                'message': data['message'],
+                'order_id': order_id
+            })
+    except:
+        messages.error(request, 'An error occurred while initiating STK push')
+        return JsonResponse({'status': 500, 'message': data['message']})
+
+
 def CheckPayment(request):
     order__id = request.GET.get('order_id')
     if not order__id:
         return JsonResponse({'status': 400, 'message': 'Order ID is required...'})
 
     try:
-        order = Order.objects.get(id=order__id)
+        order = Order.objects.get(order_id=order__id)
     except Order.DoesNotExist:
         return JsonResponse({'status': 404, 'message': 'Order record not found.'})
     

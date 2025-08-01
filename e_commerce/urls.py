@@ -23,5 +23,6 @@ urlpatterns = [
 
     path('c2b/callback', views.Callback, name="callback"),
     path('check_payment', views.CheckPayment, name='check_payment'),
+    path('repay_order/', views.RepayOrder, name='repay_order'),
 
 ]

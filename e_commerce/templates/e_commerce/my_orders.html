@@ -48,9 +48,9 @@
                         </div>
                         <div class="flex items-center gap-2 mt-2 md:mt-0">
                             <span class="font-bold text-indigo-900 text-lg">Ksh. {{ order.total }}</span>
-                            <button onclick="openModal('pay-modal')"
+                            <button onclick="openPayModal('pay-modal', this)"
                                 class="ml-2 flex items-center gap-1 bg-red-500 text-white px-3 py-1 rounded-full font-bold text-xs hover:bg-red-600 transition"
-                                data-order-id="{{ order.order_id }}">
+                                data-order-id="{{ order.order_id }}" data-total="{{ order.total }}">
                                 <i class="fa fa-credit-card"></i> Pay
                             </button>
                         </div>
@@ -75,22 +75,21 @@
                             class="open-details-modal flex items-center gap-1 px-3 py-1 rounded-full border text-gray-700 text-xs hover:bg-gray-100"
                             data-order-id="{{ order.order_id }}" data-date="{{ order.created_at|date:'M d, Y' }}"
                             data-total="{{ order.total }}" data-status="{{ order.status }}" data-items='[
-        {% for item in order.items.all %}
-        {
-            "name": "{{ item.product.name|escapejs }}",
-            "size": "{{ item.size_or_weight|escapejs }}",
-            "qty": "{{ item.quantity }}"
-        }{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    ]'>
+                                {% for item in order.items.all %}
+                                {
+                                    "name": "{{ item.product.name|escapejs }}",
+                                    "size": "{{ item.size_or_weight|escapejs }}",
+                                    "qty": "{{ item.quantity }}"
+                                }{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            ]'>
                             <i class="fa fa-eye"></i> Details
                         </button>
-<button
-    class="open-cancel-modal flex items-center gap-1 px-3 py-1 rounded-full border border-red-200 text-red-600 text-xs hover:bg-red-50"
-    data-order-id="{{ order.order_id }}">
-    <i class="fa fa-times"></i> Cancel
-</button>
-
+                        <button
+                            class="open-cancel-modal flex items-center gap-1 px-3 py-1 rounded-full border border-red-200 text-red-600 text-xs hover:bg-red-50"
+                            data-order-id="{{ order.order_id }}">
+                            <i class="fa fa-times"></i> Cancel
+                        </button>
                     </div>
                 </div>
                 {% empty %}
@@ -373,7 +372,7 @@
 
     <!-- Pay Modal -->
 <div id="pay-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
-    <form method="POST" action="/orders/pay/" class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+    <form id="repay-order" class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
         {% csrf_token %}
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl font-bold">Pay for Order</h2>
@@ -383,8 +382,15 @@
 
         <p class="mb-4 text-sm text-gray-600">Enter your M-Pesa number to pay for the order.</p>
 
-        <!-- Order ID (hidden field) -->
+        <!-- Hidden Order ID Field -->
         <input type="hidden" id="pay-order-id" name="order_id" value="">
+        <input type="hidden" id="pay-total-input" name="total" value="">
+
+        <!-- Visible Total Field -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Total Amount</label>
+            <p id="pay-total" class="text-lg font-bold text-indigo-900">Ksh. 0.00</p>
+        </div>
 
         <!-- M-Pesa Number Field -->
         <div class="mb-4">
@@ -401,6 +407,7 @@
         </div>
     </form>
 </div>
+
 
 
 
@@ -503,6 +510,21 @@
 </div>
 
 </main>
+
+<!-- Order Modal -->
+<div id="order-modal" style="display:none;"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-[#CA2E0A]">Order Status</h2>
+            <button id="order-modal-close" class="text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+        </div>
+        <div id="order-modal-content" class="mb-6 text-gray-700"></div>
+        <div class="flex justify-end">
+            <button id="order-modal-close2" class="px-4 py-2 rounded bg-[#CA2E0A] text-white font-bold">Close</button>
+        </div>
+    </div>
+</div>
 
 <script>
     let currentItemId = null;
@@ -628,9 +650,24 @@
     }
 </script>
 <script>
+    function openPayModal(id, buttonElement) {
+        const orderId = buttonElement.getAttribute('data-order-id');
+        const total = buttonElement.getAttribute('data-total');
+
+        // Populate hidden inputs
+        document.getElementById("pay-order-id").value = orderId;
+        document.getElementById("pay-total-input").value = `${parseFloat(total).toFixed(2)}`;
+
+        // Populate visible total text
+        document.getElementById("pay-total").textContent = `Ksh. ${parseFloat(total).toFixed(2)}`;
+
+        document.getElementById(id).classList.remove('hidden');
+    }
+
     function openModal(id) {
         document.getElementById(id).classList.remove('hidden');
     }
+
 
     function closeModal(id) {
         document.getElementById(id).classList.add('hidden');
@@ -680,6 +717,6 @@
     });
 </script>
 
-
+<script src="{% static 'js/orders.js' %}"></script>
 
 {% endblock content %}

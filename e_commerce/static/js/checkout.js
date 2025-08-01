@@ -115,6 +115,9 @@ async function submitOrder(e) {
     if (data.status === 200) {
       const orderId = data.order_id;
       console.log("[DEBUG] Order ID:", orderId);
+      localStorage.removeItem("cart");
+      updateCartCounter();
+      document.getElementById("order-modal-content").innerHTML = "";
       showOrderModal(`
         <div class="flex flex-col items-center gap-2">
           <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
@@ -136,6 +139,7 @@ async function submitOrder(e) {
             // console.log("Pay Response", payResponseData);
 
             if (payResponseData.status === 202) {
+              document.getElementById("order-modal-content").innerHTML = "";
               showOrderModal(`
                 <div class="flex flex-col items-center gap-2">
                   <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
@@ -145,8 +149,7 @@ async function submitOrder(e) {
                 </div>
               `);
             } else if (payResponseData.status === 200) {
-              localStorage.removeItem("cart");
-              updateCartCounter();
+              document.getElementById("order-modal-content").innerHTML = "";
               showOrderModal(`
                 <div class="flex flex-col items-center gap-2">
                   <i class="fa-solid fa-circle-check text-green-500 text-2xl"></i>
@@ -162,6 +165,7 @@ async function submitOrder(e) {
               }, 5000);
               break;
             } else {
+              document.getElementById("order-modal-content").innerHTML = "";
               showOrderModal(`
                 <div class="flex flex-col items-center gap-2">
                   <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
@@ -178,6 +182,7 @@ async function submitOrder(e) {
               break;
             }
           } catch (error) {
+            document.getElementById("order-modal-content").innerHTML = "";
             showOrderModal(`
                 <div class="flex flex-col items-center gap-2">
                   <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
@@ -196,6 +201,7 @@ async function submitOrder(e) {
         }
 
         if (!successful) {
+          document.getElementById("order-modal-content").innerHTML = "";
           showOrderModal(`
             <div class="flex flex-col items-center gap-2">
               <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
@@ -214,6 +220,7 @@ async function submitOrder(e) {
 
       checkPaymentStatus();
     } else {
+      document.getElementById("order-modal-content").innerHTML = "";
       console.log("[DEBUG] Error payload:", data);
       showOrderModal(`
         <div class="flex flex-col items-center gap-2">
@@ -226,6 +233,7 @@ async function submitOrder(e) {
       `);
     }
   } catch (error) {
+    document.getElementById("order-modal-content").innerHTML = "";
     showOrderModal(`
       <div class="flex flex-col items-center gap-2">
         <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
