@@ -563,6 +563,17 @@ def RepayOrder(request):
         order_id = data.get("order_id")
         total = int(float(totals))
         print('Total', total)
+
+        if mpesa_phone.startswith('+254'):
+            mpesa_phone = '254' + mpesa_phone[4:]
+        elif mpesa_phone.startswith('07') or mpesa_phone.startswith('01'):
+            mpesa_phone = '254' + mpesa_phone[1:]
+        elif mpesa_phone.startswith('254') and len(mpesa_phone) == 12:
+            pass
+        else:
+            messages.error(request, 'Enter a valid Mpesa phone')
+            return JsonResponse({'status': 500, 'message': data['message']})
+        
         payment_response = MakePayments(request, mpesa_phone, total, order_id)
         data = json.loads(payment_response.content)
         if data['status'] != 200:

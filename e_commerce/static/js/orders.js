@@ -6,6 +6,13 @@ console.log("✅ Order.js loaded successfully!");
 document.addEventListener("DOMContentLoaded", function () {
   // Setup all event listeners for the page
   initializeEventListeners();
+
+  document
+    .getElementById("order-modal-close")
+    ?.addEventListener("click", closeOrderModal);
+  document
+    .getElementById("order-modal-close2")
+    ?.addEventListener("click", closeOrderModal);
 });
 
 // =================================================================================
@@ -13,32 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // =================================================================================
 function initializeEventListeners() {
   // Main checkout form submission
-  const checkoutForm = document.getElementById("checkout-form");
-  if (checkoutForm) {
-    checkoutForm.addEventListener("submit", submitOrder);
+  const orderForm = document.getElementById("repay-order");
+  if (orderForm) {
+    orderForm.addEventListener("submit", submitOrder);
   }
-  // Address modal buttons
-  document
-    .getElementById("add-address-btn")
-    ?.addEventListener("click", showAddressModal);
-  document
-    .getElementById("close-modal")
-    ?.addEventListener("click", hideAddressModal);
-  document
-    .getElementById("save-address")
-    ?.addEventListener("click", saveAddress);
-  document
-    .getElementById("address-modal")
-    ?.addEventListener("click", function (e) {
-      if (e.target === this) hideAddressModal();
-    });
-  // Order status modal buttons
-  document
-    .getElementById("order-modal-close")
-    ?.addEventListener("click", closeOrderModal);
-  document
-    .getElementById("order-modal-close2")
-    ?.addEventListener("click", closeOrderModal);
 }
 
 // =================================================================================
@@ -47,7 +32,7 @@ function initializeEventListeners() {
 async function submitOrder(e) {
   e.preventDefault();
 
-  const payForm = document.querySelector("#pay-modal form");
+  const payForm = document.getElementById("repay-order");
   const payButton = payForm.querySelector('button[type="submit"]');
   const mpesaInput = document.getElementById("mpesa_number");
   const orderIdInput = document.getElementById("pay-order-id");
@@ -65,13 +50,19 @@ async function submitOrder(e) {
   };
 
   // 2. Validate
-  if (!orderData.mpesa_number || !/^07\d{8}$/.test(orderData.mpesa_number)) {
+  if (
+    !/^(\+257\d{8}|2547\d{8}|07\d{8}|01\d{8}|2541\d{8}|\+2541\d{8})$/.test(
+      orderData.mpesa_number
+    )
+  ) {
     document.getElementById("order-modal-content").innerHTML = "";
     showOrderModal(`
         <div class="flex flex-col items-center gap-2">
-          <div class="w-6 h-6 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-          <p class="text-green-600 font-bold">${"Please enter a valid M-Pesa number starting with 07..."}</p>
-        </div>
+      <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
+      <p class="text-red-600 font-bold">
+        Please enter a valid M-Pesa number starting with 07...
+      </p>
+    </div>;
       `);
     payButton.disabled = false;
     payButton.textContent = oldText;
@@ -96,8 +87,6 @@ async function submitOrder(e) {
     if (data.status === 200) {
       const orderId = data.order_id;
       console.log("[DEBUG] Order ID:", orderId);
-      localStorage.removeItem("cart");
-      updateCartCounter();
       document.getElementById("order-modal-content").innerHTML = "";
       showOrderModal(`
         <div class="flex flex-col items-center gap-2">
@@ -217,14 +206,12 @@ async function submitOrder(e) {
     showOrderModal(`
       <div class="flex flex-col items-center gap-2">
         <i class="fa-solid fa-circle-xmark text-red-500 text-2xl"></i>
-        <p class="text-red-600 font-bold">${
-          data.message || "There was an error while initiating payment....."
-        }</p>
+        <p class="text-red-600 font-bold">There was an error while initiating payment.....</p>
       </div>
     `);
   } finally {
-    btn.disabled = false;
-    btn.textContent = oldText;
+    payButton.disabled = false;
+    payButton.textContent = oldText;
   }
 }
 
