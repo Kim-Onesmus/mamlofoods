@@ -442,6 +442,10 @@ def MakePayments(request, mpesa_phone, grand_total, order_id):
         print('Response', response.json())
 
         if response.status_code == 200 and response_data.get('ResponseCode') == '0':
+            order = Order.objects.get(order_id=order_id)
+            order.result_code = None
+            order.result_desc = ""
+            order.save()
             return JsonResponse({
                 'status': 200,
                 'message': '📲 STK Push Sent! ✅ Check your 📱 phone to complete the payment. 💳',
