@@ -103,7 +103,7 @@ Find your next opportunity with MAMLO FOODS. Join us in driving sustainable food
                 const btnClass = isClosed ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-red-700";
 
                 const imageHTML = job.image
-                    ? `<img src="${job.image}" alt="${job.title}" class="w-full h-52 object-cover rounded-t-2xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FEE2E2/EF4444?text=Image+Not+Found';" />`
+                    ? `<img src="${job.image}" alt="${job.title}" class="w-full max-h-[400px] object-fit rounded-t-2xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FEE2E2/EF4444?text=Image+Not+Found';" />`
                     : `<div class="w-full h-52 flex items-center justify-center bg-primary/10 text-primary text-5xl rounded-t-2xl">
                   <i class="fas fa-briefcase"></i>
                </div>`;
@@ -121,7 +121,7 @@ Find your next opportunity with MAMLO FOODS. Join us in driving sustainable food
             ${imageHTML}
             <div class="p-6 flex-grow flex flex-col justify-between">
               <div>
-                <h3 class="text-2xl font-semibold text-gray-800 mb-2">${job.title}</h3>
+                <h3 class="text-[13px] font-semibold text-gray-800 mb-2">${job.title}</h3>
                 <p class="text-sm text-gray-500 mb-4">
                   <strong class="text-gray-700">Deadline:</strong>
                   <span class="text-red-600 font-medium">${deadline}</span>
