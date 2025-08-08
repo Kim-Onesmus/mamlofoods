@@ -79,10 +79,15 @@ if DEBUG:
     }
 else:
     DATABASES = {
-        'default': dj_database_url.parse(
-            os.getenv('DATABASE_URI')
-        )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': '5432',
     }
+}
 
 
 # Password validation
