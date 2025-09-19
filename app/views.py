@@ -6,7 +6,7 @@ import datetime
 
 
 from django.http import JsonResponse
-from .models import Number, Vacancy, Blog, Partner
+from .models import Number, Vacancy, Blog, Partner, Staff
 
 def mamlo_combined_data_api(request):
     numbers = list(Number.objects.values("name", "number"))
@@ -28,14 +28,23 @@ def mamlo_combined_data_api(request):
         for p in Partner.objects.all()
     ]
 
+    staff = [
+        {
+            "name": s.name,
+            "role": s.role,
+            "image": request.build_absolute_uri(s.image.url) if s.image else None,
+            "linkedIn": s.linkedIn_profile_link,
+        }
+        for s in Staff.objects.all()
+    ]
+
     return JsonResponse({
         "numbers": numbers,
         "blogs": blogs,
-        "partners": partners
+        "partners": partners,
+        "staff": staff
     })
 
-# def landing(request):
-#     return render(request, 'app/landing.html')
 
 def index(request):
     return render(request, 'app/index.html')

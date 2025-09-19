@@ -12,7 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const blogsWrapper = document.getElementById("blogs-wrapper");
   const blogsLoader = document.getElementById("blogs-loader");
 
-  fetch("/api/mamlo-data/")
+  // Staff container
+  const teamContainer = document.getElementById("team-container");
+
+  fetch("/api/mamlo-data/") // your unified API endpoint
     .then((response) => response.json())
     .then((data) => {
       // === Stats ===
@@ -66,6 +69,35 @@ document.addEventListener("DOMContentLoaded", function () {
       blogsLoader.classList.add("hidden");
       blogsWrapper.classList.remove("hidden");
 
+      // === Staff ===
+      if (data.staff && teamContainer) {
+        teamContainer.innerHTML = "";
+        data.staff.forEach((member, index) => {
+          const staffCard = document.createElement("div");
+          staffCard.className = "text-center bg-white p-6 rounded-lg shadow-md";
+          staffCard.setAttribute("data-aos", "fade-up");
+          staffCard.setAttribute("data-aos-delay", `${(index + 1) * 100}`);
+
+          staffCard.innerHTML = `
+            <img src="${member.image || "/static/images/default.jpeg"}" 
+                alt="${member.name} - ${member.role}" 
+                class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+
+            <h3 class="text-xl font-semibold text-gray-800">${member.name}</h3>
+            <p class="text-primary font-medium mb-1">${member.role}</p>
+
+            ${
+              member.linkedIn
+                ? `<a href="${member.linkedIn}" target="_blank" rel="noopener noreferrer"
+                     class="text-blue-700 hover:text-blue-900 text-xl inline-block">
+                     <i class="fab fa-linkedin"></i></a>`
+                : ""
+            }
+          `;
+          teamContainer.appendChild(staffCard);
+        });
+      }
+
       // Init animations
       initCounterAnimation();
       initImpactSwiper();
@@ -79,6 +111,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "<p class='text-red-400'>Failed to load partner logos.</p>";
       blogsLoader.innerHTML =
         "<p class='text-red-400'>Failed to load blog posts.</p>";
+      if (teamContainer) {
+        teamContainer.innerHTML =
+          "<p class='text-red-400 col-span-full'>Failed to load staff.</p>";
+      }
     });
 
   // === Counter Animation ===
