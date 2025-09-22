@@ -113,3 +113,16 @@ class Staff(models.Model):
 
     def __str__(self):
         return f'(self.name) - (self.role)'
+
+
+class Advisor(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
+    image = models.ImageField(_('staff image'), upload_to='staff/')
+    linkedIn_profile_link = models.URLField(max_length=200, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f'(self.name) - (self.role)'

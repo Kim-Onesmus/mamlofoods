@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Vacancy, Blog, Partner, Number, ContactMessage, Staff
+from .models import Vacancy, Blog, Partner, Number, ContactMessage, Staff, Advisor
 
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
@@ -75,6 +75,14 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
 @admin.register(Staff)
 class StaffAdmin(admin.ModelAdmin):
+    list_display = ('name', 'role', 'linkedIn_profile_link')
+    search_fields = ('name', 'role')
+    readonly_fields = ('id',)
+    ordering = ('-created_at',)
+
+
+@admin.register(Advisor)
+class AdvisorAdmin(admin.ModelAdmin):
     list_display = ('name', 'role', 'linkedIn_profile_link')
     search_fields = ('name', 'role')
     readonly_fields = ('id',)
