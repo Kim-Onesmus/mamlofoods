@@ -209,41 +209,21 @@
         </div>
     </section>
   
-
-
     <!-- Advisors -->
     <section id="advisors" class="py-12 md:py-20 bg-gray-50" data-aos="fade-up">
         <div class="container mx-auto text-center px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Advisors</h2>
             <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <img src="{% static 'images/advisors/michael.jpeg' %}" alt="Michael Mbogoro"
-                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
-                    <h3 class="text-2xl font-semibold">Michael Mbogoro</h3>
-                    <p class="text-primary font-semibold">Head Technology transfer section, World Intellectual property organization(WIPO)</p>
-                    <a href="https://www.linkedin.com/in/michael-mbogoro-phd-rttp-621bb336/" target="_blank" class="text-2xl text-gray-400 hover:text-primary mt-2 inline-block"><i
-                            class="fab fa-linkedin"></i></a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <img src="{% static 'images/default.jpeg' %}" alt="Maria Niebla"
-                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
-                    <h3 class="text-2xl font-semibold">Maria Niebla</h3>
-                    <p class="text-primary font-semibold">Senior Consultant, Hydrock</p>
-                    <a href="#" class="text-2xl text-gray-400 hover:text-primary mt-2 inline-block"><i
-                            class="fab fa-linkedin"></i></a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <img src="{% static 'images/advisors/brand.jpeg' %}" alt="Brad Rickelman"
-                        class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
-                    <h3 class="text-2xl font-semibold">Brad Rickelman</h3>
-                    <p class="text-primary font-semibold">Business Incubator manager and Entrepreneurship program manager, Maridian Technology Center</p>
-                    <a href="https://www.linkedin.com/in/bradrickelman/" target="_blank" class="text-2xl text-gray-400 hover:text-primary mt-2 inline-block"><i
-                            class="fab fa-linkedin"></i></a>
-                </div>
+            <!-- Loader -->
+            <div id="advisors-loader" class="flex justify-center items-center py-6">
+                <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+            </div>
+            <div id="advisors-container" class="grid md:grid-cols-3 gap-12">
+
             </div>
         </div>
     </section>
+
 
     <!-- Gallery -->
     <section id="gallery" class="py-12 md:py-20" data-aos="fade-up">
@@ -551,6 +531,9 @@
         <div class="container mx-auto text-center px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Team</h2>
             <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+            <div id="team-loader" class="flex justify-center items-center py-6">
+                <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+            </div>
             <div id="team-container" class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Staff cards will be injected here -->
             </div>

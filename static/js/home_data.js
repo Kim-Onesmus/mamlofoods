@@ -12,10 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const blogsWrapper = document.getElementById("blogs-wrapper");
   const blogsLoader = document.getElementById("blogs-loader");
 
-  // Staff container
+  // Staff + Advisors containers
   const teamContainer = document.getElementById("team-container");
+  const teamLoader = document.getElementById("team-loader");
 
-  fetch("/api/mamlo-data/") // your unified API endpoint
+  const advisorsContainer = document.getElementById("advisors-container");
+  const advisorsLoader = document.getElementById("advisors-loader");
+
+
+  fetch("/api/mamlo-data/") // unified API endpoint
     .then((response) => response.json())
     .then((data) => {
       // === Stats ===
@@ -96,6 +101,37 @@ document.addEventListener("DOMContentLoaded", function () {
           `;
           teamContainer.appendChild(staffCard);
         });
+        teamLoader.classList.add("hidden");
+      }
+
+      // === Advisors ===
+      if (data.advisors && advisorsContainer) {
+        advisorsContainer.innerHTML = "";
+        data.advisors.forEach((advisor, index) => {
+          const advisorCard = document.createElement("div");
+          advisorCard.className = "bg-white p-6 rounded-lg shadow-lg";
+          advisorCard.setAttribute("data-aos", "fade-up");
+          advisorCard.setAttribute("data-aos-delay", `${(index + 1) * 100}`);
+
+          advisorCard.innerHTML = `
+            <img src="${advisor.image || "/static/images/default.jpeg"}" 
+                alt="${advisor.name}" 
+                class="mx-auto rounded-full mb-4 h-32 w-32 object-cover">
+
+            <h3 class="text-2xl font-semibold">${advisor.name}</h3>
+            <p class="text-primary font-semibold">${advisor.role}</p>
+
+            ${
+              advisor.linkedIn
+                ? `<a href="${advisor.linkedIn}" target="_blank"
+                     class="text-2xl text-gray-400 hover:text-primary mt-2 inline-block">
+                     <i class="fab fa-linkedin"></i></a>`
+                : ""
+            }
+          `;
+          advisorsContainer.appendChild(advisorCard);
+        });
+        advisorsLoader.classList.add("hidden");
       }
 
       // Init animations
@@ -114,6 +150,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (teamContainer) {
         teamContainer.innerHTML =
           "<p class='text-red-400 col-span-full'>Failed to load staff.</p>";
+      }
+      if (advisorsContainer) {
+        advisorsContainer.innerHTML =
+          "<p class='text-red-400 col-span-full'>Failed to load advisors.</p>";
       }
     });
 
