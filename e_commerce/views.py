@@ -367,7 +367,9 @@ def create_order(request):
                 )
                 order_items_to_create.append(order_item)
 
-
+            order.save()
+            OrderItem.objects.bulk_create(order_items_to_create)
+            
             order_id = order.order_id
             print('order id', order_id)
             payment_response = MakePayments(request, mpesa_phone, grand_total, order_id)
@@ -380,8 +382,6 @@ def create_order(request):
                 messages.error(request, 'An error occurred while initiating STK push')
                 return JsonResponse({'status': 500, 'message': data['message']})
             else:
-                order.save()
-                OrderItem.objects.bulk_create(order_items_to_create)
                 return JsonResponse({
                     'status': 200,
                     'message': data['message'],
@@ -391,6 +391,9 @@ def create_order(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
         
+
+
+
 def AccessToken(request):
     client_id = os.getenv('KCB_CONSUMER_KEY')
     client_secret = os.getenv('KCB_CONSUMER_SECRET')
@@ -435,6 +438,9 @@ def MakePayments(request, mpesa_phone, grand_total, order_id):
         "callbackUrl": request.build_absolute_uri(reverse('callback')) + f"?order_id={order_id}",
         "transactionDescription": "Buy sanitary pads"
     }
+    
+    callback_url = request.build_absolute_uri(reverse('callback')) + f"?order_id={order_id}"
+    print("KCB CALLBACK URL:", callback_url)
 
     try:
         response = requests.post(url, headers=headers, json=payload)
