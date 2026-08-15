@@ -80,7 +80,7 @@
             <!-- Desktop: Logo and name left -->
             <div class="flex items-center space-x-2 hidden sm:flex">
                 <img src="{% static 'images/logo.png' %}" alt="MamloFoods Logo" class="h-[60px] w-auto">
-                <a href="{% url 'index' %}" class="text-3xl font-bold text-primary">
+                <a href="{% url 'home' %}" class="text-3xl font-bold text-primary">
                     MAMLO FOODS
                     <span class="block text-sm text-gray-600 italic">Uplifting Communities, Naturally</span>
                 </a>
@@ -91,7 +91,7 @@
                 <nav class="hidden md:flex space-x-6 text-black font-bold items-center">
                     <a href="{% url 'home' %}" class="hover:text-[#CA2E0A] transition-colors">Store Home</a>
                     <a href="{% url 'order_page' %}" class="hover:text-[#CA2E0A] transition-colors">My Orders</a>
-                    <a href="{% url 'contact' %}" class="hover:text-[#CA2E0A] transition-colors">Contact</a>
+                    <!-- <a href="{% url 'contact' %}" class="hover:text-[#CA2E0A] transition-colors">Contact</a> -->
                 </nav>
                 <a href="{% url 'cart' %}" class="relative group ml-2" aria-label="Cart">
                     <i
@@ -148,7 +148,7 @@
             <nav class="flex flex-col space-y-2 text-black font-bold">
                 <a href="{% url 'home' %}" class="hover:text-[#CA2E0A]">Home</a>
                 <a href="{% url 'order_page' %}" class="hover:text-[#CA2E0A]">My Orders</a>
-                <a href="{% url 'contact' %}" class="hover:text-[#CA2E0A]">Contact</a>
+                <!-- <a href="{% url 'contact' %}" class="hover:text-[#CA2E0A]">Contact</a> -->
             </nav>
         </div>
         <script>
