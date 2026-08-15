@@ -107,7 +107,7 @@ if (document.getElementById("login-form")) {
         if (data.success) {
           showLoginModal("Login successful! Redirecting...", true);
           setTimeout(() => {
-            window.location.href = data.redirect || "/store/";
+            window.location.href = data.redirect || "/";
           }, 1200);
         } else {
           showLoginModal(data.error || "Login failed.");

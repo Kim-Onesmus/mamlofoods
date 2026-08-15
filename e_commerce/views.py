@@ -135,7 +135,7 @@ def Login(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 auth_login(request, user)
-                return JsonResponse({'success': True, 'redirect': request.GET.get('next', '/store/')})
+                return JsonResponse({'success': True, 'redirect': request.GET.get('next', '/')})
             else:
                 return JsonResponse({'success': False, 'error': 'Invalid email or password.'})
         except Exception as e:
