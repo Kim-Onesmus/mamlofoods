@@ -431,7 +431,7 @@ def MakePayments(request, mpesa_phone, grand_total, order_id):
     payload = {
         "phoneNumber": mpesa_phone,
         "amount": str(grand_total),  
-        "invoiceNumber": f"7932911-Kim_Technologies",
+        "invoiceNumber": f"8034670 - Mamlo Foods",
         "sharedShortCode": True,
         "orgShortCode": "",
         "orgPassKey": "",

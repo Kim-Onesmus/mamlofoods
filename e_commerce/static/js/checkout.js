@@ -148,6 +148,7 @@ async function submitOrder(e) {
                   }</p>
                 </div>
               `);
+              break;
             } else if (payResponseData.status === 200) {
               document.getElementById("order-modal-content").innerHTML = "";
               showOrderModal(`
