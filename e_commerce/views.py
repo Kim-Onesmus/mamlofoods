@@ -271,7 +271,8 @@ def add_address(request):
         
         return JsonResponse({
             'success': True,
-            'address_id': str(address.id)
+            'address_id': str(address.id),
+            'redirect_url': reverse('checkout')
         })
     except json.JSONDecodeError:
         return JsonResponse({

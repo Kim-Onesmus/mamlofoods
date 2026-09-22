@@ -358,6 +358,7 @@ async function saveAddress() {
       showOrderModal(
         '<p class="text-green-600">Address saved successfully!</p>'
       ); // Use order modal for consistency
+      window.location.href = data.redirect_url;
     } else {
       showOrderModal(
         `<p class="text-red-600">${data.error || "Failed to save address."}</p>`
