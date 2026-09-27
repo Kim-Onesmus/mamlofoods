@@ -190,60 +190,123 @@
     {% endblock content %}
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12 mt-16">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-left px-4">
-            <div>
-                <h3 class="text-lg font-bold mb-4 text-left">MAMLO FOODS</h3>
-                <p class="text-gray-400 text-left">Uplifting Communities, Naturally</p>
-                <div class="flex space-x-24 justify-start mt-6">
-                    <a href="https://web.facebook.com/people/MAMLO-FOODS/61565232155511/?_rdc=1&_rdr#" target="_blank"
-                        class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.linkedin.com/company/mamlo-foods/" target="_blank"
-                        class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-linkedin"></i></a>
+<!-- Footer -->
+<footer class="bg-[#155E3B] text-white">
+    <div class="mx-auto max-w-7xl px-6 py-10 sm:px-8 lg:px-10">
+
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-20">
+
+            <!-- Left Section -->
+            <div class="flex flex-col justify-between">
+                <div>
+                    <!-- Logo / Company Name -->
+                    <h2 class="text-[17px] font-semibold tracking-tight">
+                        MAMLO FOODS
+                    </h2>
+
+                    <!-- Copyright -->
+                    <p class="mt-2 text-[11px] font-medium text-white">
+                        Copyright © 2026 All rights reserved
+                    </p>
+
+                    <!-- Privacy Policy -->
+                    <a href="https://www.mamlofoods.com/privacy" class="mt-2 inline-block text-[11px] font-medium uppercase
+                              text-white transition hover:text-gray-200">
+                        Privacy Policy
+                    </a>
                 </div>
             </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4 text-left">Quick Links</h3>
-                <ul class="text-left">
-                    <li><a href="{% url 'order_page' %}" class="text-gray-400 hover:text-white py-1 block">My Orders</a>
-                    </li>
-                    <li><a href="{% url 'account' %}" class="text-gray-400 hover:text-white py-1 block">Account</a></li>
-                    <li><a href="/wishlist/" class="text-gray-400 hover:text-white py-1 block">Wishlist</a></li>
-                    <li><a href="{% url 'cart' %}" class="text-gray-400 hover:text-white py-1 block">Cart</a></li>
-                    <li><a href="{% url 'logout' %}" class="text-gray-400 hover:text-white py-1 block">Logout</a></li>
-                </ul>
+
+
+            <!-- Right Section -->
+            <div class="flex flex-col items-start lg:items-end">
+
+                <!-- Top Navigation -->
+                <div class="flex items-center gap-5 text-[11px] font-semibold uppercase">
+
+                    <!-- Telegram / Send -->
+                    <a href="https://www.mamlofoods.com" class="transition hover:text-gray-300" aria-label="Contact">
+                        <i class="fa-solid fa-paper-plane text-[13px]"></i>
+                    </a>
+
+                    <!-- Email -->
+                    <a href="mailto:hello@mamlofoods.com" class="transition hover:text-gray-300" aria-label="Email">
+                        <i class="fa-solid fa-envelope text-[13px]"></i>
+                    </a>
+
+                    <!-- Phone -->
+                    <a href="tel:+254714725864" class="transition hover:text-gray-300" aria-label="Phone">
+                        <i class="fa-solid fa-phone text-[13px]"></i>
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="mt-4 flex items-center gap-5">
+                    <a href="https://www.mamlofoods.com" class="text-[11px] font-semibold uppercase transition hover:text-gray-300">
+                        Home
+                    </a>
+
+                    <!-- <button type="button" class="flex items-center gap-1 text-[11px] font-semibold uppercase
+                               transition hover:text-gray-300">
+                        More
+                        <i class="fa-solid fa-caret-up text-[9px]"></i>
+                    </button> -->
+                </nav>
+
+
+                <!-- Newsletter -->
+                <div class="mt-6 flex w-full max-w-[350px] overflow-hidden rounded-xl bg-white">
+
+                    <!-- Email Icon -->
+                    <div class="flex w-11 shrink-0 items-center justify-center
+                                border-r border-gray-300 bg-gray-100 text-gray-600">
+                        <i class="fa-solid fa-envelope text-sm"></i>
+                    </div>
+
+                    <!-- Input -->
+                    <input type="email" placeholder="Email Address" class="min-w-0 flex-1 border-0 bg-white px-5 py-3
+                               text-sm text-gray-700 outline-none
+                               placeholder:text-gray-400" />
+
+                    <!-- Subscribe -->
+                    <button type="submit" class="bg-[#D92B08] px-5 text-[13px] font-bold uppercase
+                               text-white transition hover:bg-[#bd2507]">
+                        Subscribe
+                    </button>
+
+                </div>
+
+
+                <!-- Social Media -->
+                <div class="mt-4 flex items-center gap-3">
+
+                    <a href="https://www.linkedin.com/company/mamlo-foods/posts/?feedView=all&viewAsMember=true" aria-label="LinkedIn" class="flex h-9 w-9 items-center justify-center rounded-full
+                              bg-[#D92B08] text-white transition
+                              hover:-translate-y-0.5 hover:bg-[#bd2507]">
+                        <i class="fa-brands fa-linkedin-in text-sm"></i>
+                    </a>
+
+                    <a href="https://web.facebook.com/profile.php?id=61565232155511&_rdc=1&_rdr#" aria-label="Facebook" class="flex h-9 w-9 items-center justify-center rounded-full
+                              bg-[#D92B08] text-white transition
+                              hover:-translate-y-0.5 hover:bg-[#bd2507]">
+                        <i class="fa-brands fa-facebook-f text-sm"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/mamlo.foods/?igsh=ZDFudDcyYXRrajRz#" aria-label="Instagram" class="flex h-9 w-9 items-center justify-center rounded-full
+                              bg-[#D92B08] text-white transition
+                              hover:-translate-y-0.5 hover:bg-[#bd2507]">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+
+                </div>
+
             </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Pick Up Stations</h3>
-                <ul>
-                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">- Tom Mboya Estate, Kisumu, Kenya</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">- Amagoro Micro factory, Malaba, Kenya</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white py-1 block">- Kimathi Street, Pioneer House, 4th Floor, Room no 7</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4 text-left">Contact Us</h3>
-                <ul class="text-left">
-                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
-                            class="fas fa-map-marker-alt text-white"></i><span>Tom Mboya Estate, Kisumu, Kenya</span>
-                    </li>
-                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
-                            class="fas fa-map-marker-alt text-white"></i><span>Amagoro Micro factory, Malaba,
-                            Kenya</span></li>
-                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
-                            class="fas fa-phone-alt text-white"></i><span>+254 714 725 864</span></li>
-                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
-                            class="fas fa-envelope text-white"></i><span>hello@mamlofoods.com</span></li>
-                    <li class="flex items-center gap-2 text-gray-400 hover:text-white py-1"><i
-                            class="fas fa-clock text-white"></i><span>Mon-Fri 8:00 AM - 5:00 PM</span></li>
-                </ul>
-            </div>
+
         </div>
-        <div class="container mx-auto text-center mt-8 border-t border-gray-700 pt-6">
-            <p class="text-gray-200">&copy; 2025 MamloFoods. All Rights Reserved.</p>
-            <p class="text-gray-200">Developed by <a class="font-bold" href="#" target="_blank">Kim Technologies</a></p>
-        </div>
-    </footer>
+    </div>
+
+
+</footer>
     <script src="{% static 'js/account.js' %}"></script>
     <script src="{% static 'js/mains.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
